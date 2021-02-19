@@ -1,3 +1,10 @@
+@php
+use App\Models\userComp as uc;
+use App\Models\User;
+$avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
+$getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail'))->get();
+@endphp
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -51,9 +58,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="index.html">
-
-
+                        <a href="javascript:void(0);">
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
@@ -76,11 +81,7 @@
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-
-
                         <!-- ============================================================== -->
-
-
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -104,7 +105,11 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(count($avatar) == 1)
+                                <img src="{{ $avatar[0]->avatar }}" alt="user" class="rounded-circle" width="40">
+                                @else
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                @endif
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('session_name')}}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -118,8 +123,6 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#bs-example-modal-lg"><i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
-
-
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -165,9 +168,7 @@
                                 <span class="hide-menu">Track Complaint</span>
                             </a>
                         </li>
-
                         <li class="list-divider"></li>
-
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -228,9 +229,9 @@
                                                 <th>View Details</th>
                                             </tr>
                                         </thead>
-                                        @if(is_object($details ?? ''))
+                                        @if(count($getComplaints) >= 1)
                                         <tbody>
-                                            @foreach($details ?? '' as $item)
+                                            @foreach($getComplaints as $item)
                                             <tr>
                                                 <td>{{ $item->Complaint_ID }}</td>
                                                 <td>{{ $item->ComplaintNature }} </td>

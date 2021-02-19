@@ -69,12 +69,14 @@ Route::get('/', function () {
 //Login
 Route::get('/user/login', [UserController::class, 'Login'])->name('login.view');
 Route::post('/user/login/validate', [UserController::class, 'ValidateUser'])->name('user.validation');
+//Google Registration,Login
+Route::get('/user/login/google/', [UserController::class, 'redirectToProviderGoogle'])->name('login.google');
+Route::get('/callback/google/', [UserController::class, 'HandlerProviderGoogle']);
 //Registration
 Route::get('/user/register', [UserController::class, 'Register'])->name('register.view');
 Route::post('/user/regsitration/store', [UserController::class, 'store'])->name('registration.store');
 
 //middle
-
 Route::group(['middleware' => 'CheckSession'], function () {
     Route::get('/dashboard', [UserController::class, 'Dashboard'])->name('dashboard.user');
     Route::get('dashboard/complaintlist', [UserController::class, 'ComplaintList'])->name('complaintlist.view');

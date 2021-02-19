@@ -1,3 +1,7 @@
+@php
+use App\Models\User;
+$avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
+@endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -102,7 +106,11 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(count($avatar) == 1)
+                                <img src="{{ $avatar[0]->avatar }}" alt="user" class="rounded-circle" width="40">
+                                @else
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                @endif
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('session_name')}}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">

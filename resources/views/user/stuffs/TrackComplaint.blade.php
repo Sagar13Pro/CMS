@@ -1,3 +1,7 @@
+@php
+use App\Models\User;
+$avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
+@endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -56,9 +60,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="index.html">
-
-
+                        <a href="javascript:void(0);">
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
@@ -81,11 +83,7 @@
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-
-
                         <!-- ============================================================== -->
-
-
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -109,7 +107,11 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if(count($avatar) == 1)
+                                <img src="{{ $avatar[0]->avatar }}" alt="user" class="rounded-circle" width="40">
+                                @else
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                @endif
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session('session_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationValidator;
-use Exception;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\userComp;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
 use Postmark\PostmarkClient;
+use App\Models\userComp;
+use App\Models\User;
+use Exception;
+
 
 class UserController extends Controller
 {
@@ -28,8 +30,8 @@ class UserController extends Controller
     }
     public function ComplaintList()
     {
-        $details = userComp::all();
-        return view('user.stuffs.complaintlist', compact('details'));
+        //$details = userComp::all();
+        return view('user.stuffs.complaintlist');
     }
     public function NewComplaint()
     {
@@ -39,7 +41,7 @@ class UserController extends Controller
     {
         return view('user.stuffs.trackcomplaint');
     }
-    //user registration store
+    //User Registration 
     public function store(RegistrationValidator $request)
     {
         try {
@@ -61,6 +63,46 @@ class UserController extends Controller
             return redirect()
                 ->back()
                 ->with('error', 'There is an error occured.Please Try Again!!');
+        }
+    }
+    //User Registration With Google 
+    function redirectToProviderGoogle()
+    {
+        try {
+            //dd('helo');
+            return Socialite::driver('google')->redirect();
+        } catch (Exception $error) {
+            return redirect(route('login.view'))
+                ->with('error', 'Something got Wrong. Please Try Again.!!');
+        }
+    }
+    public function HandlerProviderGoogle()
+    {
+        $user = Socialite::driver('google')
+            ->stateless()
+            ->user();
+        //dd($user);
+        if ((User::select()->where('email', $user['email'])->count()) != 1) {
+            try {
+                $users = User::create([
+                    'firstName' => $user->user['given_name'],
+                    'lastName' => $user->user['family_name'],
+                    'email' => $user->user['email'],
+                    'avatar' => $user->avatar,
+                    'email_verified' => $user->user['email_verified'],
+                ]);
+                if ($users) {
+                    session()->put('session_mail', $user->user['email']);
+                    session()->put('session_name', User::where('email', $user->user['email'])->get()[0]->FullName);
+                    return redirect(route('dashboard.user'));
+                }
+            } catch (Exception $error) {
+                dd($error);
+            }
+        } else {
+            session()->put('session_mail', $user->user['email']);
+            session()->put('session_name', User::where('email', $user->user['email'])->get()[0]->FullName);
+            return redirect(route('dashboard.user'));
         }
     }
     //user validation
@@ -105,7 +147,6 @@ class UserController extends Controller
     //new complaint store
     public function ComplaintStore(Request $request)
     {
-
         $request->validate([
             'complaintNature' => 'max:20',
             'district' => 'max:40',

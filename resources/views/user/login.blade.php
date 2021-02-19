@@ -42,7 +42,7 @@
             <div class="wrap-login100">
                 <div class="login100-form-title" style="background-image: url({{asset('programs/form/assets/images/bg-01.jpg)')}}">
                     <span class="login100-form-title-1">
-                        Login
+                        cms Login
                     </span>
                 </div>
                 <x-alert />
@@ -61,20 +61,31 @@
                         <span class="focus-input100"></span>
                     </div>
                     <div class="container">
-                        <div class="container-login100-form-btn">
+                        <div class="container-login100-form-btn" style="justify-content: center;">
                             <button type="submit" class="login100-form-btn btn-margin">
                                 LOGIN
                             </button>
                         </div>
                     </div>
+                    <div class="w-full mt-3" style="text-align: center">OR</div>
+
+                    <div class="w-full">
+                        <button class="d-flex btn btn-outline-info" style="margin: 0 auto;">
+                            <a href="{{ route('login.google') }}">
+                                <span class="mx-1"><img src="{{ asset('programs/form/assets/images/google.svg') }}" alt="google-logo" width="20" height="20"></span>
+                                <span>Google</span>
+                            </a>
+                        </button>
+                    </div>
+
                     <div class="flex-sb-m py-3 w-full">
-                        <div class="container m-l-70">
+                        <div class="container" style="display:flex;justify-content: center;">
                             <a href="#" class="text-primary font-weight-bold text-hover">Forgotten Password?
                             </a>
                         </div>
                     </div>
                     <div class="w-full" style="border-bottom:1px solid #dadde1;"></div>
-                    <div class="flex-sb-m w-full p-t-5 m-l-30">
+                    <div class="flex-sb-m w-full p-t-5 m-l-30" style="justify-content: center;">
                         <div>
                             Don't have an account?
                             <a href="{{ route('register.view') }}" class="text-primary font-weight-bold">

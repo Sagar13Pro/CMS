@@ -40,7 +40,7 @@
             <div class="wrap-login100">
                 <div class="login100-form-title" style="background-image: url({{asset('programs/form/assets/images/bg-01.jpg)')}}">
                     <span class="login100-form-title-1">
-                        Registration
+                        cms Registration
                     </span>
                 </div>
                 <x-alert />
@@ -109,13 +109,13 @@
                         <span class="eye-icon"><i id="eye-cpass" class="fas fa-eye-slash"></i></span>
                         <span class="focus-input100"></span>
                     </div>
-                    <div class="container-login100-form-btn">
+                    <div class="container-login100-form-btn" style="justify-content: center;">
                         <button type="submit" class="login100-form-btn btn-margin">
                             REGISTRATION
                         </button>
                     </div>
                     <div class="w-full p-t-20" style="border-bottom: 1px solid #dadde1;"></div>
-                    <div class="flex-sb-m w-full text-margins m-l-30">
+                    <div class="flex-sb-m w-full text-margins m-l-30" style="justify-content: center">
                         <div>
                             Already have an account?
                             <a href="{{route('login.view')}}" class="text-primary font-weight-bold">

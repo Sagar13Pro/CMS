@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class User extends Authenticatable
 {
@@ -27,9 +28,16 @@ class User extends Authenticatable
         'mobileNo',
         'state',
         'city',
+        'avatar',
+        'email_verified',
         'remember_token',
     ];
-    protected $attributes = ['remember_token' => NULL];
+    protected $attributes = [
+        'remember_token' => NULL,
+        'password' => NULL,
+        'avatar' => NULL,
+        'email_verified' => False,
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -67,5 +75,13 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+    public function setFirstNameAttribute($value)
+    {
+        $this->attributes['firstName'] = strtolower($value);
+    }
+    public function setLastNameAttribute($value)
+    {
+        $this->attributes['lastName'] = strtolower($value);
     }
 }
