@@ -67,13 +67,15 @@
                             </button>
                         </div>
                     </div>
-                    <div class="w-full mt-3" style="text-align: center">OR</div>
+                    <div class="w-full mt-3" style="text-align: center;margin-bottom: 1rem;">
+                        <span class="text">OR</span>
+                    </div>
 
                     <div class="w-full">
                         <button type="button" class="d-flex btn btn-outline-info" style="margin: 0 auto;">
                             <a href="{{ route('user.login.google') }}">
-                                <span class="mx-1"><img src="{{ asset('programs/form/assets/images/google.svg') }}" alt="google-logo" width="20" height="20"></span>
-                                <span>Google</span>
+                                <span class="mx-1"><img src="{{ asset('programs/form/assets/images/google.svg') }}" alt="google-logo" width="30" height="30"></span>
+                                <span class="google_text">Google</span>
                             </a>
                         </button>
                     </div>
