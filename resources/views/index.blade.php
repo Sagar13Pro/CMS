@@ -44,8 +44,8 @@
                     <nav class="nav-menu d-none d-lg-block">
                         <ul>
                             <li class="active"><a href="#intro">Home</a></li>
-                            <li><a href="{{ route('login.view') }}">User</a></li>
-                            <li><a href="">Admin</a></li>
+                            <li><a href="{{ route('user.login.view') }}">User</a></li>
+                            <li><a href="{{ route('admin.login.view') }}">Admin</a></li>
                             <!--li><a href="#">Departmental</a></li-->
                             <li><a href="#contact">Contact Us</a></li>
 

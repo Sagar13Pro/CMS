@@ -53,16 +53,16 @@ class UserController extends Controller
                 'password' => $request->_password,
             ]);
         } catch (Exception $error) {
+            //dd($error);
             $user = false;
         }
         if ($user) {
-
             return redirect(route('login.view'))
                 ->with('message', 'Registration Successfull.');
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'There is an error occured.Please Try Again!!');
+                ->with('error', 'The Email already with us.!!');
         }
     }
     //User Registration With Google 
@@ -72,6 +72,7 @@ class UserController extends Controller
             //dd('helo');
             return Socialite::driver('google')->redirect();
         } catch (Exception $error) {
+            dd($error);
             return redirect(route('login.view'))
                 ->with('error', 'Something got Wrong. Please Try Again.!!');
         }
@@ -110,7 +111,7 @@ class UserController extends Controller
     {
         $getCount = User::where('email', $request->email)
             ->count();
-        if ($getCount >= 1) {
+        if ($getCount == 1) {
             $user = User::select('*')
                 ->where('email', $request->email)
                 ->get();
@@ -120,13 +121,13 @@ class UserController extends Controller
                 session()->put('session_name', $user[0]->FullName);
                 return redirect(route('dashboard.user'));
             } else {
-                return redirect(route('login.view'))
-                    ->with('error', 'The details does not match with our records. Please check the fields!')
+                return redirect(route('user.login.view'))
+                    ->with('error', 'The details does not match with our records. Please Try Again!')
                     ->withInput($request->all());
             }
         } else {
-            return redirect(route('login.view'))
-                ->with('error', 'The details does not match with our records. Please check the fields!')
+            return redirect(route('user.login.view'))
+                ->with('error', 'The details does not match with our records. Please Try Again!!')
                 ->withInput($request->all());
         }
     }
@@ -139,7 +140,7 @@ class UserController extends Controller
                 ['Complaint_ID', $id]
             ])->get();
         } catch (Exception $error) {
-            return redirect(route('login.view'));
+            return redirect(route('user.login.view'));
         }
 
         return response()->json(['success' => true, 'List' => $table]);
@@ -165,7 +166,7 @@ class UserController extends Controller
                 $value = json_decode($encoded);
             }
             $complaint = userComp::create([
-                'Complaint_ID' => $value->ComplaintID,
+                'Complaint_ID' => $value->Complaint_ID,
                 'foreignEmail' => session()->get('session_mail'),
                 'ComplaintType' => $request->complaintType,
                 'ComplaintCategory' => $request->complaintCategory,

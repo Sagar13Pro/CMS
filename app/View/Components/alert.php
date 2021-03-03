@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use phpDocumentor\Reflection\Types\This;
 
 class alert extends Component
 {
@@ -11,9 +12,10 @@ class alert extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $type;
+    public function __construct($type = null)
     {
-        //
+        $this->type = $type;
     }
 
     /**

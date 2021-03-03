@@ -106,7 +106,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(count($avatar) == 1)
+                                @if(!is_null($avatar[0]->avatar))
                                 <img src="{{ $avatar[0]->avatar }}" alt="user" class="rounded-circle" width="40">
                                 @else
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
@@ -214,7 +214,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <x-alert />
+                <x-alert type="ErrorMsg" />
                 <!-- *************************************************************** -->
                 <!-- Start First Cards -->
                 <!-- *************************************************************** -->
@@ -433,8 +433,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
         if (hours == 00) {
             document.getElementById('greet').innerHTML = 'Good Evening' + ', ';
         } else {
-            let status = (hours <= 11 && hours >= 5) ? "Good Morning" : ((hours < 17 && hours >= 12) ? "Good Afternoon" :
-                "Good Evening");
+            let status = (hours <= 11 && hours >= 5) ? "Good Morning" : ((hours < 17 && hours >= 12) ? "Good Afternoon" : "Good Evening");
             document.getElementById('greet').innerHTML = status + ', ';
         }
 

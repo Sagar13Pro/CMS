@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class PreventBack
+class AdminSession
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class PreventBack
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!session()->has('session_mail')) {
-            return redirect(route('user.login.view'));
+        if (!session()->has('admin_mail')) {
+            return redirect(route('admin.login.view'));
         }
-
         return $next($request);
     }
 }

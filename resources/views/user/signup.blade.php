@@ -43,8 +43,7 @@
                         cms Registration
                     </span>
                 </div>
-                <x-alert />
-
+                <x-alert type="ErrorMsg" />
                 <form class="login100-form" action="{{ route('registration.store') }}" method="post">
                     @csrf
                     <div class="wrap-input100 validate-input m-b-26" data-validate="First Name is required">
@@ -63,12 +62,14 @@
                         <span class="label-input100">Email Id<span style="color: #ff5e13;">&nbsp;*</span></span>
                         <input class="input100" type="email" name="_email" value="{{ old('_email')}}" placeholder="Enter Email" required>
                         <span class="focus-input100"></span>
+                        <x-alert type="email-error" />
                     </div>
 
                     <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
                         <span class="label-input100">Mobile No.<span style="color: #ff5e13;">&nbsp;*</span></span>
-                        <input class="input100" type="number" name="_mobile" value="{{ old('_mobile')}}" placeholder="Enter Mobile No." required>
+                        <input class="input100" type="text" name="_mobile" value="{{ old('_mobile')}}" placeholder="Enter Mobile No." required>
                         <span class="focus-input100"></span>
+                        <x-alert type="mobile-error" />
                     </div>
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Password is required">
                         <span class="label-input100">Password<span style="color: #ff5e13;">&nbsp;*</span></span>
@@ -108,6 +109,7 @@
                         <input id="Cpasswd" class="input100" type="password" name="_password_confirmation" placeholder="Enter Confirm password" required>
                         <span class="eye-icon"><i id="eye-cpass" class="fas fa-eye-slash"></i></span>
                         <span class="focus-input100"></span>
+                        <x-alert type="cpassword-error" />
                     </div>
                     <div class="container-login100-form-btn" style="justify-content: center;">
                         <button type="submit" class="login100-form-btn btn-margin">
