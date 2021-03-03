@@ -52,7 +52,7 @@ Route::get('/logout', function () {
 Route::get('admin/login', [AdminController::class, 'Login'])->name('admin.login.view');
 Route::get('admin/registration', [AdminController::class, 'Register'])->name('admin.register.view');
 //Middleware
-Route::group(['middleware' => 'AdminSession–'], function () {
+Route::group(['middleware' => 'AdminSession'], function () {
     Route::get('admin/dashboard/', [AdminController::class, 'Dashboard'])->name('admin.dashboard.view');
 });
 //Register Validation and store
