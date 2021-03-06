@@ -44,16 +44,15 @@
             <nav class="navbar top-navbar navbar-expand-md">
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                            class="ti-menu ti-close"></i></a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="index.html">
-                            
-                               
+
+
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
@@ -66,10 +65,7 @@
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -79,11 +75,11 @@
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                        
-                       
+
+
                         <!-- ============================================================== -->
-                        
-                        
+
+
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -96,8 +92,7 @@
                             <a class="nav-link" href="javascript:void(0)">
                                 <form>
                                     <div class="customize-input">
-                                        <input class="form-control custom-shadow custom-radius border-0 bg-white"
-                                            type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search">
                                         <i class="form-control-icon" data-feather="search"></i>
                                     </div>
                                 </form>
@@ -107,31 +102,20 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                                    width="40">
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
-                                        class="svg-icon"></i></span>
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('admin_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
                                     My Profile
                                 </a>
-                                
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
-                                        data-target="#bs-example-modal-lg"><i data-feather="power"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#bs-example-modal-lg"><i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
-                                
-                                
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -153,38 +137,30 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="AdminDash"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.dashboard.view') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Complaint</span></li>
-
-                        
                         <li class="sidebar-item">
-                         <a class="sidebar-link" href="AdminCompList" aria-expanded="false">
-                            <i data-feather="tag" class="feather-icon"></i>
-                            <span class="hide-menu">Complaints List</span>
-                         </a>
+                            <a class="sidebar-link" href="{{ route('admin.compliantlist.view') }}" aria-expanded="false">
+                                <i data-feather="tag" class="feather-icon"></i>
+                                <span class="hide-menu">Complaints List</span>
+                            </a>
                         </li>
-
-
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link sidebar-link" href="UpdateComplaint" aria-expanded="false">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.updatecomplaint.view') }}" aria-expanded="false">
                                 <i data-feather="edit" class="feather-icon"></i>
                                 <span class="hide-menu">Update Complaints</span>
                             </a>
                         </li>
-
-
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link sidebar-link" href="MergeComplaint" aria-expanded="false">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="javascript:void(0)" aria-expanded="false">
                                 <i data-feather="link" class="feather-icon"></i>
                                 <span class="hide-menu">Merge Complaint</span>
                             </a>
                         </li>
 
                         <li class="list-divider"></li>
-                        
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -214,7 +190,7 @@
                             </nav>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -227,17 +203,16 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                
+
                 <!-- order table -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Complaints List</h4>
-                                
+
                                 <div class="table-responsive">
-                                    <table id="default_order" class="table table-striped table-bordered display no-wrap"
-                                        style="width:100%">
+                                    <table id="default_order" class="table table-striped table-bordered display no-wrap" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th></th>
@@ -249,9 +224,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+
                                             <tr>
-                                                <td><div class="custom-control custom-checkbox">
+                                                <td>
+                                                    <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1"></label>
                                                     </div>
@@ -264,7 +240,8 @@
                                             </tr>
 
                                             <tr>
-                                                <td><div class="custom-control custom-checkbox">
+                                                <td>
+                                                    <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck2">
                                                         <label class="custom-control-label" for="customCheck2"></label>
                                                     </div>
@@ -279,7 +256,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th></th>
-                                               <th>Complaint I'd</th>
+                                                <th>Complaint I'd</th>
                                                 <th>Nature of Complaint</th>
                                                 <th>Complaint Date</th>
                                                 <th>Complaint Status</th>
@@ -295,7 +272,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -304,51 +281,45 @@
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
 
-             
+
             <!-- ============================================================== -->
             <!--  Modal content for the above example -->
-                    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog"
-                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light"
-                                        data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                                    <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
+            <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
+                            <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             <!-- ============================================================== -->
             <!--  Modal content for the above example -->
-                    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog"
-                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light"
-                                        data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                                    <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
+            <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
+                            <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->

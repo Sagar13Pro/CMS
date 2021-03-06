@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\userComp;
 use Exception;
 
 class AdminController extends Controller
@@ -25,10 +26,24 @@ class AdminController extends Controller
     {
         return view('admin.AdminDash');
     }
+    public function ComplaintList()
+    {
+        $List = userComp::all();
+        return view('admin.ComplaintList', compact('List'));
+    }
+    public function UpdateComplaint()
+    {
+        return view('admin.UpdateComplaint');
+    }
+    public function MergeComplaint()
+    {
+        return view('admin.MergeComplaint');
+    }
     public function Logout()
     {
         if (session()->has('admin_mail')) {
-            session()->flush();
+            session()->pull('admin_mail');
+            session()->pull('admin_name');
         }
         return redirect(route('admin.login.view'));
     }
@@ -81,8 +96,38 @@ class AdminController extends Controller
             }
         } else {
             return redirect(route('admin.login.view'))
-                ->with('error', 'The details does not match with our records. Please Try Again!!')
+                ->with('error', 'The details does not match with our records.')
                 ->withInput($request->all());
+        }
+    }
+    //Pop-up Model ComplaintList route model binding $id name and route parameter must be same.
+    public function FetchDetails(userComp $id)
+    {
+        return response()
+            ->json(['success' => true, 'detail' => $id]);
+    }
+    //Model For UpateComplaint with route binding
+    public function FetchUpdate($id = null)
+    {
+        return response()
+            ->json(['success' => true, 'update' => userComp::where('Complaint_ID', $id)->get()]);
+    }
+    //For UpdateComplaint Model Updating remarks and status for a complaint
+    public function Update(Request $request)
+    {
+        try {
+            $to_update = userComp::findOrFail($request->id);
+            $to_update->status = $request->status;
+            $to_update->Remarks = $request->remarks;
+            $to_update->save();
+            return redirect()
+                ->back()
+                ->with('message', 'Complaint updated successfully.');
+        } catch (Exception  $err) {
+            //dd($err);
+            return redirect()
+                ->back()
+                ->with('error', 'Complaint ID is empty.');
         }
     }
 }

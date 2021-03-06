@@ -236,8 +236,9 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
                                                 <td>{{ $item->Complaint_ID }}</td>
                                                 <td>{{ $item->ComplaintNature }} </td>
                                                 <td>{{ $item->ComplaintDate }}</td>
-                                                <td>Dummy</td>
-                                                <td><button class="btn waves-effect waves-light btn-rounded btn-dark getID" data-id={{$item->Complaint_ID}} data-toggle="modal" data-target="#full-width-modal">View Full Details</button>
+                                                <td>{{ $item->status }}</td>
+                                                <td><button class="btn waves-effect waves-light btn-rounded btn-dark viewBtn" data-id={{$item->id}} data-toggle="modal" data-target="#full-width-modal">View Full Details</button>
+
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -289,41 +290,41 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
                                         <table class="table table-bordered" width="80%" cellspacing="0">
                                             <tr>
                                                 <th>Compalint I'D</th>
-                                                <td id="Details_1"></td>
+                                                <td id="detail1"></td>
                                                 <th>Complait Date</th>
-                                                <td id="Details_2"></td>
+                                                <td id="detail2"></td>
                                             </tr>
                                             <tr>
                                                 <th>Complaint Type</th>
-                                                <td id="Details_3"></td>
+                                                <td id="detail3"></td>
                                                 <th>Complaint Category</th>
-                                                <td id="Details_4"></td>
+                                                <td id="detail4"></td>
                                             </tr>
                                             <tr>
                                                 <th>Complaint Sub-Category</th>
-                                                <td id="Details_5"></td>
+                                                <td id="detail5"></td>
                                                 <th>Authority Dept/Company</th>
-                                                <td id="Details_6"></td>
+                                                <td id="detail6"></td>
                                             </tr>
                                         </table>
                                         <table class="table table-bordered" width="50%" cellspacing="0">
                                             <tr>
                                                 <th>Nature of Complaint</th>
-                                                <td id="Details_7"></td>
+                                                <td id="detail7"></td>
                                             </tr>
                                         </table>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th>District</th>
-                                                <td id="Details_8"></td>
+                                                <td id="detail8"></td>
                                                 <th>City</th>
-                                                <td id="Details_9"></td>
+                                                <td id="detail9"></td>
                                             </tr>
                                             <tr>
                                                 <th>Pincode</th>
-                                                <td id="Details_10"></td>
+                                                <td id="detail10"></td>
                                                 <th>Ref. No</th>
-                                                <td id="Details_11"></td>
+                                                <td id="detail11"></td>
 
                                             </tr>
 
@@ -331,7 +332,7 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
                                         <table class="table table-bordered">
                                             <tr>
                                                 <th>Complaint Details</th>
-                                                <td id="Details_12"></td>
+                                                <td id="detail12"></td>
                                             </tr>
                                         </table>
 
@@ -411,57 +412,7 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
     <!--This page plugins -->
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $(document).ready(function() {
-            $('.getID').click(function() {
-                var ids = $(this).data('id');
-                $.get('/UserCompList/' + ids, function(response) {
-                    console.log(ids);
-                    if (response.success) {
-                        var CompId = document.getElementById('Details_1');
-                        var CompDate = document.getElementById('Details_2');
-
-                        var CompType = document.getElementById('Details_3');
-                        var CompCategory = document.getElementById('Details_4');
-
-                        var CompSubCategory = document.getElementById('Details_5');
-                        var CompAuth = document.getElementById('Details_6');
-
-                        var CompNature = document.getElementById('Details_7');
-
-                        var CompDistrict = document.getElementById('Details_8');
-                        var CompCity = document.getElementById('Details_9');
-
-                        var CompPinCode = document.getElementById('Details_10');
-                        var CompRefNo = document.getElementById('Details_11');
-
-                        var CompDetails = document.getElementById('Details_12');
-
-                        CompId.innerHTML = response.List[0]['Complaint_ID'];
-                        CompDate.innerHTML = response.List[0]['ComplaintDate'];
-                        CompType.innerHTML = response.List[0]['ComplaintType'];
-                        CompCategory.innerHTML = response.List[0]['ComplaintCategory'];
-                        CompSubCategory.innerHTML = response.List[0]['SubCategory'];
-                        CompAuth.innerHTML = response.List[0]['AuthDept'];
-                        CompNature.innerHTML = response.List[0]['ComplaintNature'];
-                        CompDistrict.innerHTML = response.List[0]['District'];
-                        CompCity.innerHTML = response.List[0]['City'];
-                        CompPinCode.innerHTML = response.List[0]['Pincode'];
-                        CompRefNo.innerHTML = response.List[0]['ReferenceNo'];
-                        CompDetails.innerHTML = response.List[0]['ComplaintDetails'];
-
-                    }
-                }, 'json');
-            });
-        });
-
-    </script>
+    <script src="{{ asset('/js/ModelFetcher.js') }}"></script>
 </body>
 
 </html>

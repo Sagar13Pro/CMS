@@ -98,3 +98,36 @@ function ValidatePasswd(Passwd){
         _Atleast.classList.add('fa-check-circle');
     }
 }
+// -------------------------------------------
+ $(document).ready(function() {
+            let ID = document.getElementById('CompID');
+            let removeModel = document.getElementById('btnDetail');
+            let errorTag = document.getElementById("Error");
+            let safeID = false;
+            $("#btnDetail").click(function() {
+                if (ID.value === '') {
+                    removeModel.removeAttribute("data-target");
+                    errorTag.setAttribute("class", "alert alert-danger");
+                    errorTag.innerHTML = "Enter ID";
+                }
+
+            });
+            ID.addEventListener("change", function() {
+                for (var i = 0; i < ID.value.length; i++) {
+                    if (ID.value[i].match(/[0-9]+/g)) {
+                        safeID = true;
+                    } else {
+                        removeModel.removeAttribute("data-target");
+                        errorTag.setAttribute("class", "alert alert-danger");
+                        errorTag.innerHTML = "Complaint must contains digits only.!!";
+                        safeID = false;
+                    }
+                }
+                if (safeID) {
+                    console.log(safeID);
+                }
+            });
+            const Fetch = (safeID) => {
+
+            }
+        });

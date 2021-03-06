@@ -1,6 +1,8 @@
 @php
 use App\Models\User;
+use App\Models\userComp;
 $avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
+$IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('session_mail'))->get();
 @endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -118,7 +120,6 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
                                     My Profile
                                 </a>
-
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
@@ -211,25 +212,25 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <div id="al" class="alert alert-danger alert-dismissible" style="display: none;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>OPPS!&#129325;</strong> Please Check your complaint ID.
-
-                </div>
-
-
+                <div id="Error"></div>
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="col-sm-12 col-md-6 col-lg-6" id="append">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Enter Complaint I'd</h4>
                             <div class="form-group">
-                                <input id="complaint" type="number" name="CompID" class="form-control" placeholder="Complaint I'd">
+                                {{-- <input id="complaint" type="number" name="CompID" class="form-control" placeholder="Complaint I'd"> --}}
+                                <select name="CompID" id="complaint" class="form-control">
+                                    <option value="">Select</option>
+                                    @foreach($IDs as $id)
+                                    <option value="{{ $id->Complaint_ID }}">{{ $id->Complaint_ID }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <center>
-                                <button class="btn btn-dark ml-1 get" type="button" data-toggle="collapse" data-target="#UpdateComplaint" aria-expanded="false" aria-controls="UpdateComplaint">
+                                <button id="btn" class="btn btn-dark ml-1 get" type="button" data-toggle="collapse" data-target="#UpdateComplaint" aria-expanded="false" aria-controls="UpdateComplaint">
                                     Show Details
                                 </button>
                             </center>
@@ -240,7 +241,6 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                 <div id="UpdateComplaint" class="collapse">
                     <div class="row">
                         <div class="col-12">
-
                             <div class="card mb-3">
                                 <div class="card-header">
                                     <i class="fas fa-table"></i>
@@ -248,13 +248,11 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" width="80%" cellspacing="0">
-
                                             <tr>
                                                 <th>Complaint I'd</th>
                                                 <td id="data1">xxxxxx</td>
                                                 <th>Complaint Date</th>
                                                 <td id="data2">xxxxxxxxxxxxx</td>
-
                                             </tr>
                                             <tr>
                                                 <th>Catogory</th>
@@ -267,39 +265,27 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                             <tr>
                                                 <th>Nature of Complaint</th>
                                                 <td id="data5">xxxxxxxxxxxx</td>
-
                                             </tr>
                                         </table>
                                         <table class="table table-bordered">
-
                                             <tr>
                                                 <th>Department</th>
                                                 <td id="data6">xxxxxxxxxxxxx</td>
-
                                                 <th>Departmental Admin</th>
                                                 <td id="data7">xxxxxxxxxxxxx</td>
-
                                             </tr>
-
                                             <tr>
                                                 <th>Last Update</th>
                                                 <td id="data8">xxxxxxxxxxxxxx</td>
-
                                                 <th>Current Status</th>
                                                 <td id="data9">xxxxxxxxxxxxx</td>
-
                                             </tr>
-
-
                                         </table>
                                         <table class="table table-bordered" width="50%" cellspacing="0">
                                             <tr>
                                                 <th>Remarks</th>
                                                 <td id="data10">xxxxxxxxxxxx</td>
-
                                             </tr>
-
-
                                         </table>
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#danger-alert-modal">Close Complaint</button>
                                         &emsp;
@@ -368,7 +354,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                        <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
+                        <a href="/logout" type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -418,31 +404,39 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
         $(document).ready(function() {
             $('.get').click(function() {
                 var $id = document.getElementById('complaint').value;
-                $.get('/tracklist/' + $id, function(response) {
-                    if (response.success) {
-                        if (response.complaint.length == 1) {
+                let errorTag = document.getElementById("Error");
+                let removeModel = document.getElementById("btn");
+                if ($id == '') {
+                    removeModel.removeAttribute("data-target");
+                    errorTag.setAttribute("class", "alert alert-danger");
+                    errorTag.innerHTML = "Provide Complaint ID";
+                    console.log("if")
+                } else {
+                    removeModel.setAttribute("data-target", "#UpdateComplaint");
+                    $.get('/tracklist/' + $id, function(response) {
+                        if (response.success) {
                             console.log(response.complaint[0]);
                             document.getElementById('data1').innerHTML = response.complaint[0]['Complaint_ID'];
                             document.getElementById('data2').innerHTML = response.complaint[0]['ComplaintDate'];
-
                             document.getElementById('data3').innerHTML = response.complaint[0]['ComplaintCategory'];
-
                             document.getElementById('data4').innerHTML = response.complaint[0]['SubCategory'];
-
                             document.getElementById('data5').innerHTML = response.complaint[0]['ComplaintNature'];
-
                             document.getElementById('data6').innerHTML = response.complaint[0]['AuthDept'];
-
                             document.getElementById('data7').innerHTML = 'xxxxxxxxxx';
                             document.getElementById('data8').innerHTML = 'xxxxxxxxxxx';
                             document.getElementById('data9').innerHTML = 'xxxxxxxxxxx';
                             document.getElementById('data10').innerHTML = 'xxxxxxxxxx';
-                        } else {
-                            document.getElementById('al').style.display = 'block';
                         }
-                    }
-                });
+                    });
+
+                }
             });
+            setInterval(() => {
+                if ($("#Error").length > 0) {
+                    $("#Error").remove();
+                }
+                $("#append").before("<div id='Error'></div>");
+            }, 4000);
         });
 
     </script>

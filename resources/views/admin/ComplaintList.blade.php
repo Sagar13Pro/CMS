@@ -44,16 +44,13 @@
             <nav class="navbar top-navbar navbar-expand-md">
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                            class="ti-menu ti-close"></i></a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="index.html">
-                            
-                               
+                        <a href="javascript:void(0);">
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
@@ -66,10 +63,7 @@
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                            class="ti-more"></i></a>
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -79,11 +73,7 @@
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                        
-                       
                         <!-- ============================================================== -->
-                        
-                        
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -96,8 +86,7 @@
                             <a class="nav-link" href="javascript:void(0)">
                                 <form>
                                     <div class="customize-input">
-                                        <input class="form-control custom-shadow custom-radius border-0 bg-white"
-                                            type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search">
                                         <i class="form-control-icon" data-feather="search"></i>
                                     </div>
                                 </form>
@@ -107,31 +96,21 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                                    width="40">
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
-                                        class="svg-icon"></i></span>
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
+                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('admin_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
                                     My Profile
                                 </a>
-                                
+
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal"
-                                        data-target="#bs-example-modal-lg"><i data-feather="power"
-                                        class="svg-icon mr-2 ml-1"></i>
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#bs-example-modal-lg"><i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
-                                
-                                
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -153,38 +132,28 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="AdminDash"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.dashboard.view') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Complaint</span></li>
-
-                        
                         <li class="sidebar-item">
-                         <a class="sidebar-link" href="AdminCompList" aria-expanded="false">
-                            <i data-feather="tag" class="feather-icon"></i>
-                            <span class="hide-menu">Complaints List</span>
-                         </a>
+                            <a class="sidebar-link" href="javascript:void(0);" aria-expanded="false">
+                                <i data-feather="tag" class="feather-icon"></i>
+                                <span class="hide-menu">Complaints List</span>
+                            </a>
                         </li>
-
-
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link sidebar-link" href="UpdateComplaint" aria-expanded="false">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.updatecomplaint.view') }}" aria-expanded="false">
                                 <i data-feather="edit" class="feather-icon"></i>
                                 <span class="hide-menu">Update Complaints</span>
                             </a>
                         </li>
-
-
-                        <li class="sidebar-item"> 
-                            <a class="sidebar-link sidebar-link" href="MergeComplaint" aria-expanded="false">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.merge.view') }}" aria-expanded="false">
                                 <i data-feather="link" class="feather-icon"></i>
                                 <span class="hide-menu">Merge Complaint</span>
                             </a>
                         </li>
-
                         <li class="list-divider"></li>
-                        
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -214,7 +183,6 @@
                             </nav>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -227,17 +195,16 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                
+
                 <!-- order table -->
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Complaints List</h4>
-                                
+
                                 <div class="table-responsive">
-                                    <table id="default_order" class="table table-striped table-bordered display no-wrap"
-                                        style="width:100%">
+                                    <table id="default_order" class="table table-striped table-bordered display no-wrap" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>Complaint I'd</th>
@@ -248,19 +215,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            @foreach ($List as $item)
                                             <tr>
-                                                <td>Donna Snider</td>
-                                                <td>Donna Snider</td>
-                                                <td>New York</td>
-                                                <td>2011/01/25</td>
-                                                <td><button type="Submit" class="btn waves-effect waves-light btn-rounded btn-dark" data-toggle="modal" data-target="#full-width-modal">View Full Details</button>
+                                                <td>{{ $item->Complaint_ID }}</td>
+                                                <td>{{ $item->ComplaintNature }}</td>
+                                                <td>{{ $item->ComplaintDate }}</td>
+                                                <td>{{ $item->status }}</td>
+                                                <td><button type="button" class="btn waves-effect waves-light btn-rounded btn-dark viewBtn" data-toggle="modal" data-target="#full-width-modal" data-id={{ $item['id'] }}>View Full Details</button>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                               <th>Complaint I'd</th>
+                                                <th>Complaint I'd</th>
                                                 <th>Nature of Complaint</th>
                                                 <th>Complaint Date</th>
                                                 <th>Complaint Status</th>
@@ -273,7 +241,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -281,108 +249,98 @@
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
+            <!-- Full width modal content -->
+            <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-full-width">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="fullWidthModalLabel"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <i class="fas fa-table"></i>
+                                    Complaint Details</div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" width="80%" cellspacing="0">
+                                            <tr>
+                                                <th>Complaint I'd</th>
+                                                <td id="detail1"></td>
+                                                <th>Complaint Date</th>
+                                                <td id="detail2"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Complaint Type</th>
+                                                <td id="detail3"></td>
+                                                <th>Complaint Category</th>
+                                                <td id="detail4"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Complaint Sub-Category</th>
+                                                <td id="detail5"></td>
+                                                <th>Authority Dept/Company</th>
+                                                <td id="detail6"></td>
+                                            </tr>
+                                        </table>
+                                        <table class="table table-bordered" width="50%" cellspacing="0">
+                                            <tr>
+                                                <th>Nature of Complaint</th>
+                                                <td id="detail7"></td>
+                                            </tr>
+                                        </table>
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>District</th>
+                                                <td id="detail8"></td>
+                                                <th>City</th>
+                                                <td id="detail9"></td>
 
-             <!-- Full width modal content -->
-                                <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog"
-                                    aria-labelledby="fullWidthModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-full-width">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="fullWidthModalLabel"></h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">×</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                 <div class="card mb-3">
-                                                  <div class="card-header">
-                                                    <i class="fas fa-table"></i>
-                                                    Complaint Details</div>
-                                                  <div class="card-body">
-                                                    <div class="table-responsive">
-                                                      <table class="table table-bordered"  width="80%" cellspacing="0">
-                                                      
-                                                          <tr>
-                                                            <th>Complaint I'd</th>
-                                                            <td>1000201</td> 
-                                                            <th>Complaint Date</th>
-                                                            <td>shyannnnnnnnn</td>
-                                                          </tr>
-                                                          <tr>
-                                                            <th>Complaint Type</th>
-                                                            <td>jjjjjjjjjjj</td> 
-                                                            <th>Complaint Category</th>
-                                                            <td>jjjjjjjjjjjjjjjjjjjj</td>
-                                                          </tr>
-                                                          <tr>
-                                                            <th>Complaint Sub-Category</th>
-                                                            <td>kkkkkkkkkkkkkkkkkkkkkk</td>
-                                                            <th>Authority Dept/Company</th>
-                                                            <td>kkkkkkkkkkkkkkk</td>
-                                                          </tr>
-                                                      </table>
-                                                          <table class="table table-bordered" width="50%" cellspacing="0">
-                                                       <tr>
-                                                         <th>Nature of Complaint</th>
-                                                            <td>jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjlllllllllllllljjjjjjjjjjjjjjjjjjjj</td> 
-                                                      </tr>
-                                                    </table>
-                                                        <table class="table table-bordered" >
-                                                           <tr>
-                                                            <th>District</th>
-                                                            <td>kkkkkkkkkkkkkk</td> 
-                                                            <th>City</th>
-                                                            <td>pppppppppppppppppp</td> 
-                                                          </tr>
-                                                           <tr>  
-                                                            <th>Pincode</th>
-                                                            <td>>kkkkkkkkkkkkkkkkkkkk</td>
-                                                             <th>Ref. No</th>
-                                                            <td>>jjjjjjjjjjjjjjjjjjjjjj</td> 
-                                                            
-                                                           </tr>
-                                                     
-                                                      </table>
-                                                    <table class="table table-bordered" >
-                                                       <tr>
-                                                         <th>Complaint Details</th>
-                                                            <td>xxxxxxxxxxxxxx</td> 
-                                                      </tr>
-                                                    </table>
-                                                    </div>
-                                                  </div>
-                                            </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light"
-                                                    data-dismiss="modal">Close</button>
-                                                
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
+                                            </tr>
+                                            <tr>
+                                                <th>Pincode</th>
+                                                <td id="detail10"></td>
+                                                <th>Ref. No</th>
+                                                <td id="detail11"></td>
+                                            </tr>
+                                        </table>
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Complaint Details</th>
+                                                <td id="detail12"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
             <!-- ============================================================== -->
             <!--  Modal content for the above example -->
-                    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog"
-                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">×</button>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light"
-                                        data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                                    <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
+            <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
+                            <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
@@ -424,6 +382,7 @@
     <!--This page plugins -->
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script src="{{ asset('/js/ModelFetcher.js') }}"></script>
 </body>
 
 </html>

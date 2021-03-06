@@ -130,19 +130,19 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Complaint</span></li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="AdminCompList" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('admin.compliantlist.view') }}" aria-expanded="false">
                                 <i data-feather="tag" class="feather-icon"></i>
                                 <span class="hide-menu">Complaints List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="UpdateComplaint" aria-expanded="false">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.updatecomplaint.view') }}" aria-expanded="false">
                                 <i data-feather="edit" class="feather-icon"></i>
                                 <span class="hide-menu">Update Complaints</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="MergeComplaint" aria-expanded="false">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.merge.view') }}" aria-expanded="false">
                                 <i data-feather="link" class="feather-icon"></i>
                                 <span class="hide-menu">Merge Complaint</span>
                             </a>

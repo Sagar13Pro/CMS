@@ -57,7 +57,7 @@ class UserController extends Controller
             $user = false;
         }
         if ($user) {
-            return redirect(route('login.view'))
+            return redirect(route('user.login.view'))
                 ->with('message', 'Registration Successfull.');
         } else {
             return redirect()
@@ -130,20 +130,6 @@ class UserController extends Controller
                 ->with('error', 'The details does not match with our records. Please Try Again!!')
                 ->withInput($request->all());
         }
-    }
-    //complaints list Modal
-    function FetchListRow($id)
-    {
-        try {
-            $table = userComp::select('*')->where([
-                ['foreignEmail', session()->get('session_mail')],
-                ['Complaint_ID', $id]
-            ])->get();
-        } catch (Exception $error) {
-            return redirect(route('user.login.view'));
-        }
-
-        return response()->json(['success' => true, 'List' => $table]);
     }
     //new complaint store
     public function ComplaintStore(Request $request)

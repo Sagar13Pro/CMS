@@ -120,7 +120,7 @@
                     <div class="flex-sb-m w-full text-margins m-l-30" style="justify-content: center">
                         <div>
                             Already have an account?
-                            <a href="{{route('login.view')}}" class="text-primary font-weight-bold">
+                            <a href="{{route('user.login.view')}}" class="text-primary font-weight-bold">
                                 Sign In
                             </a>
                         </div>
