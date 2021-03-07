@@ -224,7 +224,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            @foreach($List as $item)
                                             <tr>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
@@ -232,26 +232,13 @@
                                                         <label class="custom-control-label" for="customCheck1"></label>
                                                     </div>
                                                 </td>
-                                                <td>Donna Snider</td>
-                                                <td>Donna Snider</td>
-                                                <td>New York</td>
-                                                <td>2011/01/25</td>
-                                                <td>xxxxxxxxxxx</td>
+                                                <td>{{ $item->Complaint_ID }}</td>
+                                                <td>{{ $item->ComplaintNature }}</td>
+                                                <td>{{ $item->ComplaintDate}}</td>
+                                                <td>{{ $item->status }}</td>
+                                                <td>{{ $item->AuthDept }}</td>
                                             </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2"></label>
-                                                    </div>
-                                                </td>
-                                                <td>Donna Snider</td>
-                                                <td>Donna Snider</td>
-                                                <td>New York</td>
-                                                <td>2011/01/25</td>
-                                                <td>xxxxxxxxxxx</td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -264,11 +251,9 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-
                                 </div><br><br>
                                 <button type="submit" class="btn btn-primary">Merge Selected</button>
                             </div>
-
                         </div>
                     </div>
                 </div>

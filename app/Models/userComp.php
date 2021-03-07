@@ -9,7 +9,7 @@ class userComp extends Model
 {
     use HasFactory;
     protected $table = "UserComplaints";
-    protected $attributes = ['status' => 'Registered'];
+    protected $attributes = ['status' => 'Registered', 'updated_at' => null];
     protected $fillable = [
         'Complaint_ID',
         'foreignEmail',

@@ -274,9 +274,8 @@ $IDs = userComp::select('Complaint_ID')->get();
                                                         <div class="form-group mb-4">
                                                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status">
                                                                 <option selected>Choose...</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option value="Pending">Pending</option>
+                                                                <option value="Solved">Solved</option>
                                                             </select>
                                                         </div>
                                                 </td>
@@ -301,6 +300,7 @@ $IDs = userComp::select('Complaint_ID')->get();
                     </div>
                 </div>
             </div>
+
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->
@@ -388,13 +388,14 @@ $IDs = userComp::select('Complaint_ID')->get();
                     removeModel.setAttribute("data-target", "#UpdateComplaint");
                     $.get('/get/UpdateComplaints/' + ID.value, function(response) {
                         if (response.success) {
-                            console.log(response.update);
+                            console.log(response.update[0]);
+                            console.log(response.date[0]);
                             document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
                             document.getElementById("data2").innerHTML = response.update[0]['ComplaintDate'];
                             document.getElementById("data3").innerHTML = response.update[0]['ComplaintCategory'];
                             document.getElementById("data4").innerHTML = response.update[0]['SubCategory'];
                             document.getElementById("data5").innerHTML = response.update[0]['ComplaintNature'];
-                            document.getElementById("data6").innerHTML = 'xxxxxxxx';
+                            document.getElementById("data6").innerHTML = response.update[0]['updated_at'];
                             document.getElementById("data7").innerHTML = response.update[0]['status'];
                             document.getElementById("Cid").value = response.update[0]['id'];
                         }

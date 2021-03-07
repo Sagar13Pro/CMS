@@ -320,25 +320,14 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php $details = userComp::all()->where('foreignEmail',session('session_mail')); @endphp
+                                            @if(is_null($details))
+                                            @else
+                                            @foreach($details as $item)
                                             <tr>
-                                                <!--td class="border-top-0 px-2 py-4">
-                                                    <div class="d-flex no-block align-items-center">
-                                                        <div class="mr-3"><img src="../assets/images/users/widget-table-pic1.jpg" alt="user" class="rounded-circle" width="45" height="45" /></div>
-                                                        <div class="">
-                                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">Hanna
-                                                                Gover</h5>
-                                                            <span class="text-muted font-14">hgover@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td-->
-                                                @php $details = userComp::all()->where('foreignEmail',session('session_mail'))->last(); @endphp
-                                                @if(is_null($details))
-                                                @else<td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium "><b>{{ $details->Complaint_ID }}</b></td>
-                                                <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $details->ComplaintDate }}</td>
-                                                <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $details->status }}</td>
-                                                @endif
-
-
+                                                <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium "><b>{{ $item->Complaint_ID }}</b></td>
+                                                <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $item->ComplaintDate }}</td>
+                                                <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $item->status }}</td>
                                                 <td class="border-top-0 text-center font-weight-medium text-dark px-2 py-4">
                                                     35
                                                 </td>
@@ -346,14 +335,15 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                                     @if(is_null($details))
                                                     @else
                                                     @php
-                                                    $date = new DateTime($details->ComplaintDate);
+                                                    $date = new DateTime($item->ComplaintDate);
                                                     $now = new DateTime();
                                                     echo $date->diff($now)->format("%d");
                                                     @endphp
                                                     @endif
                                                 </td>
                                             </tr>
-
+                                            @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>

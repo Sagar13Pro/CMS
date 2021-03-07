@@ -9,6 +9,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\userComp;
+use DateTime;
 use Exception;
 
 class AdminController extends Controller
@@ -37,7 +38,8 @@ class AdminController extends Controller
     }
     public function MergeComplaint()
     {
-        return view('admin.MergeComplaint');
+        $List = userComp::all();
+        return view('admin.MergeComplaint', compact('List'));
     }
     public function Logout()
     {
