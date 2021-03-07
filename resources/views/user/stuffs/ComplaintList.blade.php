@@ -237,7 +237,8 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
                                                 <td>{{ $item->ComplaintNature }} </td>
                                                 <td>{{ $item->ComplaintDate }}</td>
                                                 <td>{{ $item->status }}</td>
-                                                <td><button class="btn waves-effect waves-light btn-rounded btn-dark viewBtn" data-id={{$item->id}} data-toggle="modal" data-target="#full-width-modal">View Full Details</button>
+                                                <td><button class="btn waves-effect waves-light btn-rounded btn-dark viewBtn" 
+                                                     data-toggle="modal" id="viewBtn1" data-target="#full-width-modal" data-id={{$item->id}}>View Full Details</button>
 
                                                 </td>
                                             </tr>
@@ -392,6 +393,7 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
+    
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -413,6 +415,35 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     <script src="{{ asset('/js/ModelFetcher.js') }}"></script>
+    <!-- <script >
+        $('.viewBtn').on('click',function() {
+                let ids = $(this).data('id');
+                console.log(ids)
+                $.get('/get/ComplaintDetails/' + ids, function(response) {
+                    if (response.success) {
+                        document.getElementById('detail1').innerHTML = response.detail['Complaint_ID'];
+                        document.getElementById('detail2').innerHTML = response.detail['ComplaintDate'];
+                        document.getElementById('detail3').innerHTML = response.detail['ComplaintType'];
+                        document.getElementById('detail4').innerHTML = response.detail['ComplaintCategory'];
+                        document.getElementById('detail5').innerHTML = response.detail['SubCategory'];
+                        document.getElementById('detail6').innerHTML = response.detail['AuthDept'];
+                        document.getElementById('detail7').innerHTML = response.detail['ComplaintNature'];
+                        document.getElementById('detail8').innerHTML = response.detail['District'];
+                        document.getElementById('detail9').innerHTML = response.detail['City'];
+                        document.getElementById('detail10').innerHTML = response.detail['Pincode'];
+                        document.getElementById('detail11').innerHTML = response.detail['ReferenceNo'];
+                        document.getElementById('detail12').innerHTML = response.detail['ComplaintDetails'];
+                    }
+                });
+            });
+    </script>
+ -->
+    <!-- <script >
+       $('.pagination a').on('click', function (e) {
+           
+           
+        });
+    </script> -->
 </body>
 
 </html>
