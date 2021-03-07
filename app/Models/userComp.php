@@ -9,7 +9,12 @@ class userComp extends Model
 {
     use HasFactory;
     protected $table = "UserComplaints";
-    protected $attributes = ['status' => 'Registered', 'updated_at' => null];
+    //protected $casts = ['updated_at' => 'datetime:Y-m-d H:00'];
+    protected $attributes = [
+        'status' => 'Registered',
+        'Remarks' => 'Not Assigned',
+        'updated_at' => null,
+    ];
     protected $fillable = [
         'Complaint_ID',
         'foreignEmail',
@@ -24,6 +29,7 @@ class userComp extends Model
         'ReferenceNo',
         'ComplaintDetails',
         'ComplaintDate',
+        'user_id',
     ];
 
     public function setComplaintIDAttribute($value)
@@ -35,5 +41,14 @@ class userComp extends Model
             $value =  $id->Complaint_ID + 1;
             $this->attributes['Complaint_ID'] = $value;
         }
+    }
+    public function getUpdatedAtAttribute($value)
+    {
+        return  date('Y-m-d h:i:s', strtotime($value));
+    }
+    public function setUserIdAttribute($value)
+    {
+        $userid = User::where('email', $value)->get()[0];
+        $this->attributes['user_id'] = $userid->id;
     }
 }

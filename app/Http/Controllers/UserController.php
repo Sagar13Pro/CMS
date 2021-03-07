@@ -119,6 +119,7 @@ class UserController extends Controller
             if (Hash::check($request->pass, $user[0]->password)) {
                 session()->put('session_mail', $request->email);
                 session()->put('session_name', $user[0]->FullName);
+                session()->put('user_id', $user[0]->id);
                 return redirect(route('dashboard.user'));
             } else {
                 return redirect(route('user.login.view'))
@@ -165,6 +166,7 @@ class UserController extends Controller
                 'ReferenceNo' => $request->refNo,
                 'ComplaintDetails' => $request->complaintDetails,
                 'ComplaintDate' => $request->complaintDate,
+                'user_id' => session('session_mail'),
             ]);
         } catch (Exception $error) {
             dd($error);
@@ -203,17 +205,10 @@ class UserController extends Controller
             $var = $file->storeAs('document', $name->Doc2FileName);
         }
     }
-    public function Track($id)
+    public function Track(userComp $id)
     {
-        try {
-            $complaint = userComp::select()
-                ->where('Complaint_ID', $id)
-                ->get();
-        } catch (Exception $error) {
-            return response()
-                ->json(['success' => false]);
-        }
+
         return response()
-            ->json(['success' => true, 'complaint' => $complaint]);
+            ->json(['success' => true, 'detail' => $id]);
     }
 }

@@ -389,7 +389,6 @@ $IDs = userComp::select('Complaint_ID')->get();
                     $.get('/get/UpdateComplaints/' + ID.value, function(response) {
                         if (response.success) {
                             console.log(response.update[0]);
-                            console.log(response.date[0]);
                             document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
                             document.getElementById("data2").innerHTML = response.update[0]['ComplaintDate'];
                             document.getElementById("data3").innerHTML = response.update[0]['ComplaintCategory'];

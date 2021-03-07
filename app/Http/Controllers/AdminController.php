@@ -9,6 +9,8 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\userComp;
+use App\Models\User;
+use App\Notifications\Notify;
 use DateTime;
 use Exception;
 
@@ -121,12 +123,17 @@ class AdminController extends Controller
             $to_update = userComp::findOrFail($request->id);
             $to_update->status = $request->status;
             $to_update->Remarks = $request->remarks;
-            $to_update->save();
+            $to_update->updated_at = new DateTime();
+            $bool = $to_update->save();
+            if ($bool) {
+                $user = User::find($to_update->user_id);
+                $user->notify(new \App\Notifications\Notify());
+            }
             return redirect()
                 ->back()
                 ->with('message', 'Complaint updated successfully.');
         } catch (Exception  $err) {
-            //dd($err);
+            dd($err);
             return redirect()
                 ->back()
                 ->with('error', 'Complaint ID is empty.');

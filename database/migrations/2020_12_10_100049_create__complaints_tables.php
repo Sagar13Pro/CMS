@@ -15,10 +15,11 @@ class CreateComplaintsTables extends Migration
     {
         Schema::create('UserComplaints', function (Blueprint $table) {
             $table->id();
+            $table->string('foreignEmail', 40);
+            $table->foreign('foreignEmail')->on('users')->references('Email');
+            $table->integer('user_id');
             $table->bigInteger('Complaint_ID');
             $table->string('status');
-            $table->string('foreignEmail', 40);
-            $table->foreign('foreignEmail')->references('Email')->on('users');
             $table->string('ComplaintType', 30);
             $table->string('ComplaintCategory', 30);
             $table->string('SubCategory', 30);

@@ -3,7 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,3 +72,11 @@ Route::post('admin/registration/store', [AdminController::class, 'Store'])->name
 Route::post('admin/login/validate', [AdminController::class, 'ValidateAdmin'])->name('admin.login.validate');
 Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
 //End Admin Routes
+
+
+Route::get('send', function () {
+    $user = User::find(1);
+
+    $h = 'paid:0987';
+    $user->notify(new \App\Notifications\Notify($h));
+});
