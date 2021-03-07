@@ -2,6 +2,7 @@
 use App\Models\userComp;
 use App\Models\User;
 $avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
+$user = User::find(session('user_id'));
 @endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -91,6 +92,14 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
+                        <li class="nav-item d-none d-md-block">
+                            <a class="nav-link" href="javascript:void(0)">
+                                <div>
+                                    <img src="{{ asset('images/notification.svg') }}" alt="user" class="rounded-circle" width="25"><sup><span class="badge badge-info" style="padding:2px 8px;font-size:.75rem;">{{ count($user->unreadNotifications) }}</span></sup>
+                                </div>
+                            </a>
+                        </li>
+
                         <li class="nav-item d-none d-md-block">
                             <a class="nav-link" href="javascript:void(0)">
                                 <form>
@@ -321,7 +330,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                         </thead>
                                         <tbody>
                                             @php $details = userComp::all()->where('foreignEmail',session('session_mail')); @endphp
-                                            @if(is_null($details))
+                                            @if(count($details) == 0)
                                             @else
                                             @foreach($details as $item)
                                             <tr>
@@ -329,7 +338,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                                 <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $item->ComplaintDate }}</td>
                                                 <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $item->status }}</td>
                                                 <td class="border-top-0 text-center font-weight-medium text-dark px-2 py-4">
-                                                    35
+                                                    {{ $item->updated_at }}
                                                 </td>
                                                 <td class="text-center font-weight-medium text-dark border-top-0 px-2 py-4">
                                                     @if(is_null($details))

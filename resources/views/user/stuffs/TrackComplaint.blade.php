@@ -423,9 +423,9 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
                             document.getElementById('data5').innerHTML = response.complaint[0]['ComplaintNature'];
                             document.getElementById('data6').innerHTML = response.complaint[0]['AuthDept'];
                             document.getElementById('data7').innerHTML = 'xxxxxxxxxx';
-                            document.getElementById('data8').innerHTML = 'xxxxxxxxxxx';
-                            document.getElementById('data9').innerHTML = 'xxxxxxxxxxx';
-                            document.getElementById('data10').innerHTML = 'xxxxxxxxxx';
+                            document.getElementById('data8').innerHTML = response.complaint[0]['updated_at'];
+                            document.getElementById('data9').innerHTML = response.complaint[0]['status'];
+                            document.getElementById('data10').innerHTML = response.complaint[0]['Remarks'];
                         }
                     });
 
