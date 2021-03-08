@@ -16,7 +16,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <title>New Complaint</title>
     <!-- Custom CSS -->
-    
+
     <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
@@ -28,7 +28,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-  
+
 
 </head>
 
@@ -118,7 +118,6 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
                                     My Profile</a>
-
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
@@ -405,7 +404,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script>
-        
+
     </script>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

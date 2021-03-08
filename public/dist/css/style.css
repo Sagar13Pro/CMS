@@ -8709,7 +8709,7 @@ strong {
     .navbar-collapse .navbar-nav .nav-item:last-child {
       padding-left: 0 !important; }
       .navbar-collapse .navbar-nav .nav-item:last-child .btn {
-        width: 100%; }
+        width: auto; }
   .topbar-v2 .header-banner {
     padding-bottom: 0px; }
   .brand-img {

@@ -284,8 +284,8 @@ $IDs = userComp::select('Complaint_ID')->get();
                                                 <th>Remarks</th>
                                                 <td>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" placeholder="Text Here..." name="remarks"></textarea>
-                                                        <small id="textHelp" class="form-text text-muted">Helper Text</small>
+                                                        <textarea class="form-control" rows="3" placeholder="Text Here..." name="remarks" id="data13"></textarea>
+                                                        {{-- <small id="textHelp" class="form-text text-muted">Helper Text</small> --}}
                                                     </div>
                                                     <input type="text" name="id" style="display: none;" id="Cid">
                                                 </td>
@@ -396,9 +396,20 @@ $IDs = userComp::select('Complaint_ID')->get();
                             document.getElementById("data5").innerHTML = response.update[0]['ComplaintNature'];
                             document.getElementById("data6").innerHTML = response.update[0]['updated_at'];
                             document.getElementById("data7").innerHTML = response.update[0]['status'];
+                            document.getElementById("data13").innerHTML = response.update[0]['Remarks'];
                             document.getElementById("Cid").value = response.update[0]['id'];
                         }
-
+                        let selected = document.getElementById('inlineFormCustomSelect');
+                        if (response.update[0]['status'] === 'Pending') {
+                            selected.childNodes.item(3).setAttribute('selected', 'true');
+                        } else if (response.update[0]['status'] === 'Solved') {
+                            selected.childNodes.item(5).setAttribute('selected', 'true');
+                        } else {
+                            console.log(selected.childNodes.item(1))
+                            selected.childNodes.item(5).removeAttribute('selected');
+                            selected.childNodes.item(3).removeAttribute('selected');
+                            selected.childNodes.item(1).setAttribute('selected', 'true');
+                        }
                     });
                 }
             });

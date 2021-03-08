@@ -16,9 +16,12 @@ class Notify extends Notification
      *
      * @return void
      */
-
-    public function __construct()
+    protected $status, $remarks, $CompID;
+    public function __construct($status, $remarks, $CompID)
     {
+        $this->status = $status;
+        $this->remarks = $remarks;
+        $this->CompID = $CompID;
     }
 
     /**
@@ -34,8 +37,9 @@ class Notify extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'ok' => 'amout:000',
-            'paid' => 'ok'
+            'CompID' => $this->CompID,
+            'Status' => $this->status,
+            'Remarks' => $this->remarks,
         ];
     }
     /**

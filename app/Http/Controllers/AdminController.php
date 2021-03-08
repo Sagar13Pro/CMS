@@ -127,11 +127,11 @@ class AdminController extends Controller
             $bool = $to_update->save();
             if ($bool) {
                 $user = User::find($to_update->user_id);
-                $user->notify(new \App\Notifications\Notify());
+                $user->notify(new \App\Notifications\Notify($request->status, $request->remarks, $to_update->Complaint_ID));
             }
             return redirect()
                 ->back()
-                ->with('message', 'Complaint updated successfully.');
+                ->with('message', 'Complaint updated successfully with id:' . $to_update->Complaint_ID . '.');
         } catch (Exception  $err) {
             dd($err);
             return redirect()

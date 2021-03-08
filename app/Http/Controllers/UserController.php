@@ -205,10 +205,16 @@ class UserController extends Controller
             $var = $file->storeAs('document', $name->Doc2FileName);
         }
     }
-    public function Track(userComp $id)
+    public function Track($id = null)
     {
-
         return response()
-            ->json(['success' => true, 'detail' => $id]);
+            ->json(['success' => true, 'complaint' => userComp::where('Complaint_ID', $id)->get()]);
+    }
+    //User notification mark Read
+    public function MarkReadNotification($id = null, $slug = null)
+    {
+        $user = User::findORFail($id);
+        $user->unreadNotifications()->where('id', $slug)->get()[0]->markAsRead();
+        return redirect()->back();
     }
 }
