@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Null_;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,7 +53,7 @@ class DatabaseSeeder extends Seeder
                 'ComplaintDetails' => Str::random(20),
                 'ComplaintDate' => '2021-01-18 23:38:21',
                 'updated_at' => '2021-01-18 23:38:21',
-                'remarks' => 'Not Assigned',
+                'remarks' => Null,
                 'created_at' => '2021-01-18 23:38:21'
             ]);
         }

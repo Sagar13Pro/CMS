@@ -2,7 +2,7 @@
 use App\Models\User;
 use App\Models\userComp;
 $avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
-$IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('session_mail'))->get();
+$IDs = userComp::select(['Complaint_ID','id'])->where('ForeignEmail',session()->get('session_mail'))->get();
 @endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -65,7 +65,7 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
                         <a href="javascript:void(0);">
                             <!-- Logo text -->
                             <span class="logo-text">
-                                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
+                                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome</h2>
                             </span>
                         </a>
                     </div>
@@ -114,12 +114,12 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
                                 @else
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
                                 @endif
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session('session_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
+                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('session_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
-                                    My Profile
-                                </a>
+                                    My Profile</a>
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
@@ -128,6 +128,7 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
                                     Logout</a>
                             </div>
                         </li>
+
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -170,9 +171,7 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
                                 <span class="hide-menu">Track Complaint</span>
                             </a>
                         </li>
-
                         <li class="list-divider"></li>
-
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -385,7 +384,6 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
-    <!-- apps -->
     <script src="../dist/js/app-style-switcher.js"></script>
     <script src="../dist/js/feather.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
@@ -413,9 +411,9 @@ $IDs = userComp::select('Complaint_ID')->where('ForeignEmail',session()->get('se
                     console.log("if")
                 } else {
                     removeModel.setAttribute("data-target", "#UpdateComplaint");
-                    $.get('/tracklist/' + $id, function(response) {
+                    $.get('/get/trackComplaint/' + $id, function(response) {
                         if (response.success) {
-                            console.log(response.complaint[0]);
+                            console.log(response.complaint);
                             document.getElementById('data1').innerHTML = response.complaint[0]['Complaint_ID'];
                             document.getElementById('data2').innerHTML = response.complaint[0]['ComplaintDate'];
                             document.getElementById('data3').innerHTML = response.complaint[0]['ComplaintCategory'];

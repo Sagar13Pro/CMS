@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,10 +15,13 @@ use App\Models\User;
 */
 
 
+
 Route::get('/', function () {
     return view('index');
 });
-// User Routes
+/*=================================================================================
+                                        User Block
+===================================================================================*/
 Route::get('/user/login', [UserController::class, 'Login'])->name('user.login.view');
 Route::post('/user/login/validate', [UserController::class, 'ValidateUser'])->name('user.validation');
 //Google Registration,Login
@@ -36,7 +38,8 @@ Route::group(['middleware' => 'CheckSession'], function () {
     Route::get('/dashboard/newcomplaint', [UserController::class, 'NewComplaint'])->name('newcomplaint.view');
     Route::post('/dashboard/newcomplaint/store', [UserController::class, 'ComplaintStore'])->name('newcomplaint.store');
     Route::get('dashboard/trackcomplaint', [UserController::class, 'TrackComplaint'])->name('trackcomplaint.view');
-    Route::get('/tracklist/{id}', [UserController::class, 'Track']);
+    Route::get('/get/trackComplaint/{id}', [UserController::class, 'Track']);
+    Route::get('/user/notification/read/{id}/{slug}', [UserController::class, 'MarkReadNotification'])->name('user.notified.read');
 });
 //Logout section
 Route::get('/logout', function () {
@@ -48,9 +51,9 @@ Route::get('/logout', function () {
 });
 //End User Routes
 
-//----------------------------------------------------------------------------
-//Admin Routes
-//----------------------------------------------------------------------------
+/*=================================================================================
+                                        Admin Block
+===================================================================================*/
 Route::get('admin/login', [AdminController::class, 'Login'])->name('admin.login.view');
 Route::get('admin/registration', [AdminController::class, 'Register'])->name('admin.register.view');
 //Middleware
@@ -72,11 +75,3 @@ Route::post('admin/registration/store', [AdminController::class, 'Store'])->name
 Route::post('admin/login/validate', [AdminController::class, 'ValidateAdmin'])->name('admin.login.validate');
 Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
 //End Admin Routes
-
-
-Route::get('send', function () {
-    $user = User::find(1);
-
-    $h = 'paid:0987';
-    $user->notify(new \App\Notifications\Notify($h));
-});

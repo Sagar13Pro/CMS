@@ -61,7 +61,7 @@ $user = User::find(session('user_id'));
                         <a href="{{ route('dashboard.user') }}">
                             <!-- Logo text -->
                             <span class="logo-text">
-                                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
+                                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome</h2>
                             </span>
                         </a>
                     </div>
@@ -82,70 +82,32 @@ $user = User::find(session('user_id'));
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                         <!-- Notification -->
-                        
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
-                                id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" id="read" href="javascript:void(0)" id="bell" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle"></span>
+                                <span class="badge badge-primary notify-no rounded-circle">{{ count($user->unreadNotifications) }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                 <ul class="list-style-none">
                                     <li>
                                         <div class="message-center notifications position-relative">
                                             <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                                class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                        data-feather="airplay" class="text-white"></i></div>
+                                            @if (count($user->unreadNotifications) > 0)
+                                            @foreach($user->unreadNotifications as $item)
+                                            <a href="{{ route('user.notified.read',[$item->notifiable_id,$item->id]) }}" class="message-item d-flex align-items-center border-bottom px-3 py-2">
+                                                <div class="btn btn-danger rounded-circle btn-circle"><i data-feather="airplay" class="text-white"></i></div>
                                                 <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                                                    <span class="font-12 text-nowrap d-block text-muted">Just see
-                                                        the my new
-                                                        admin!</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
+                                                    <h6 class="message-title mb-0 mt-1">Status:{{ $item->data['Status'] }}, Remarks: {{ $item->data['Remarks'] }}</h6>
+                                                    <span class="font-12 text-nowrap d-block text-muted">Compaint Updated with ID:{{ $item->data['CompID'] }}</span>
+                                                    <span class="font-12 text-nowrap d-block text-muted">{{ $item->created_at }}</span>
                                                 </div>
                                             </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                                class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-success text-white rounded-circle btn-circle"><i
-                                                        data-feather="calendar" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Event today</h6>
-                                                    <span
-                                                        class="font-12 text-nowrap d-block text-muted text-truncate">Just
-                                                        a reminder that you have event</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                                class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-info rounded-circle btn-circle"><i
-                                                        data-feather="settings" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Settings</h6>
-                                                    <span
-                                                        class="font-12 text-nowrap d-block text-muted text-truncate">You
-                                                        can customize this template
-                                                        as you want</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                                class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-primary rounded-circle btn-circle"><i
-                                                        data-feather="box" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> <span
-                                                        class="font-12 text-nowrap d-block text-muted">Just
-                                                        see the my admin!</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:02 AM</span>
-                                                </div>
-                                            </a>
+                                            @endforeach
+                                            @else
+                                            <div class="w-100 d-inline-block v-middle pl-2 my-2 mx-1">
+                                                <h6 class="message-title mb-0 mt-1 text-dark">No Notifications </h6>
+                                            </div>
+                                            @endif
                                         </div>
                                     </li>
                                     <li>
@@ -156,7 +118,7 @@ $user = User::find(session('user_id'));
                                     </li>
                                 </ul>
                             </div>
-                        </li>   
+                        </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -229,8 +191,6 @@ $user = User::find(session('user_id'));
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="javascript:void(0)" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Complaint</span></li>
-
-
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('complaintlist.view') }}" aria-expanded="false">
                                 <i data-feather="tag" class="feather-icon"></i>
@@ -239,13 +199,10 @@ $user = User::find(session('user_id'));
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link sidebar-link" href="{{ route('newcomplaint.view') }}" aria-expanded="false">
-
                                 <i data-feather="file-plus" class="feather-icon"></i>
                                 <span class="hide-menu">New Complaint</span>
                             </a>
                         </li>
-
-
                         <li class="sidebar-item">
                             <a class="sidebar-link sidebar-link" href="{{ route('trackcomplaint.view') }}" aria-expanded="false">
 
@@ -253,9 +210,7 @@ $user = User::find(session('user_id'));
                                 <span class="hide-menu">Track Complaint </span>
                             </a>
                         </li>
-
                         <li class="list-divider"></li>
-
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -379,7 +334,6 @@ $user = User::find(session('user_id'));
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-4">
                                     <h4 class="card-title">Complaints Statistics</h4>
-
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table no-wrap v-middle mb-0">
