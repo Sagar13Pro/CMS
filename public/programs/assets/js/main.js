@@ -225,5 +225,10 @@
   $(window).on('load', function() {
     aos_init();
   });
-
+   $( document ).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+   $('.js-example-basic-single').select2({
+  placeholder: 'Select an option'
+});
 })(jQuery);

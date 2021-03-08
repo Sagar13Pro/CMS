@@ -169,7 +169,7 @@ class UserController extends Controller
                 'user_id' => session('session_mail'),
             ]);
         } catch (Exception $error) {
-            dd($error);
+           
             $complaint = false;
         }
         if ($complaint) {
