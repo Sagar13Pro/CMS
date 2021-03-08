@@ -203,7 +203,7 @@ use App\Models\userComp;
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-orange mb-1 font-weight-medium count">236</h2>
+                                        <h2 class="text-orange mb-1 font-weight-medium count">{{ userComp::select('id')->count() }}</h2>
 
                                     </div>
                                     <h6 class="text-white font-weight-medium mb-0 w-100 text-truncate">Total Complaint</h6>
@@ -218,7 +218,7 @@ use App\Models\userComp;
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
-                                    <h2 class="text-green mb-1 w-100 text-truncate font-weight-medium count">18306</h2>
+                                    <h2 class="text-green mb-1 w-100 text-truncate font-weight-medium count">{{ userComp::select('id')->where('status','Solved')->count() }}</h2>
                                     <h6 class="text-white font-weight-normal mb-0 w-100 text-truncate">Complaints Solved
                                     </h6>
                                 </div>
@@ -233,7 +233,7 @@ use App\Models\userComp;
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-primary mb-1 font-weight-medium count">1538</h2>
+                                        <h2 class="text-primary mb-1 font-weight-medium count">{{ userComp::select('id')->where('status','Pending')->count() }}</h2>
                                         <!--span
                                             class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span-->
                                     </div>
@@ -249,7 +249,7 @@ use App\Models\userComp;
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
-                                    <h2 class="text-danger mb-1 font-weight-medium count">864</h2>
+                                    <h2 class="text-danger mb-1 font-weight-medium count">{{ userComp::select('id')->where('status','Closed')->count() }}</h2>
                                     <h6 class="text-white font-weight-normal mb-0 w-100 text-truncate">Closed Complaints</h6>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0">
@@ -266,33 +266,33 @@ use App\Models\userComp;
                 <!-- Start Sales Charts Section -->
                 <!-- *************************************************************** -->
                 <div class="row">
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-lg-6 col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Complaints</h4>
-                                <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                                <ul class="list-style-none mb-0">
+                                <div id="net-income" class="mt-2" style="height:283px; width:100%;"></div>
+                                <!-- <ul class="list-style-none mb-0">
                                     <li>
                                         <i class="fas fa-circle text-green font-10 mr-2"></i>
                                         <span class="text-muted">Solved Complaints</span>
-                                        <span class="text-dark float-right font-weight-medium">$2346</span>
+                                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Solved')->count() }}</span>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-primary font-10 mr-2"></i>
                                         <span class="text-muted">Pending Complaints</span>
-                                        <span class="text-dark float-right font-weight-medium">$2108</span>
+                                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Pending')->count() }}</span>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-danger font-10 mr-2"></i>
                                         <span class="text-muted">Closed Complaints</span>
-                                        <span class="text-dark float-right font-weight-medium">$1204</span>
+                                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Closed')->count() }}</span>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-8 col-md-12">
+                    <div class="col-lg-6 col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Complaints by Location</h4>
@@ -322,7 +322,7 @@ use App\Models\userComp;
                                      arsort($percent_arr);
                                     $i = 0;
                                         foreach ($percent_arr as $key => $value) {
-                                            if($i<=4){
+                                            if($i<4){
                                     ?>
                                             <div class="row mb-3 align-items-center mt-1 mt-5">
                                                 <div class="col-4 text-center">

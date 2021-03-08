@@ -1,9 +1,9 @@
-@php
+<?php
 use App\Models\User;
 use App\Models\userComp;
 $avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
 $IDs = userComp::select(['Complaint_ID','id'])->where('ForeignEmail',session()->get('session_mail'))->get();
-@endphp
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -329,16 +329,21 @@ $IDs = userComp::select(['Complaint_ID','id'])->where('ForeignEmail',session()->
                     <div class="modal-body p-4">
                         <div class="text-center">
                             <i class="dripicons-wrong h1"></i>
-                            <h4 class="mt-2">Oh snap!</h4>
-                            <p class="mt-3">Cras mattis consectetur purus sit amet fermentum.
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                            <button type="button" class="btn btn-light my-2" data-dismiss="modal">Continue</button>
+                            <h4 class="mt-2">Are You Sure?</h4>
+                            <p class="mt-3">Please Provide Feedback for Our Services</p>
+                            <input type="text" name="feedback" class="form-control" placeholder="Your Feedback" />
+                            <button type="button" class="btn btn-light my-2" data-dismiss="modal" data-toggle="modal" data-target="#centermodal">Continue</button>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-
+        <div class="modal fade" id="centermodal" tabindex="-1" role="dialog"  aria-modal="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <img src="../assets/images/success.gif" width="450" height="350">
+                    
+            </div><!-- /.modal-dialog-->
+        </div>
         <!-- ============================================================== -->
         <!--  Modal content for the above example -->
         <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

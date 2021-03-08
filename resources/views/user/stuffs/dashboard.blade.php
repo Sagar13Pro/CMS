@@ -85,37 +85,35 @@ $user = User::find(session('user_id'));
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle pl-md-3 position-relative" id="read" href="javascript:void(0)" id="bell" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">{{ count($user->unreadNotifications) }}</span>
+                                <span class="badge badge-primary notify-no rounded-circle"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                 <ul class="list-style-none">
                                     <li>
                                         <div class="message-center notifications position-relative">
                                             <!-- Message -->
-                                            @if (count($user->unreadNotifications) > 0)
-                                            @foreach($user->unreadNotifications as $item)
-                                            <a href="{{ route('user.notified.read',[$item->notifiable_id,$item->id]) }}" class="message-item d-flex align-items-center border-bottom px-3 py-2">
+                                            
+                                            <a href="" class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <div class="btn btn-danger rounded-circle btn-circle"><i data-feather="airplay" class="text-white"></i></div>
                                                 <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Status:{{ $item->data['Status'] }}, Remarks: {{ $item->data['Remarks'] }}</h6>
-                                                    <span class="font-12 text-nowrap d-block text-muted">Compaint Updated with ID:{{ $item->data['CompID'] }}</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">{{ $item->created_at }}</span>
+                                                    <h6 class="message-title mb-0 mt-1"></h6>
+                                                    <span class="font-12 text-nowrap d-block text-muted"></span>
+                                                    <span class="font-12 text-nowrap d-block text-muted"></span>
                                                 </div>
                                             </a>
-                                            @endforeach
-                                            @else
+                                           
                                             <div class="w-100 d-inline-block v-middle pl-2 my-2 mx-1">
                                                 <h6 class="message-title mb-0 mt-1 text-dark">No Notifications </h6>
                                             </div>
-                                            @endif
+                                           
                                         </div>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
                                             <strong>Check all notifications</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>
