@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password' => NULL,
         'avatar' => NULL,
         'email_verified' => False,
+        'updated_at' => NULL,
     ];
     /**
      * The attributes that should be hidden for arrays.
