@@ -1,11 +1,6 @@
-<?php
-
-
+@php
 use App\Models\userComp;
-
-
-
-?>
+@endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -296,11 +291,11 @@ use App\Models\userComp;
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-4">Complaints by Location</h4>
-                               <!--  <div class="" style="height:180px">
+                                <!--  <div class="" style="height:180px">
                                     <div id="visitbylocate" style="height:100%"></div>
                                 </div> -->
                                 <!-- php code by shyam patel 07/03/2021 start-->
-                                 <?php
+                                <?php
 
                                     $model = userComp::pluck('District');
 
@@ -324,31 +319,29 @@ use App\Models\userComp;
                                         foreach ($percent_arr as $key => $value) {
                                             if($i<4){
                                     ?>
-                                            <div class="row mb-3 align-items-center mt-1 mt-5">
-                                                <div class="col-4 text-center">
-                                                    <span class="text-dark font-16"><?php echo $key;?></span>
-                                                </div>
-                                                <div class="col-5">
-                                                    <div class="progress" style="height: 10px;">
-                                                        <div class="progress-bar bg-primary" role="progressbar" style="width:<?php echo $value;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3 text-center">
-                                                    <span class="mb-0 font-14 text-dark font-weight-medium"><?php echo $value;?>%</span>
-                                                </div>
-                                            </div>
-                                       <?php 
+                                <div class="row mb-3 align-items-center mt-1 mt-5">
+                                    <div class="col-4 text-center">
+                                        <span class="text-dark font-16"><?php echo $key;?></span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="progress" style="height: 10px;">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width:<?php echo $value;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 text-center">
+                                        <span class="mb-0 font-14 text-dark font-weight-medium"><?php echo $value;?>%</span>
+                                    </div>
+                                </div>
+                                <?php 
                                         }
                                         $i++;
                                     }
-
-
                                 ?>
 
                                 <!-- shyam patel end -->
 
 
-                                
+
 
                                 <!-- <div class="row mb-3 align-items-center">
                                     <div class="col-4 text-center">
