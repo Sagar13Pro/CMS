@@ -32,7 +32,7 @@ class Notify extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
     public function toDatabase($notifiable)
     {

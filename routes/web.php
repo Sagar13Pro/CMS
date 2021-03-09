@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -75,3 +76,7 @@ Route::post('admin/registration/store', [AdminController::class, 'Store'])->name
 Route::post('admin/login/validate', [AdminController::class, 'ValidateAdmin'])->name('admin.login.validate');
 Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
 //End Admin Routes
+
+Route::get('send', function () {
+    MailMessage();
+});

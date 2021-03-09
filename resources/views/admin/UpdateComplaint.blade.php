@@ -272,8 +272,8 @@ $IDs = userComp::select('Complaint_ID')->get();
                                                         @csrf
                                                         @method('put')
                                                         <div class="form-group mb-4">
-                                                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status">
-                                                                <option selected>Choose...</option>
+                                                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status" required>
+                                                                <option value="" selected>Choose...</option>
                                                                 <option value="Pending">Pending</option>
                                                                 <option value="Solved">Solved</option>
                                                             </select>
@@ -284,7 +284,7 @@ $IDs = userComp::select('Complaint_ID')->get();
                                                 <th>Remarks</th>
                                                 <td>
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="3" placeholder="Text Here..." name="remarks" id="data13"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Text Here..." name="remarks" id="data13" required></textarea>
                                                         {{-- <small id="textHelp" class="form-text text-muted">Helper Text</small> --}}
                                                     </div>
                                                     <input type="text" name="id" style="display: none;" id="Cid">

@@ -44,7 +44,11 @@ class userComp extends Model
     }
     public function getUpdatedAtAttribute($value)
     {
-        return  date('Y-m-d h:i:s', strtotime($value));
+        //if $value is Null no need to convert and return null only.
+        if (!is_null($value)) {
+            return  date('Y-m-d h:i:s', strtotime($value));
+        }
+        return $value;
     }
     public function setUserIdAttribute($value)
     {
