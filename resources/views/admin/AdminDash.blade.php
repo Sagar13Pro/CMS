@@ -265,7 +265,7 @@ use App\Models\userComp;
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Complaints</h4>
-                                <div id="net-income" class="mt-2" style="height:283px; width:100%;"></div>
+                                <div id="net" class="mt-2" style="height:283px; width:100%;"></div>
                                 <!-- <ul class="list-style-none mb-0">
                                     <li>
                                         <i class="fas fa-circle text-green font-10 mr-2"></i>
@@ -573,12 +573,79 @@ use App\Models\userComp;
     <!--This page JavaScript -->
     <script src="../assets/extra-libs/c3/d3.min.js"></script>
     <script src="../assets/extra-libs/c3/c3.min.js"></script>
-    <script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="../assets/libs/chartist/dist/chartist.min.js">
+    	
+    </script>
     <script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-in-mill.js"></script>
-    <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="../dist/js/pages/dashboards/dashboard1.js">
+
+    </script>
+    
+	<?php 
+		//echo date('F, Y');
+		$month = array();
+		for ($i = 0; $i < 6; $i++) {
+
+		  $month[date('M-Y', strtotime("-$i month"))] = 0;
+		}
+		$all_date = userComp::pluck('ComplaintDate');
+
+		
+		foreach ($all_date as $key => $value) {
+			
+			if(array_key_exists(date('M-Y',strtotime($value)),$month)){
+				$month[date('M-Y',strtotime($value))] = $month[date('M-Y',strtotime($value))] + 1;
+			}
+		}
+		$month_key = array_keys($month);
+		$month_value = array_values($month);
+    ?>
+
+    <script>
+    	
+    	
+    	
+    	var data = {
+        labels: <?php echo	json_encode($month_key);?>,
+        series: [
+            <?php echo	json_encode($month_value);?>
+        ]
+
+    };
+    console.log(data);
+     var options = {
+        axisX: {
+            showGrid: false
+        },
+        seriesBarDistance: 1,
+        chartPadding: {
+            top: 15,
+            right: 15,
+            bottom: 5,
+            left: 0
+        },
+        plugins: [
+            Chartist.plugins.tooltip()
+        ],
+        width: '100%'
+    };
+
+    var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+            seriesBarDistance: 5,
+            axisX: {
+                
+                labelInterpolationFnc: function (value) {
+                    return value[0];
+                }
+            }
+        }]
+    ];
+    var ctx = document.getElementById("net");
+    </script>
     <script>
         const date = new Date;
         console.log(date.getHours());
