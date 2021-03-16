@@ -18,6 +18,7 @@ use App\Models\userComp;
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="../dist/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -179,6 +180,14 @@ use App\Models\userComp;
                                 </ol>
                             </nav>
                         </div>
+
+                    </div>
+                    <div class="col-5 align-self-center">
+                        <div class="customize-input float-right">
+                            <div class="bg-white border-0 custom-shadow custom-radius" style="padding: 10px 30px 10px 30px;">
+                                <span class="foo text-dark font-weight-medium" style="letter-spacing: 1.5px;"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,6 +263,31 @@ use App\Models\userComp;
                         </div>
                     </div>
                 </div>
+                <!-- <div class="row">
+                    <div class="col-lg-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
+                                <center>
+                                 <div class="d-fle">
+                                <h1 class="font-light text-white float-right">2,064</h1>
+                                <h6 class="text-white">Total Tickets</h6>
+                                </div>
+                             </center>
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                        <span class="opacity-7 text-white"><i data-feather="x-circle"></i></span>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="p-2 bg-dark text-center" style="border-radius: 10px;">
+                                <h1 class="font-light text-white">2,064</h1>
+                                <h6 class="text-white">Total Tickets</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
                 <!-- *************************************************************** -->
                 <!-- End First Cards -->
                 <!-- *************************************************************** -->
@@ -580,10 +614,9 @@ use App\Models\userComp;
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-in-mill.js"></script>
-    <script src="../dist/js/pages/dashboards/dashboard1.js">
-
-    </script>
+    <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
     
+     
 	<?php 
 		//echo date('F, Y');
 		$month = array();
@@ -658,6 +691,24 @@ use App\Models\userComp;
             document.getElementById("greetings").innerHTML = status + ',';
         }
 
+    </script>
+    <script>
+        function timeClock() {
+            setTimeout(timeClock, 1000);
+            now = new Date();
+            
+            f_date = now.getDate();
+            f_date +="/"+("0" +now.getMonth()).slice(-2);
+            f_date +="/"+now.getFullYear();
+            f_date +=" | Time: "+("0" +now.getHours()).slice(-2)+':'+("0" +now.getMinutes()).slice(-2)+':'+("0" +now.getSeconds()).slice(-2);
+            $('.foo').html('Date: '+f_date);
+            return f_date;
+        }
+        $(function(){
+            $('.foo').html(timeClock());
+        });
+
+            
     </script>
 </body>
 
