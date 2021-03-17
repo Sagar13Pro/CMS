@@ -152,6 +152,26 @@ use App\Models\userComp;
                             </a>
                         </li>
                         <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Manage Departments</span></li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.compliantlist.view') }}" aria-expanded="false">
+                                <i data-feather="server" class="feather-icon"></i>
+                                <span class="hide-menu">Department List</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.updatecomplaint.view') }}" aria-expanded="false">
+                                <i data-feather="user-plus" class="feather-icon"></i>
+                                <span class="hide-menu">Admin List</span>
+                            </a>
+                        </li>
+                        <!-- <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.merge.view') }}" aria-expanded="false">
+                                <i data-feather="link" class="feather-icon"></i>
+                                <span class="hide-menu">Merge Complaint</span>
+                            </a>
+                        </li> -->
+                        <li class="list-divider"></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -263,31 +283,50 @@ use App\Models\userComp;
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="col-lg-6 col-lg-3 col-xlg-3">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-3 col-xlg-3">
                         <div class="card card-hover">
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
-                                <center>
-                                 <div class="d-fle">
-                                <h1 class="font-light text-white float-right">2,064</h1>
-                                <h6 class="text-white">Total Tickets</h6>
+                               
+                                 <div class="align-items-center" style="width: 100%;">
+                                <h1 class="font-light text-orange">2,064</h1>
+                                <h6 class="text-white">Total Users</h6>
                                 </div>
-                             </center>
-                                <div class="ml-auto mt-md-3 mt-lg-0">
-                                        <span class="opacity-7 text-white"><i data-feather="x-circle"></i></span>
+                                
+                                <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
+                                    <span class="opacity-7 text-white"><i data-feather="users" width="40" height="40"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
+                                <div class="align-items-center" style="width: 100%;">
+                                <h1 class="font-light text-success">2,064</h1>
+                                <h6 class="text-white">Total Admins</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
+                                        <span class="opacity-7 text-white"><i data-feather="users" width="40" height="40"></i></span>
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-lg-3 col-xlg-3">
+                        <div class="card card-hover">
+                            <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
+                                <div class="align-items-center" style="width: 100%;">
+                                <h1 class="font-light text-danger">2,064</h1>
+                                <h6 class="text-white">Total Re-Complaint</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
+                                        <span class="opacity-7 text-white"><i data-feather="repeat" width="40" height="40"></i></span>
                                     </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-lg-3 col-xlg-3">
-                        <div class="card card-hover">
-                            <div class="p-2 bg-dark text-center" style="border-radius: 10px;">
-                                <h1 class="font-light text-white">2,064</h1>
-                                <h6 class="text-white">Total Tickets</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                </div>
                 <!-- *************************************************************** -->
                 <!-- End First Cards -->
                 <!-- *************************************************************** -->
@@ -616,7 +655,6 @@ use App\Models\userComp;
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-in-mill.js"></script>
     <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
     
-     
 	<?php 
 		//echo date('F, Y');
 		$month = array();
@@ -657,12 +695,16 @@ use App\Models\userComp;
         chartPadding: {
             top: 15,
             right: 15,
-            bottom: 5,
+                bottom: 5,
             left: 0
         },
         plugins: [
-            Chartist.plugins.tooltip()
+            Chartist.plugins.tooltip(),
         ],
+        color: {
+      pattern: ["#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
+    }
+        ,
         width: '100%'
     };
 
@@ -681,7 +723,7 @@ use App\Models\userComp;
     </script>
     <script>
         const date = new Date;
-        console.log(date.getHours());
+        //console.log(date.getHours());
         let hour = date.getHours();
         if (hour == 00) {
             document.getElementById('greetings').innerHTML = 'Good Evening' + ',';
