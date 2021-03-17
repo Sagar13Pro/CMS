@@ -2,58 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegistrationValidator;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Models\Admin;
-use App\Models\userComp;
-use App\Models\User;
-use DateTime;
+use App\Models\Dept;
 use Exception;
-
-class AdminController extends Controller
+use App\Models\userComp;
+use DateTime;
+class DeptController extends Controller
 {
-    //Views Functions
+    //Views Only
     public function Login()
     {
-        return view('admin.AdminLogin');
+        return view('dept.DeptLogin');
     }
     public function Register()
     {
-        return view('admin.AdminReg');
+        return view('dept.DeptReg');
     }
     public function Dashboard()
     {
-        return view('admin.AdminDash');
+        return view('Dept.DeptDash');
     }
     public function ComplaintList()
     {
         $List = userComp::all();
-        return view('admin.ComplaintList', compact('List'));
+        return view('dept.ComplaintList', compact('List'));
     }
     public function UpdateComplaint()
     {
-        return view('admin.UpdateComplaint');
+        return view('dept.UpdateComplaint');
     }
     public function MergeComplaint()
     {
         $List = userComp::all();
-        return view('admin.MergeComplaint', compact('List'));
+        return view('dept.MergeComplaint', compact('List'));
     }
     public function Logout()
     {
-        if (session()->has('admin_mail')) {
-            session()->pull('admin_mail');
-            session()->pull('admin_name');
+        if (session()->has('dept_mail')) {
+            session()->pull('dept_mail');
+            session()->pull('dept_name');
         }
-        return redirect(route('admin.login.view'));
+        return redirect(route('dept.login.view'));
     }
-    //Storing Registration details
+    //Storing AND Validation
     public function Store(RegistrationValidator $request)
     {
         try {
-            Admin::create([
+            Dept::create([
                 'firstName' => $request->_firstname,
                 'lastName' => $request->_lastname,
                 'email' => $request->_email,
@@ -68,7 +66,7 @@ class AdminController extends Controller
                     ->subject('Team ID For PU Digital Hackathon');
             });
 
-            return redirect(route('admin.login.view'))
+            return redirect(route('dept.login.view'))
                 ->with('message', 'Your Registration has been Successfull.');
         } catch (Exception $error) {
             dd($error);
@@ -80,24 +78,24 @@ class AdminController extends Controller
     //Admin login validation
     public function ValidateAdmin(Request $request)
     {
-        $getCount = Admin::where('email', $request->email)
+        $getCount = Dept::where('email', $request->email)
             ->count();
         if ($getCount == 1) {
-            $admin = Admin::select('*')
+            $dept = Dept::select('*')
                 ->where('email', $request->email)
                 ->get();
 
-            if (Hash::check($request->pass, $admin[0]->password)) {
-                session()->put('admin_mail', $request->email);
-                session()->put('admin_name', $admin[0]->FullName);
-                return redirect(route('admin.dashboard.view'));
+            if (Hash::check($request->pass, $dept[0]->password)) {
+                session()->put('dept_mail', $request->email);
+                session()->put('dept_name', $dept[0]->FullName);
+                return redirect(route('dept.dashboard.view'));
             } else {
-                return redirect(route('admin.login.view'))
+                return redirect(route('dept.login.view'))
                     ->with('error', 'The details does not match with our records. Please Try Again!')
                     ->withInput($request->all());
             }
         } else {
-            return redirect(route('admin.login.view'))
+            return redirect(route('dept.login.view'))
                 ->with('error', 'The details does not match with our records.')
                 ->withInput($request->all());
         }
@@ -123,15 +121,15 @@ class AdminController extends Controller
             $to_update->Remarks = $request->remarks;
             $to_update->updated_at = new DateTime();
             $bool = $to_update->save();
-            if ($bool) {
-                $user = User::find($to_update->user_id);
-                $user->notify(new \App\Notifications\Notify($request->status, $request->remarks, $to_update->Complaint_ID));
-            }
+            // if ($bool) {
+            //     $user = User::find($to_update->user_id);
+            //     $user->notify(new \App\Notifications\Notify($request->status, $request->remarks, $to_update->Complaint_ID));
+            // }
             return redirect()
                 ->back()
                 ->with('message', 'Complaint updated successfully with id:' . $to_update->Complaint_ID . '.');
         } catch (Exception  $err) {
-            dd($err);
+            //dd($err);
             return redirect()
                 ->back()
                 ->with('error', 'Complaint ID is empty.');

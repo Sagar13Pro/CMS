@@ -35,10 +35,7 @@ class CreateComplaintsTables extends Migration
             $table->date('ComplaintDate');
             $table->string("Remarks")->nullable();
             $table->timestamp('updated_at')->nullable();
-
             $table->timestamp('created_at')->nullable();
-
-            
         });
     }
 

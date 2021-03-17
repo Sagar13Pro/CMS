@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DeptController;
 use App\Http\Controllers\UserController;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +78,22 @@ Route::post('admin/login/validate', [AdminController::class, 'ValidateAdmin'])->
 Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logout');
 //End Admin Routes
 
-Route::get('send', function () {
-    MailMessage();
+
+/*=================================================================================
+                                        Dept Block
+===================================================================================*/
+Route::get('departmental/login',[DeptController::class,'Login'])->name('dept.login.view');
+Route::get('departmental/registration',[DeptController::class,'Register'])->name('dept.register.view');
+//MIDDLEWARE GROUP
+Route::group(['middleware'=>'DeptMiddleware'], function(){
+    Route::get('departmental/dashboard/',[DeptController::class,'Dashboard'])->name('dept.dashboard.view');
+    Route::get('departmental/complaintlist/',[DeptController::class,'ComplaintList'])->name('dept.complaintlist.view');
+    Route::get('departmental/updatecomplaint/',[DeptController::class,'UpdateComplaint'])->name('dept.updatecomplaint.view');
+    Route::get('departmental/mergecomplaint/',[DeptController::class,'MergeComplaint'])->name('dept.mergecomplaint.view');
 });
+//VALIDATIONS AND STORE
+Route::post('departmental/dashboard/store',[DeptController::class,'Store'])->name('dept.register.store');
+Route::post('departmental/dashboard/validate/',[DeptController::class,'ValidateAdmin'])->name('dept.register.validate');
+
+//LOGOUT
+Route::get('departmental/logout/',[DeptController::class,'Logout'])->name('dept.logout');
