@@ -1,12 +1,10 @@
-<?php
-use App\Models\User;
+@php
 use App\Models\userComp;
-$avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
-$IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',session()->get('session_mail'))->get();
-?>
+$IDs = userComp::select('Complaint_ID')->get();
+@endphp
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +14,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Track Complaint</title>
+    <title>Update Complaint</title>
     <!-- This page plugin CSS -->
     <link href="../assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -27,12 +25,6 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
-
-
 </head>
 
 <body>
@@ -65,7 +57,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                         <a href="javascript:void(0);">
                             <!-- Logo text -->
                             <span class="logo-text">
-                                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1">Welcome</h2>
+                                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"> Welcome</h2>
                             </span>
                         </a>
                     </div>
@@ -109,17 +101,13 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if(!is_null($avatar[0]->avatar))
-                                <img src="{{ $avatar[0]->avatar }}" alt="user" class="rounded-circle" width="40">
-                                @else
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
-                                @endif
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('session_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
+                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('admin_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
-                                    My Profile</a>
-
+                                    My Profile
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
@@ -128,7 +116,6 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                     Logout</a>
                             </div>
                         </li>
-
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -148,27 +135,25 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('dashboard.user') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.dashboard.view') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Complaint</span></li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="{{ route('complaintlist.view') }}" aria-expanded="false">
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.compliantlist.view') }}" aria-expanded="false">
                                 <i data-feather="tag" class="feather-icon"></i>
                                 <span class="hide-menu">Complaints List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="{{ route('newcomplaint.view') }}" aria-expanded="false">
-
-                                <i data-feather="file-plus" class="feather-icon"></i>
-                                <span class="hide-menu">New Complaints</span>
+                            <a class="sidebar-link sidebar-link" href="javascript:void(0);" aria-expanded="false">
+                                <i data-feather="edit" class="feather-icon"></i>
+                                <span class="hide-menu">Update Complaints</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="javascript:void(0)" aria-expanded="false">
-
-                                <i data-feather="trending-up" class="feather-icon"></i>
-                                <span class="hide-menu">Track Complaint</span>
+                            <a class="sidebar-link sidebar-link" href="{{ route('admin.merge.view') }}" aria-expanded="false">
+                                <i data-feather="link" class="feather-icon"></i>
+                                <span class="hide-menu">Merge Complaint</span>
                             </a>
                         </li>
                         <li class="list-divider"></li>
@@ -195,7 +180,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);" class="text-muted">Home</a></li>
                                     <li class="breadcrumb-item text-muted active" aria-current="page">Update Complaint</li>
                                 </ol>
                             </nav>
@@ -211,25 +196,27 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <div id="Error"></div>
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+
+                <x-alert type="ErrorMsg" />
+                <div id="Error"></div>
                 <div class="col-sm-12 col-md-6 col-lg-6" id="append">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Enter Complaint I'd</h4>
+                            <h4 class="card-title">Enter Complaint I'D</h4>
                             <div class="form-group">
-                                {{-- <input id="complaint" type="number" name="CompID" class="form-control" placeholder="Complaint I'd"> --}}
-                                <select name="CompID" id="complaint" class="form-control">
-                                    <option value="">Select</option>
+                                {{-- <input type="text" name="CompID" class="form-control" placeholder="Complaint I'D" id="CompID"> --}}
+                                <select name="CompID" id="CompID" class="form-control">
+                                    <option value="">Select ID</option>
                                     @foreach($IDs as $id)
                                     <option value="{{ $id->Complaint_ID }}">{{ $id->Complaint_ID }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <center>
-                                <button id="btn" class="btn btn-dark ml-1 get" type="button" data-toggle="collapse" data-target="#UpdateComplaint" aria-expanded="false" aria-controls="UpdateComplaint">
+                                <button id="btnDetail" class="btn btn-dark ml-1" type="button" data-toggle="collapse" data-target="#UpdateComplaint" aria-expanded="false" aria-controls="UpdateComplaint">
                                     Show Details
                                 </button>
                             </center>
@@ -240,6 +227,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                 <div id="UpdateComplaint" class="collapse">
                     <div class="row">
                         <div class="col-12">
+
                             <div class="card mb-3">
                                 <div class="card-header">
                                     <i class="fas fa-table"></i>
@@ -247,48 +235,64 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" width="80%" cellspacing="0">
+
                                             <tr>
                                                 <th>Complaint I'd</th>
-                                                <td id="data1">xxxxxx</td>
+                                                <td id="data1"></td>
                                                 <th>Complaint Date</th>
-                                                <td id="data2">xxxxxxxxxxxxx</td>
+                                                <td id="data2"></td>
                                             </tr>
                                             <tr>
                                                 <th>Catogory</th>
-                                                <td id="data3">xxxxxxxxxxxxxx</td>
+                                                <td id="data3"></td>
                                                 <th>Sub-Catogory</th>
-                                                <td id="data4">xxxxxxxxxxxxx</td>
+                                                <td id="data4"></td>
+
                                             </tr>
                                         </table>
-                                        <table class="table table-bordered" width="50%" cellspacing="0">
+                                        <table class="table table-bordered" width="80%" cellspacing="0">
                                             <tr>
                                                 <th>Nature of Complaint</th>
-                                                <td id="data5">xxxxxxxxxxxx</td>
+                                                <td id="data5"></td>
+
                                             </tr>
                                         </table>
+
                                         <table class="table table-bordered">
                                             <tr>
-                                                <th>Department</th>
-                                                <td id="data6">xxxxxxxxxxxxx</td>
-                                                <th>Departmental Admin</th>
-                                                <td id="data7">xxxxxxxxxxxxx</td>
+                                                <th>Last Update</th>
+                                                <td id="data6"></td>
+                                                <th>Current Status</th>
+                                                <td id="data7"></td>
                                             </tr>
                                             <tr>
-                                                <th>Last Update</th>
-                                                <td id="data8">xxxxxxxxxxxxxx</td>
-                                                <th>Current Status</th>
-                                                <td id="data9">xxxxxxxxxxxxx</td>
+                                                <th>Update Status</th>
+                                                <td>
+                                                    <form action="{{ route('complaint.update') }}" method="POST">
+                                                        @csrf
+                                                        @method('put')
+                                                        <div class="form-group mb-4">
+                                                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="status" required>
+                                                                <option value="" selected>Choose...</option>
+                                                                <option value="Pending">Pending</option>
+                                                                <option value="Solved">Solved</option>
+                                                            </select>
+                                                        </div>
+                                                </td>
                                             </tr>
-                                        </table>
-                                        <table class="table table-bordered" width="50%" cellspacing="0">
                                             <tr>
                                                 <th>Remarks</th>
-                                                <td id="data10">xxxxxxxxxxxx</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="3" placeholder="Text Here..." name="remarks" id="data13" required></textarea>
+                                                        {{-- <small id="textHelp" class="form-text text-muted">Helper Text</small> --}}
+                                                    </div>
+                                                    <input type="text" name="id" style="display: none;" id="Cid">
+                                                </td>
                                             </tr>
                                         </table>
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#danger-alert-modal">Close Complaint</button>
-                                        &emsp;
-                                        <button id="btnRecomplaint" class="btn btn-primary" data-toggle="modal" data-target="#info-alert-modal" style="display: none;">Re-Complaint</button>
+                                        <button type="submit" class="btn btn-primary">Save Update</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -296,6 +300,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                     </div>
                 </div>
             </div>
+
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->
@@ -304,46 +309,8 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
         <!-- End Container fluid  -->
         <!-- ============================================================== -->
 
-        <!-- Info Alert Modal -->
-        <div id="info-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-body p-4">
-                        <div class="text-center">
-                            <i class="dripicons-information h1 text-info"></i>
-                            <h4 class="mt-2">Heads up!</h4>
-                            <p class="mt-3">Cras mattis consectetur purus sit amet fermentum.
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                            <button type="button" class="btn btn-info my-2" data-dismiss="modal">Continue</button>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 
 
-        <!-- Danger Alert Modal -->
-        <div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content modal-filled bg-danger">
-                    <div class="modal-body p-4">
-                        <div class="text-center">
-                            <i class="dripicons-wrong h1"></i>
-                            <h4 class="mt-2">Are You Sure?</h4>
-                            <p class="mt-3">Please Provide Feedback for Our Services</p>
-                            <input type="text" name="feedback" class="form-control" placeholder="Your Feedback" />
-                            <button type="button" class="btn btn-light my-2" data-dismiss="modal" data-toggle="modal" data-target="#centermodal">Continue</button>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <div class="modal fade" id="centermodal" tabindex="-1" role="dialog" aria-modal="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <img src="../assets/images/success.gif" width="450" height="350">
-
-            </div><!-- /.modal-dialog-->
-        </div>
         <!-- ============================================================== -->
         <!--  Modal content for the above example -->
         <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -358,7 +325,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                        <a href="/logout" type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
+                        <a href="{{ route('admin.logout') }}" type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -389,6 +356,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
+    <!-- apps -->
     <script src="../dist/js/app-style-switcher.js"></script>
     <script src="../dist/js/feather.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
@@ -403,41 +371,46 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
     <!--This page plugins -->
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+    {{-- Script for model --}}
     <script>
+        // For Update Model Admin Panel
         $(document).ready(function() {
-            $('.get').click(function() {
-                var $id = document.getElementById('complaint').value;
+            $("#btnDetail").click(function() {
+                const ID = document.getElementById('CompID');
+                let removeModel = document.getElementById('btnDetail');
                 let errorTag = document.getElementById("Error");
-                let removeModel = document.getElementById("btn");
-                if ($id == '') {
+                if (ID.value == "") {
                     removeModel.removeAttribute("data-target");
                     errorTag.setAttribute("class", "alert alert-danger");
-                    errorTag.innerHTML = "Provide Complaint ID";
-                    console.log("if")
+                    errorTag.innerHTML = "Provide Complaint ID.";
+                    console.log("if");
                 } else {
                     removeModel.setAttribute("data-target", "#UpdateComplaint");
-                    $.get('/get/trackComplaint/' + $id, function(response) {
+                    $.get('/get/UpdateComplaints/' + ID.value, function(response) {
                         if (response.success) {
-                            console.log(response.complaint);
-                            document.getElementById('data1').innerHTML = response.complaint[0]['Complaint_ID'];
-                            document.getElementById('data2').innerHTML = response.complaint[0]['ComplaintDate'];
-                            document.getElementById('data3').innerHTML = response.complaint[0]['ComplaintCategory'];
-                            document.getElementById('data4').innerHTML = response.complaint[0]['SubCategory'];
-                            document.getElementById('data5').innerHTML = response.complaint[0]['ComplaintNature'];
-                            document.getElementById('data6').innerHTML = response.complaint[0]['AuthDept'];
-                            document.getElementById('data7').innerHTML = 'xxxxxxxxxx';
-                            document.getElementById('data8').innerHTML = response.complaint[0]['updated_at'];
-                            document.getElementById('data9').innerHTML = response.complaint[0]['status'];
-                            document.getElementById('data10').innerHTML = response.complaint[0]['Remarks'];
-                            if (response.complaint[0]['status'] != 'Registered') {
-                                document.getElementById('btnRecomplaint').style.display = 'inline-block';
-                            } else {
-                                document.getElementById('btnRecomplaint').style.display = 'none';
-                            }
-
+                            console.log(response.update[0]);
+                            document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
+                            document.getElementById("data2").innerHTML = response.update[0]['ComplaintDate'];
+                            document.getElementById("data3").innerHTML = response.update[0]['ComplaintCategory'];
+                            document.getElementById("data4").innerHTML = response.update[0]['SubCategory'];
+                            document.getElementById("data5").innerHTML = response.update[0]['ComplaintNature'];
+                            document.getElementById("data6").innerHTML = response.update[0]['updated_at'];
+                            document.getElementById("data7").innerHTML = response.update[0]['status'];
+                            document.getElementById("data13").innerHTML = response.update[0]['Remarks'];
+                            document.getElementById("Cid").value = response.update[0]['id'];
+                        }
+                        let selected = document.getElementById('inlineFormCustomSelect');
+                        if (response.update[0]['status'] === 'Pending') {
+                            selected.childNodes.item(3).setAttribute('selected', 'true');
+                        } else if (response.update[0]['status'] === 'Solved') {
+                            selected.childNodes.item(5).setAttribute('selected', 'true');
+                        } else {
+                            console.log(selected.childNodes.item(1))
+                            selected.childNodes.item(5).removeAttribute('selected');
+                            selected.childNodes.item(3).removeAttribute('selected');
+                            selected.childNodes.item(1).setAttribute('selected', 'true');
                         }
                     });
-
                 }
             });
             setInterval(() => {
