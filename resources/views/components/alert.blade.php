@@ -41,3 +41,11 @@
     @endif
     @endif
 </div>
+<script>
+    setTimeout(() => {
+        if ($('.alert-box').length > 0) {
+            $('.alert-box').remove();
+        }
+    }, 6000);
+
+</script>

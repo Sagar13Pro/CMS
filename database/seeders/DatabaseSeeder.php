@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\Null_;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,9 +34,17 @@ class DatabaseSeeder extends Seeder
         ]);
         //admin
         DB::table('admins')->insert([
-            'firstName' => 'sagar',
-            'lastName' => 'patel',
+            'firstName' => 'admin',
+            'lastName' => 'admin',
             'email' => 'admin@mail.com',
+            'mobileNo' => rand(10, 10),
+            'password' => Hash::make('Test@123'),
+        ]);
+        //departmental admin
+        DB::table('depts')->insert([
+            'firstName' => 'dept',
+            'lastName' => 'admin',
+            'email' => 'dept@mail.com',
             'mobileNo' => rand(10, 10),
             'password' => Hash::make('Test@123'),
         ]);
@@ -58,10 +65,10 @@ class DatabaseSeeder extends Seeder
                 'Pincode' => rand(11111, 999999),
                 'ReferenceNo' => Str::random(5),
                 'ComplaintDetails' => Str::random(20),
-                'ComplaintDate' => '2021-01-18 23:38:21',
+                'ComplaintDate' => '2021-03-10',
                 'updated_at' => Null,
                 'remarks' => Null,
-                'created_at' => '2021-01-18 23:38:21'
+                'created_at' => '2021-03-10 23:38:21'
             ]);
         }
         //Complaint for shyam@mail.com
@@ -81,10 +88,10 @@ class DatabaseSeeder extends Seeder
                 'Pincode' => rand(11111, 999999),
                 'ReferenceNo' => Str::random(5),
                 'ComplaintDetails' => Str::random(20),
-                'ComplaintDate' => '2021-01-18 23:38:21',
+                'ComplaintDate' => '2021-03-10',
                 'updated_at' => Null,
                 'remarks' => Null,
-                'created_at' => '2021-01-18 23:38:21'
+                'created_at' => '2021-03-10 23:38:21'
             ]);
         }
     }

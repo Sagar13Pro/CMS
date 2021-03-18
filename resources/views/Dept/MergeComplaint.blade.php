@@ -104,7 +104,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('admin_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
+                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('dept_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
@@ -137,32 +137,32 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('admin.dashboard.view') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('dept.dashboard.view') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
+
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Complaint</span></li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('admin.compliantlist.view') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('dept.complaintlist.view') }}" aria-expanded="false">
                                 <i data-feather="tag" class="feather-icon"></i>
                                 <span class="hide-menu">Complaints List</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="{{ route('admin.updatecomplaint.view') }}" aria-expanded="false">
+                            <a class="sidebar-link sidebar-link" href="{{ route('dept.updatecomplaint.view') }}" aria-expanded="false">
                                 <i data-feather="edit" class="feather-icon"></i>
                                 <span class="hide-menu">Update Complaints</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                            <a class="sidebar-link sidebar-link" href="javascript:void(0);" aria-expanded="false">
                                 <i data-feather="link" class="feather-icon"></i>
                                 <span class="hide-menu">Merge Complaint</span>
                             </a>
                         </li>
-
                         <li class="list-divider"></li>
-
                     </ul>
                 </nav>
+
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->

@@ -216,6 +216,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="col-sm-12 col-md-6 col-lg-6" id="append">
+                    <x-alert type="ErrorMsg" />
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Enter Complaint I'd</h4>
@@ -289,6 +290,11 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#danger-alert-modal">Close Complaint</button>
                                         &emsp;
                                         <button id="btnRecomplaint" class="btn btn-primary" data-toggle="modal" data-target="#info-alert-modal" style="display: none;">Re-Complaint</button>
+
+                                        <form id="form-recomplaint" action="{{ route('user.recomplaint.init') }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('put')
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -314,7 +320,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                             <h4 class="mt-2">Heads up!</h4>
                             <p class="mt-3">Cras mattis consectetur purus sit amet fermentum.
                                 Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                            <button type="button" class="btn btn-info my-2" data-dismiss="modal">Continue</button>
+                            <button id="continueBtn" type="button" class="btn btn-info my-2" data-dismiss="">Continue</button>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
@@ -404,6 +410,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     <script>
+        let form = document.getElementById('form-recomplaint');
         $(document).ready(function() {
             $('.get').click(function() {
                 var $id = document.getElementById('complaint').value;
@@ -431,6 +438,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                             document.getElementById('data10').innerHTML = response.complaint[0]['Remarks'];
                             if (response.complaint[0]['status'] != 'Registered') {
                                 document.getElementById('btnRecomplaint').style.display = 'inline-block';
+                                form.action = 'http://127.0.0.1:8000/dashboard/recomplaint/' + response.complaint[0]['id'];
                             } else {
                                 document.getElementById('btnRecomplaint').style.display = 'none';
                             }
@@ -447,6 +455,10 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                 $("#append").before("<div id='Error'></div>");
             }, 4000);
         });
+        let rebtn = document.getElementById('continueBtn');
+        rebtn.onclick = () => {
+            form.submit();
+        }
 
     </script>
 </body>

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationValidator;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use Postmark\PostmarkClient;
 use App\Models\userComp;
 use App\Models\User;
+use App\Notifications\Recomplaint;
 use Exception;
-
+use Illuminate\Support\Facades\Notification;
 
 class UserController extends Controller
 {
@@ -217,4 +219,21 @@ class UserController extends Controller
         $user->unreadNotifications()->where('id', $slug)->get()[0]->markAsRead();
         return redirect()->back();
     }
+    //Recompalint 
+    public function Recomplaint(userComp $id)
+    {
+        try{
+            $admin = Admin::find(1);
+            userComp::where('Complaint_ID',$id->Complaint_ID)->update(['status'=>'Recomplained']);
+            Notification::send($admin,new Recomplaint($id->Complaint_ID));
+            return redirect()
+                        ->back()
+                        ->with('message','Your Complaint has been recomplaint successfully.');
+        }catch (Exception $error){
+            dd($error);
+            return redirect()
+            ->back()
+            ->with('error','Something went wrong. Please Try Again.');
+        }
+    }  
 }
