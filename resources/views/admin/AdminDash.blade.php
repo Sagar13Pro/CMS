@@ -1,5 +1,7 @@
 @php
 use App\Models\userComp;
+use App\Models\Admin;
+$admin = Admin::Find(1);
 @endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -258,6 +260,7 @@ use App\Models\userComp;
                                 <div>
                                     <div class="d-inline-flex align-items-center">
                                         <h2 class="text-primary mb-1 font-weight-medium count">{{ userComp::select('id')->where('status','Pending')->count() }}</h2>
+
                                         <!--span
                                             class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span-->
                                     </div>
@@ -356,6 +359,8 @@ use App\Models\userComp;
                                         <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Closed')->count() }}</span>
                                     </li>
                                 </ul> -->
+
+
                             </div>
                         </div>
                     </div>
@@ -647,15 +652,16 @@ use App\Models\userComp;
     <script src="../assets/extra-libs/c3/d3.min.js"></script>
     <script src="../assets/extra-libs/c3/c3.min.js"></script>
     <script src="../assets/libs/chartist/dist/chartist.min.js">
-    	
+
     </script>
     <script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
     <script src="../assets/extra-libs/jvector/jquery-jvectormap-in-mill.js"></script>
     <script src="../dist/js/pages/dashboards/dashboard1.js"></script>
-    
-	<?php 
+
+
+    <?php 
 		//echo date('F, Y');
 		$month = array();
 		for ($i = 0; $i < 6; $i++) {
@@ -676,17 +682,14 @@ use App\Models\userComp;
     ?>
 
     <script>
-    	
-    	
-    	
-    	var data = {
+        var data = {
         labels: <?php echo	json_encode($month_key);?>,
         series: [
             <?php echo	json_encode($month_value);?>
         ]
 
     };
-    console.log(data);
+    
      var options = {
         axisX: {
             showGrid: false
@@ -708,18 +711,20 @@ use App\Models\userComp;
         width: '100%'
     };
 
-    var responsiveOptions = [
-        ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
-            axisX: {
-                
-                labelInterpolationFnc: function (value) {
-                    return value[0];
+
+        var responsiveOptions = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5
+                , axisX: {
+
+                    labelInterpolationFnc: function(value) {
+                        return value[0];
+                    }
                 }
-            }
-        }]
-    ];
-    var ctx = document.getElementById("net");
+            }]
+        ];
+        var ctx = document.getElementById("net");
+
     </script>
     <script>
         const date = new Date;
@@ -738,19 +743,18 @@ use App\Models\userComp;
         function timeClock() {
             setTimeout(timeClock, 1000);
             now = new Date();
-            
+
             f_date = now.getDate();
-            f_date +="/"+("0" +now.getMonth()).slice(-2);
-            f_date +="/"+now.getFullYear();
-            f_date +=" | Time: "+("0" +now.getHours()).slice(-2)+':'+("0" +now.getMinutes()).slice(-2)+':'+("0" +now.getSeconds()).slice(-2);
-            $('.foo').html('Date: '+f_date);
+            f_date += "/" + ("0" + now.getMonth()).slice(-2);
+            f_date += "/" + now.getFullYear();
+            f_date += " | Time: " + ("0" + now.getHours()).slice(-2) + ':' + ("0" + now.getMinutes()).slice(-2) + ':' + ("0" + now.getSeconds()).slice(-2);
+            $('.foo').html('Date: ' + f_date);
             return f_date;
         }
-        $(function(){
+        $(function() {
             $('.foo').html(timeClock());
         });
 
-            
     </script>
 </body>
 

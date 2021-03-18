@@ -521,6 +521,7 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminSession' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminSession.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\DeptMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/DeptMiddleware.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventBack' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventBack.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',

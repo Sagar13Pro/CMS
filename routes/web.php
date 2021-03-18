@@ -42,6 +42,7 @@ Route::group(['middleware' => 'CheckSession'], function () {
     Route::get('dashboard/trackcomplaint', [UserController::class, 'TrackComplaint'])->name('trackcomplaint.view');
     Route::get('/get/trackComplaint/{id}', [UserController::class, 'Track']);
     Route::get('/user/notification/read/{id}/{slug}', [UserController::class, 'MarkReadNotification'])->name('user.notified.read');
+    Route::put('dashboard/recomplaint/{id?}',[UserController::class,'Recomplaint'])->name('user.recomplaint.init');
 });
 //Logout section
 Route::get('/logout', function () {
