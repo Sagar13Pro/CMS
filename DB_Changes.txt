@@ -1,0 +1,3 @@
+=============================
+17-03-2021 Shyam Start
+ALTER TABLE `admins` ADD `role` ENUM('Super Admin','General Admin','Sub Admin') NOT NULL DEFAULT 'General Admin' AFTER `id`;
