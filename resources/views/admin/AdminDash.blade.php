@@ -1,7 +1,7 @@
 @php
 use App\Models\userComp;
 use App\Models\Admin;
-$admin = Admin::Find(1);
+$admin = Admin::where('email',session('admin_mail'))->get()[0];
 @endphp
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -75,6 +75,48 @@ $admin = Admin::Find(1);
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                         <!-- Notification -->
                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" id="read" href="javascript:void(0)" id="bell" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i data-feather="bell" class="svg-icon"></i></span>
+                                @if (!count($admin->unreadNotifications) == 0)
+                                <span class="badge badge-primary notify-no rounded-circle">
+                                    {{ count($admin->unreadNotifications) }}
+                                </span>
+                                @endif
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="message-center notifications position-relative">
+                                            <!-- Message -->
+                                            @if (count($admin->unreadNotifications) > 0)
+                                            @foreach($admin->unreadNotifications as $item)
+                                            <a href="{{ route('superadmin.notified.read',['id'=>$item->notifiable_id,'slug'=>$item->id]) }}" class="message-item d-flex align-items-center border-bottom px-3 py-2">
+                                                <div class="btn btn-danger rounded-circle btn-circle"><i data-feather="airplay" class="text-white"></i></div>
+                                                <div class="w-75 d-inline-block v-middle pl-2">
+                                                    <h6 class="message-title mb-0 mt-1">Status changed to {{ $item->data['Status'] }}</h6>
+                                                    <span class="font-12 text-nowrap d-block text-muted">{{ $item->data['Status'] }} for Complaint with ID: {{ $item->data['Complaint_ID'] }}</span>
+                                                    <span class="font-12 text-nowrap d-block text-muted">{{ $item->created_at }}</span>
+                                                </div>
+                                            </a>
+                                            @endforeach
+                                            @else
+                                            <div class="w-100 d-inline-block v-middle pl-2 my-2 mx-1">
+                                                <h6 class="message-title mb-0 mt-1 text-dark">No Notifications </h6>
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </li>
+                                    <!-- <li>
+                                        <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
+                                            <strong>Check all notifications</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </li>
+
 
                     </ul>
                     <!-- ============================================================== -->
@@ -101,6 +143,7 @@ $admin = Admin::Find(1);
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle" width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span class="text-dark">{{ session()->get('admin_name') }}</span> <i data-feather="chevron-down" class="svg-icon"></i></span>
+
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
@@ -290,12 +333,12 @@ $admin = Admin::Find(1);
                     <div class="col-lg-4 col-lg-3 col-xlg-3">
                         <div class="card card-hover">
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
-                               
-                                 <div class="align-items-center" style="width: 100%;">
-                                <h1 class="font-light text-orange">2,064</h1>
-                                <h6 class="text-white">Total Users</h6>
+
+                                <div class="align-items-center" style="width: 100%;">
+                                    <h1 class="font-light text-orange">2,064</h1>
+                                    <h6 class="text-white">Total Users</h6>
                                 </div>
-                                
+
                                 <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
                                     <span class="opacity-7 text-white"><i data-feather="users" width="40" height="40"></i></span>
                                 </div>
@@ -306,12 +349,12 @@ $admin = Admin::Find(1);
                         <div class="card card-hover">
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
                                 <div class="align-items-center" style="width: 100%;">
-                                <h1 class="font-light text-success">2,064</h1>
-                                <h6 class="text-white">Total Admins</h6>
+                                    <h1 class="font-light text-success">2,064</h1>
+                                    <h6 class="text-white">Total Admins</h6>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
-                                        <span class="opacity-7 text-white"><i data-feather="users" width="40" height="40"></i></span>
-                                    </div>
+                                    <span class="opacity-7 text-white"><i data-feather="users" width="40" height="40"></i></span>
+                                </div>
                             </div>
 
                         </div>
@@ -320,12 +363,12 @@ $admin = Admin::Find(1);
                         <div class="card card-hover">
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
                                 <div class="align-items-center" style="width: 100%;">
-                                <h1 class="font-light text-danger">2,064</h1>
-                                <h6 class="text-white">Total Re-Complaint</h6>
+                                    <h1 class="font-light text-danger">2,064</h1>
+                                    <h6 class="text-white">Total Re-Complaint</h6>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
-                                        <span class="opacity-7 text-white"><i data-feather="repeat" width="40" height="40"></i></span>
-                                    </div>
+                                    <span class="opacity-7 text-white"><i data-feather="repeat" width="40" height="40"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -683,33 +726,33 @@ $admin = Admin::Find(1);
 
     <script>
         var data = {
-        labels: <?php echo	json_encode($month_key);?>,
-        series: [
-            <?php echo	json_encode($month_value);?>
-        ]
+            labels: < ? php echo json_encode($month_key); ? > 
+            , series : [ <
+                ?
+                php echo json_encode($month_value); ? >
+            ]
 
-    };
-    
-     var options = {
-        axisX: {
-            showGrid: false
-        },
-        seriesBarDistance: 1,
-        chartPadding: {
-            top: 15,
-            right: 15,
-                bottom: 5,
-            left: 0
-        },
-        plugins: [
-            Chartist.plugins.tooltip(),
-        ],
-        color: {
-      pattern: ["#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
-    }
-        ,
-        width: '100%'
-    };
+        };
+
+        var options = {
+            axisX: {
+                showGrid: false
+            }
+            , seriesBarDistance: 1
+            , chartPadding: {
+                top: 15
+                , right: 15
+                , bottom: 5
+                , left: 0
+            }
+            , plugins: [
+                Chartist.plugins.tooltip()
+            , ]
+            , color: {
+                pattern: ["#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
+            }
+            , width: '100%'
+        };
 
 
         var responsiveOptions = [

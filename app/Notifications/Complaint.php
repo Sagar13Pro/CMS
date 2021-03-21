@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Recomplaint extends Notification
+class Complaint extends Notification
 {
     use Queueable;
 
@@ -16,9 +16,10 @@ class Recomplaint extends Notification
      *
      * @return void
      */
-    public function __construct($Complaint_id)
+    public function __construct($id, $status)
     {
-        $this->Complaint_id = $Complaint_id;
+        $this->Complaint_ID = $id;
+        $this->status = $status;
     }
 
     /**
@@ -29,13 +30,14 @@ class Recomplaint extends Notification
      */
     public function via($notifiable)
     {
-        return ['database','mail'];
+        return ['database'];
     }
     public function toDatabase($notifiable)
     {
-            return [
-                'Complaint_ID' => $this->Complaint_id,
-            ];
+        return [
+            'Complaint_ID' => $this->Complaint_ID,
+            'Status' => $this->status,
+        ];
     }
     /**
      * Get the mail representation of the notification.
@@ -46,9 +48,9 @@ class Recomplaint extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**

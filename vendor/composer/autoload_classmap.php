@@ -30,6 +30,7 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\userComp' => $baseDir . '/app/Models/userComp.php',
     'App\\Notifications\\Notify' => $baseDir . '/app/Notifications/Notify.php',
+    'App\\Notifications\\Recomplaint' => $baseDir . '/app/Notifications/Recomplaint.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

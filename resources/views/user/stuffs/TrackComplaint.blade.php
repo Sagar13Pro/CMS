@@ -212,11 +212,11 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <div id="Error"></div>
+                <x-alert type="ErrorMsg" />
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="col-sm-12 col-md-6 col-lg-6" id="append">
-                    <x-alert type="ErrorMsg" />
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Enter Complaint I'd</h4>
@@ -225,7 +225,9 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                 <select name="CompID" id="complaint" class="form-control">
                                     <option value="">Select</option>
                                     @foreach($IDs as $id)
+                                    @if($id->status != 'Closed')
                                     <option value="{{ $id->Complaint_ID }}">{{ $id->Complaint_ID }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -337,8 +339,13 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                             <i class="dripicons-wrong h1"></i>
                             <h4 class="mt-2">Are You Sure?</h4>
                             <p class="mt-3">Please Provide Feedback for Our Services</p>
-                            <input type="text" name="feedback" class="form-control" placeholder="Your Feedback" />
-                            <button type="button" class="btn btn-light my-2" data-dismiss="modal" data-toggle="modal" data-target="#centermodal">Continue</button>
+                            <form id="form-close" action="" method="POST">
+                                @csrf
+                                @method('put')
+                                <input type="text" name="feedback" class="form-control" placeholder="Provide Your Feedback" required />
+                            </form>
+                            <button type="button" id="closeBtn" class="btn btn-light my-2" data-toggle="modal" data-dismiss="modal" data-target="#centermodal">Continue</button>
+
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
@@ -411,6 +418,8 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     <script>
         let form = document.getElementById('form-recomplaint');
+        let closeForm = document.getElementById('form-close');
+        let close = document.getElementById('closeBtn');
         $(document).ready(function() {
             $('.get').click(function() {
                 var $id = document.getElementById('complaint').value;
@@ -438,11 +447,12 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                             document.getElementById('data10').innerHTML = response.complaint[0]['Remarks'];
                             if (response.complaint[0]['status'] != 'Registered') {
                                 document.getElementById('btnRecomplaint').style.display = 'inline-block';
-                                form.action = 'http://127.0.0.1:8000/dashboard/recomplaint/' + response.complaint[0]['id'];
+                                form.action = '{{ route("user.recomplaint.init") }}' + '/' + response.complaint[0]['id'];
                             } else {
                                 document.getElementById('btnRecomplaint').style.display = 'none';
                             }
-
+                            close.setAttribute('data-id', response.complaint[0]['id']);
+                            console.log(close);
                         }
                     });
 
@@ -458,6 +468,10 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
         let rebtn = document.getElementById('continueBtn');
         rebtn.onclick = () => {
             form.submit();
+        }
+        close.onclick = () => {
+            closeForm.action = '{{ route("user.complaint.close") }}' + '/' + close.getAttribute('data-id');
+            closeForm.submit()
         }
 
     </script>

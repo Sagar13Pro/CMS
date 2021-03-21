@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Postmark\PostmarkClient;
 use App\Models\userComp;
 use App\Models\User;
-use App\Notifications\Recomplaint;
+use App\Notifications\Complaint;
 use Exception;
 use Illuminate\Support\Facades\Notification;
 
@@ -171,7 +171,7 @@ class UserController extends Controller
                 'user_id' => session('session_mail'),
             ]);
         } catch (Exception $error) {
-           
+
             $complaint = false;
         }
         if ($complaint) {
@@ -216,24 +216,43 @@ class UserController extends Controller
     public function MarkReadNotification($id = null, $slug = null)
     {
         $user = User::findORFail($id);
-        $user->unreadNotifications()->where('id', $slug)->get()[0]->markAsRead();
+        $user->unreadNotifications()
+            ->where('id', $slug)
+            ->get()[0]
+            ->markAsRead();
         return redirect()->back();
     }
     //Recompalint 
     public function Recomplaint(userComp $id)
     {
-        try{
+        try {
             $admin = Admin::find(1);
-            userComp::where('Complaint_ID',$id->Complaint_ID)->update(['status'=>'Recomplained']);
-            Notification::send($admin,new Recomplaint($id->Complaint_ID));
+            userComp::where('Complaint_ID', $id->Complaint_ID)
+                ->update(['status' => 'Recomplained']);
+            Notification::send($admin, new Complaint($id->Complaint_ID, "Recomplained"));
             return redirect()
-                        ->back()
-                        ->with('message','Your Complaint has been recomplaint successfully.');
-        }catch (Exception $error){
-            dd($error);
+                ->back()
+                ->with('message', 'Your Complaint has been recomplaint successfully with ID: ' . $$id->Complaint_ID . '.');
+        } catch (Exception $error) {
+            //dd($error);
             return redirect()
-            ->back()
-            ->with('error','Something went wrong. Please Try Again.');
+                ->back()
+                ->with('error', 'Something went wrong. Please Try Again.');
         }
-    }  
+    }
+    public function Close(userComp $id, Request $request)
+    {
+        $closed = userComp::where('id', $id->id)->update([
+            'status' => 'Closed',
+            'feedBack' => $request->feedback,
+        ]);
+        if ($closed) {
+            Notification::send(Admin::find(1), new Complaint($id->Complaint_ID, "Closed"));
+            return back()
+                ->with('message', 'Your complaint with ID: ' . $id->Complaint_ID . ' has been closed successfully.', $id->Complaint_ID);
+        } else {
+            return back()
+                ->with('error', 'Something got went.Please Try Again after sometime');
+        }
+    }
 }

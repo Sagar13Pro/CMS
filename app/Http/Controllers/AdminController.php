@@ -43,7 +43,7 @@ class AdminController extends Controller
     }
     public function Logout()
     {
-        if (session()->has('admin_mail')) {
+        if (session()->exists('admin_mail') && session()->has('admin_mail')) {
             session()->pull('admin_mail');
             session()->pull('admin_name');
         }
@@ -89,7 +89,7 @@ class AdminController extends Controller
 
             if (Hash::check($request->pass, $admin[0]->password)) {
                 session()->put('admin_mail', $request->email);
-                session()->put('admin_name', $admin[0]->FullName);
+                session()->put('admin_name', $admin[0]->fullName);
                 return redirect(route('admin.dashboard.view'));
             } else {
                 return redirect(route('admin.login.view'))
@@ -136,5 +136,15 @@ class AdminController extends Controller
                 ->back()
                 ->with('error', 'Complaint ID is empty.');
         }
+    }
+    //Mark Notification 
+    public function SuperNotificationMark($id = null, $slug = null)
+    {
+        $adminNoti = Admin::findOrFail($id);
+        $adminNoti->unreadNotifications()
+            ->where('id', $slug)
+            ->get()[0]
+            ->markAsRead();
+        return back();
     }
 }

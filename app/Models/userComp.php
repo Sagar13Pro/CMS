@@ -14,6 +14,7 @@ class userComp extends Model
         'status' => 'Registered',
         'Remarks' => 'Not Assigned',
         'updated_at' => null,
+        'feedBack' => null,
     ];
     protected $fillable = [
         'Complaint_ID',

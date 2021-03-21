@@ -32,23 +32,42 @@ class DatabaseSeeder extends Seeder
             'mobileNo' => rand(10, 10),
             'password' => Hash::make('Test@123'),
         ]);
-        //admin
+        // =====================================START ADMIN==============================
         DB::table('admins')->insert([
-            'firstName' => 'admin',
+            'role' => 'Super',
+            'firstName' => 'super',
             'lastName' => 'admin',
-            'email' => 'admin@mail.com',
+            'email' => 'super@admin.com',
             'mobileNo' => rand(10, 10),
             'password' => Hash::make('Test@123'),
         ]);
-        //departmental admin
+        // =====================================END ADMIN============================== // 
+
+        //=====================================START DEPT==============================
         DB::table('depts')->insert([
-            'firstName' => 'dept',
+            'role' => 'General',
+            'firstName' => 'general',
             'lastName' => 'admin',
-            'email' => 'dept@mail.com',
+            'email' => 'general@admin.com',
             'mobileNo' => rand(10, 10),
             'password' => Hash::make('Test@123'),
         ]);
-        //COmplaint for sagarpatel@mail.com
+        DB::table('depts')->insert([
+            'role' => 'Sub',
+            'firstName' => 'sub',
+            'lastName' => 'admin',
+            'email' => 'sub@admin.com',
+            'mobileNo' => rand(10, 10),
+            'password' => Hash::make('Test@123'),
+        ]);
+
+        //========================================END DEPT=============================
+
+
+        //Complaint for sagarpatel@mail.com
+        $district = ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", "Bhavnagar", "Botad", "Chhota Udaipur", "Dahod", "Dang", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kachchh", "Kheda", "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", "Tapi", "Vadodara", "Valsad"];
+        $cities = ["Rajkot", "Dhoraji", "Gondal", "Jamkandorna", "Jasdan", "Jetpur", "Kotada Sangani", "Lodhika", "Paddhari", "Upleta", "Vinchchiya", "Himatnagar", "Idar", "Khedbrahma", "Poshina", "Prantij", "Talod", "Vadali", "Vijaynagar", "Surat", "Bardoli", "Choryasi", "Kamrej", "Mahuva", "Mandvi", "Mangrol", "Olpad", "Palsana", "Umarpada", "Chotila", "Chuda", "Dasada", "Dhrangadhra", "Lakhtar", "Limbdi", "Muli", "Sayla", "Thangadh", "Wadhwan", "Nizar", "Songadh", "Uchhal", "Valod", "Vyara", "Kukarmunda", "Dolvan", "Vadodara", "Dabhoi", "Desar", "Karjan", "Padra", "Savli", "Sinor", "Vaghodia", "Valsad", "Dharampur", "Kaprada", "Pardi", "Umbergaon", "Vapi"];
+
         for ($i = 0; $i < 10; $i++) {
             DB::table('usercomplaints')->insert([
                 'Complaint_ID' => rand(100100, 199999),
@@ -60,8 +79,8 @@ class DatabaseSeeder extends Seeder
                 'SubCategory' => Str::random(9),
                 'AuthDept' => Str::random(4),
                 'ComplaintNature' => Str::random(4),
-                'District' => Str::random(7),
-                'City' => Str::random(10),
+                'District' => $district[array_rand($district, 1)],
+                'City' => $cities[array_rand($cities, 1)],
                 'Pincode' => rand(11111, 999999),
                 'ReferenceNo' => Str::random(5),
                 'ComplaintDetails' => Str::random(20),
@@ -83,8 +102,8 @@ class DatabaseSeeder extends Seeder
                 'SubCategory' => Str::random(9),
                 'AuthDept' => Str::random(4),
                 'ComplaintNature' => Str::random(4),
-                'District' => Str::random(7),
-                'City' => Str::random(10),
+                'District' => $district[array_rand($district, 1)],
+                'City' => $cities[array_rand($cities, 1)],
                 'Pincode' => rand(11111, 999999),
                 'ReferenceNo' => Str::random(5),
                 'ComplaintDetails' => Str::random(20),

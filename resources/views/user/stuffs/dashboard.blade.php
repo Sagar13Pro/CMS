@@ -85,7 +85,11 @@ $user = User::find(session('user_id'));
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle pl-md-3 position-relative" id="read" href="javascript:void(0)" id="bell" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">{{ count($user->unreadNotifications) }}</span>
+                                @if (!count($user->unreadNotifications) == 0)
+                                <span class="badge badge-primary notify-no rounded-circle">
+                                    {{ count($user->unreadNotifications) }}
+                                </span>
+                                @endif
                             </a>
                             <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                 <ul class="list-style-none">

@@ -42,7 +42,8 @@ Route::group(['middleware' => 'CheckSession'], function () {
     Route::get('dashboard/trackcomplaint', [UserController::class, 'TrackComplaint'])->name('trackcomplaint.view');
     Route::get('/get/trackComplaint/{id}', [UserController::class, 'Track']);
     Route::get('/user/notification/read/{id}/{slug}', [UserController::class, 'MarkReadNotification'])->name('user.notified.read');
-    Route::put('dashboard/recomplaint/{id?}',[UserController::class,'Recomplaint'])->name('user.recomplaint.init');
+    Route::put('dashboard/trackComplaint/recomplaint/{id?}', [UserController::class, 'Recomplaint'])->name('user.recomplaint.init');
+    Route::put('dashboard/trackComplaint/close/{id?}', [UserController::class, 'Close'])->name('user.complaint.close');
 });
 //Logout section
 Route::get('/logout', function () {
@@ -66,7 +67,8 @@ Route::group(['middleware' => 'AdminSession'], function () {
     Route::get('admin/updatecomplaint/', [AdminController::class, 'UpdateComplaint'])->name('admin.updatecomplaint.view');
     Route::get('admin/mergecomplaint/', [AdminController::class, 'MergeComplaint'])->name('admin.merge.view');
     Route::get('/get/UpdateComplaints/{id}', [AdminController::class, 'FetchUpdate']);
-
+    //markasread
+    Route::get('super/admin/notification/read/{id}/{slug}', [AdminController::class, 'SuperNotificationMark'])->name('superadmin.notified.read');
     //Updating Complaint
     Route::put('/complaint/update', [AdminController::class, 'Update'])->name('complaint.update');
 });
@@ -83,18 +85,18 @@ Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logo
 /*=================================================================================
                                         Dept Block
 ===================================================================================*/
-Route::get('departmental/login',[DeptController::class,'Login'])->name('dept.login.view');
-Route::get('departmental/registration',[DeptController::class,'Register'])->name('dept.register.view');
+Route::get('departmental/login', [DeptController::class, 'Login'])->name('dept.login.view');
+Route::get('departmental/registration', [DeptController::class, 'Register'])->name('dept.register.view');
 //MIDDLEWARE GROUP
-Route::group(['middleware'=>'DeptMiddleware'], function(){
-    Route::get('departmental/dashboard/',[DeptController::class,'Dashboard'])->name('dept.dashboard.view');
-    Route::get('departmental/complaintlist/',[DeptController::class,'ComplaintList'])->name('dept.complaintlist.view');
-    Route::get('departmental/updatecomplaint/',[DeptController::class,'UpdateComplaint'])->name('dept.updatecomplaint.view');
-    Route::get('departmental/mergecomplaint/',[DeptController::class,'MergeComplaint'])->name('dept.mergecomplaint.view');
+Route::group(['middleware' => 'DeptMiddleware'], function () {
+    Route::get('departmental/dashboard/', [DeptController::class, 'Dashboard'])->name('dept.dashboard.view');
+    Route::get('departmental/complaintlist/', [DeptController::class, 'ComplaintList'])->name('dept.complaintlist.view');
+    Route::get('departmental/updatecomplaint/', [DeptController::class, 'UpdateComplaint'])->name('dept.updatecomplaint.view');
+    Route::get('departmental/mergecomplaint/', [DeptController::class, 'MergeComplaint'])->name('dept.mergecomplaint.view');
 });
 //VALIDATIONS AND STORE
-Route::post('departmental/dashboard/store',[DeptController::class,'Store'])->name('dept.register.store');
-Route::post('departmental/dashboard/validate/',[DeptController::class,'ValidateAdmin'])->name('dept.register.validate');
+Route::post('departmental/dashboard/store', [DeptController::class, 'Store'])->name('dept.register.store');
+Route::post('departmental/dashboard/validate/', [DeptController::class, 'ValidateAdmin'])->name('dept.register.validate');
 
 //LOGOUT
-Route::get('departmental/logout/',[DeptController::class,'Logout'])->name('dept.logout');
+Route::get('departmental/logout/', [DeptController::class, 'Logout'])->name('dept.logout');

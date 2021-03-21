@@ -10,21 +10,11 @@ class Dept extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
         'email',
         'password',
         'firstName',
         'lastName',
         'mobileNo',
-        'state',
-        'city',
-        'avatar',
-        'email_verified',
-    ];
-    protected $attributes = [
-        'password' => NULL,
-        'avatar' => NULL,
-        'email_verified' => False,
     ];
 
     public function getFirstNameAttribute($value)

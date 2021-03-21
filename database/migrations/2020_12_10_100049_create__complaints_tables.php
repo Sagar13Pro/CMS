@@ -34,6 +34,7 @@ class CreateComplaintsTables extends Migration
             $table->string('Doc2FileName')->nullable();
             $table->date('ComplaintDate');
             $table->string("Remarks")->nullable();
+            $table->string('feedBack')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('created_at')->nullable();
         });

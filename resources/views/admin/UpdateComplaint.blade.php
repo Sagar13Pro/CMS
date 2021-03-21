@@ -1,6 +1,6 @@
 @php
 use App\Models\userComp;
-$IDs = userComp::select('Complaint_ID')->get();
+$IDs = userComp::select('*')->get();
 @endphp
 
 <!DOCTYPE html>
@@ -211,7 +211,9 @@ $IDs = userComp::select('Complaint_ID')->get();
                                 <select name="CompID" id="CompID" class="form-control">
                                     <option value="">Select ID</option>
                                     @foreach($IDs as $id)
+                                    @if($id->status != "Closed")
                                     <option value="{{ $id->Complaint_ID }}">{{ $id->Complaint_ID }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>

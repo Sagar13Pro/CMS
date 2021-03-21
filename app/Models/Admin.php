@@ -10,23 +10,15 @@ class Admin extends Model
 {
     use HasFactory,Notifiable;
     protected $fillable = [
-        'name',
         'email',
         'password',
         'firstName',
         'lastName',
-        'mobileNo',
-        'state',
-        'city',
-        'avatar',
-        'email_verified',
+        'mobileNo',    
         'remember_token',
     ];
     protected $attributes = [
         'remember_token' => NULL,
-        'password' => NULL,
-        'avatar' => NULL,
-        'email_verified' => False,
     ];
 
     public function getFirstNameAttribute($value)

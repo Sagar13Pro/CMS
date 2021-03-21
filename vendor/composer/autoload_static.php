@@ -536,6 +536,7 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\userComp' => __DIR__ . '/../..' . '/app/Models/userComp.php',
         'App\\Notifications\\Notify' => __DIR__ . '/../..' . '/app/Notifications/Notify.php',
+        'App\\Notifications\\Recomplaint' => __DIR__ . '/../..' . '/app/Notifications/Recomplaint.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

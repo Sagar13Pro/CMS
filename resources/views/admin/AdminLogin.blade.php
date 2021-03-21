@@ -69,29 +69,29 @@
                     </div>
                     <div class="w-full mt-3" style="text-align: center">OR</div>
 
-                    <div class="w-full">
+                    {{-- <div class="w-full">
                         <button type="button" class="d-flex btn btn-outline-info" style="margin: 0 auto;">
                             <a href="#">
                                 <span class="mx-1"><img src="{{ asset('programs/form/assets/images/google.svg') }}" alt="google-logo" width="20" height="20"></span>
-                                <span>Google</span>
-                            </a>
-                        </button>
-                    </div>
+                    <span>Google</span>
+                    </a>
+                    </button>
+            </div> --}}
 
-                    <div class="flex-sb-m py-3 w-full">
-                        <div class="container" style="display:flex;justify-content: center;">
-                            <a href="#" class="text-primary font-weight-bold text-hover">Forgotten Password?
-                            </a>
-                        </div>
-                    </div>
-                    <div class="w-full" style="border-bottom:1px solid #dadde1;"></div>
-                    <div class="flex-sb-m w-full p-t-5 m-l-30" style="justify-content: center;">
-                        <div>
-                            Don't have an account?
-                            <a href="{{ route('admin.register.view') }}" class="text-primary font-weight-bold">
-                                Sign Up
-                            </a>
-                        </div>
+            <div class="flex-sb-m py-3 w-full">
+                <div class="container" style="display:flex;justify-content: center;">
+                    <a href="#" class="text-primary font-weight-bold text-hover">Forgotten Password?
+                    </a>
+                </div>
+            </div>
+            <div class="w-full" style="border-bottom:1px solid #dadde1;"></div>
+            <div class="flex-sb-m w-full p-t-5 m-l-30" style="justify-content: center;">
+                <div>
+                    Don't have an account?
+                    <a href="{{ route('admin.register.view') }}" class="text-primary font-weight-bold">
+                        Sign Up
+                    </a>
+                </div>
                 </form>
             </div>
         </div>
