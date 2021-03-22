@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DeptController;
 use App\Http\Controllers\UserController;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +51,9 @@ Route::get('/logout', function () {
         session()->pull('session_name');
     }
     return redirect(route('user.login.view'));
+});
+Route::get("send", function () {
+    event(new App\Events\Noti("kokokk"));
 });
 //End User Routes
 
