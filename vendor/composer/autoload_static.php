@@ -513,6 +513,7 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\MyEvent' => __DIR__ . '/../..' . '/app/Events/MyEvent.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -535,8 +536,8 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         'App\\Models\\Dept' => __DIR__ . '/../..' . '/app/Models/Dept.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\userComp' => __DIR__ . '/../..' . '/app/Models/userComp.php',
+        'App\\Notifications\\Complaint' => __DIR__ . '/../..' . '/app/Notifications/Complaint.php',
         'App\\Notifications\\Notify' => __DIR__ . '/../..' . '/app/Notifications/Notify.php',
-        'App\\Notifications\\Recomplaint' => __DIR__ . '/../..' . '/app/Notifications/Recomplaint.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
