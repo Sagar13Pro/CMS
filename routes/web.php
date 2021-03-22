@@ -52,9 +52,7 @@ Route::get('/logout', function () {
     }
     return redirect(route('user.login.view'));
 });
-Route::get("send", function () {
-    event(new App\Events\Noti("kokokk"));
-});
+
 //End User Routes
 
 /*=================================================================================
