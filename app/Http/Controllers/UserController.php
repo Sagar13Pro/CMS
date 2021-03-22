@@ -7,7 +7,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
-use Postmark\PostmarkClient;
+use Crabbly\Fpdf\Fpdf;
 use App\Models\userComp;
 use App\Models\User;
 use App\Notifications\Complaint;
@@ -137,6 +137,7 @@ class UserController extends Controller
     //new complaint store
     public function ComplaintStore(Request $request)
     {
+        $this->GeneratePDF($request);
         $request->validate([
             'complaintNature' => 'max:20',
             'district' => 'max:40',
@@ -176,6 +177,7 @@ class UserController extends Controller
         }
         if ($complaint) {
             $this->StoreDocument($request);
+            $this->GeneratePDF($request);
             return redirect(route('dashboard.user'))
                 ->with('message', 'Your Complaint has been registered successfully.');
         } else {
@@ -184,6 +186,75 @@ class UserController extends Controller
                 ->with('error', 'Please check that fields are not empty:Sub-Category/Auth-Dept| District/City')
                 ->withInput($request->all());
         }
+    }
+    //PDF Generate for complaint register adn send to user email
+    protected function GeneratePDF($request)
+    {
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Times', 'B', '18');
+        $pdf->Ln(5);
+        $pdf->cell(100, 10, 'Complaint Type');
+        $pdf->cell(100, 10, 'Complaint Category', 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', '', 17);
+        $pdf->cell(100, 10, $request->complaintType, 0);
+        $pdf->cell(100, 10, $request->complaintCategory, 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Times', 'B', 18);
+        $pdf->cell(100, 10, 'Sub-Catogory');
+        $pdf->cell(100, 10, 'Authority Department/Company', 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', '', 17);
+        $pdf->cell(100, 10, $request->subCategory);
+        $pdf->cell(100, 10, $request->AuthDept, 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Times', 'B', 18);
+        $pdf->cell(100, 10, 'Nature of Complaint');
+        $pdf->cell(100, 10, 'Date of Complaint', 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', '', 17);
+        $pdf->cell(100, 10, $request->complaintNature);
+        $pdf->cell(100, 10, $request->complaintDate, 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Times', 'B', 18);
+        $pdf->cell(100, 10, 'Pincode');
+        $pdf->cell(100, 10, 'Reference Number', 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', '', 17);
+        $pdf->cell(100, 10, $request->pincode);
+        $pdf->cell(100, 10, $request->refNo, 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Times', 'B', 18);
+        $pdf->cell(100, 10, 'District');
+        $pdf->cell(100, 10, 'City', 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', '', 17);
+        $pdf->cell(100, 10, $request->district);
+        $pdf->cell(100, 10, $request->city, 0, 0, 'L');
+        $pdf->Ln(10);
+        $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Times', 'B', 18);
+        $pdf->cell(100, 10, 'Complaint Details');
+        $pdf->Ln(10);
+        $pdf->SetFont('Times', '', 17);
+        $pdf->MultiCell(0, 10, $request->complaintDetails);
+        $pdf->Ln(10);
+        $pdf->output();
     }
     //document store
     public function StoreDocument($request)

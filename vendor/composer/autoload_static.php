@@ -33,8 +33,8 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
     );
 
@@ -168,6 +168,7 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         'C' => 
         array (
             'Cron\\' => 5,
+            'Crabbly\\Fpdf\\' => 13,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -489,6 +490,10 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Crabbly\\Fpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/crabbly/fpdf-laravel/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -641,6 +646,9 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Crabbly\\Fpdf\\Exception' => __DIR__ . '/..' . '/crabbly/fpdf-laravel/src/Exception.php',
+        'Crabbly\\Fpdf\\Fpdf' => __DIR__ . '/..' . '/crabbly/fpdf-laravel/src/Fpdf.php',
+        'Crabbly\\Fpdf\\FpdfServiceProvider' => __DIR__ . '/..' . '/crabbly/fpdf-laravel/src/FpdfServiceProvider.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',

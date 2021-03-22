@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '633826dda2b4cb52e1eae12a6928842c5d3d0b66',
+    'reference' => '70fe69c2b934bd3056fcab0f4774e97dccff4661',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,6 +35,15 @@
       array (
         0 => '*',
       ),
+    ),
+    'crabbly/fpdf-laravel' => 
+    array (
+      'pretty_version' => 'v1.0.6',
+      'version' => '1.0.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '29555490cd8062697bcc5c3d062213ffbe4024fb',
     ),
     'davedevelopment/hamcrest-php' => 
     array (
@@ -445,7 +454,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '633826dda2b4cb52e1eae12a6928842c5d3d0b66',
+      'reference' => '70fe69c2b934bd3056fcab0f4774e97dccff4661',
     ),
     'laravel/socialite' => 
     array (

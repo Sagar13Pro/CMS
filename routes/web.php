@@ -52,7 +52,9 @@ Route::get('/logout', function () {
     }
     return redirect(route('user.login.view'));
 });
-
+Route::get('/pdf', function () {
+    $pdf = new \Crabbly\Fpdf\FPDF;
+});
 //End User Routes
 
 /*=================================================================================
