@@ -452,7 +452,6 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                 document.getElementById('btnRecomplaint').style.display = 'none';
                             }
                             close.setAttribute('data-id', response.complaint[0]['id']);
-                            console.log(close);
                         }
                     });
 
