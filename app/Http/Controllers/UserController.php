@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Notifications\Complaint;
 use Exception;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -100,7 +101,7 @@ class UserController extends Controller
                     return redirect(route('dashboard.user'));
                 }
             } catch (Exception $error) {
-                dd($error);
+                //dd($error);
             }
         } else {
             session()->put('session_mail', $user->user['email']);
@@ -137,17 +138,14 @@ class UserController extends Controller
     //new complaint store
     public function ComplaintStore(Request $request)
     {
-        $this->GeneratePDF($request);
-        $request->validate([
+        //dd($request->all());
+        $validate = validator::make($request->all(), [
             'complaintNature' => 'max:20',
-            'district' => 'max:40',
-            'city' => 'max:40',
             'pincode' => 'digits:6',
             'complaintDetails' => 'max:80',
-            'document1' => 'max:2048',
-            'document2' => 'max:2048'
-        ]);
-
+            'document1' => 'mimes:pdf,docx,doc,jpg,jpeg,png|max:2048',
+            'document2' => 'mimes:pdf,docx,doc,jpg,jpeg,png|max:2048'
+        ])->validated();
         try {
             $value = userComp::all()->last();
             if (is_null($value)) {
@@ -176,7 +174,7 @@ class UserController extends Controller
             $complaint = false;
         }
         if ($complaint) {
-            $this->StoreDocument($request);
+            $path = $this->StoreDocument($request);
             $this->GeneratePDF($request);
             return redirect(route('dashboard.user'))
                 ->with('message', 'Your Complaint has been registered successfully.');
@@ -220,8 +218,9 @@ class UserController extends Controller
         $pdf->cell(100, 10, 'Date of Complaint', 0, 0, 'L');
         $pdf->Ln(10);
         $pdf->SetFont('Times', '', 17);
-        $pdf->cell(100, 10, $request->complaintNature);
-        $pdf->cell(100, 10, $request->complaintDate, 0, 0, 'L');
+        $pdf->MultiCell(90, 10, $request->complaintNature, 0);
+        $pdf->SetXY($pdf->GetX() + 100, $pdf->getY() - 20);
+        $pdf->cell(100, 10, $request->complaintDate, 0, 40, 'L');
         $pdf->Ln(10);
         $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
         $pdf->Ln(10);
@@ -266,7 +265,7 @@ class UserController extends Controller
                 'Doc1FileName' => $getID->Complaint_ID . '__A.' . $file->getClientOriginalExtension(),
             ]);
             $name = userComp::all()->last();
-            $var = $file->storeAs('document', $name->Doc1FileName);
+            $path1 = $file->storeAs('document', $name->Doc1FileName);
         }
         if ($request->hasFile('document2')) {
             $file =  $request->file('document2');
@@ -275,8 +274,12 @@ class UserController extends Controller
                 'Doc2FileName' => $getID->Complaint_ID . '__B.' . $file->getClientOriginalExtension(),
             ]);
             $name = userComp::all()->last();
-            $var = $file->storeAs('document', $name->Doc2FileName);
+            $path2 = $file->storeAs('document', $name->Doc2FileName);
         }
+        return  [
+            'doc1' => storage_path() . '/' . $path1,
+            'doc2' => storage_path() . '/' . $path2,
+        ];
     }
     public function Track($id = null)
     {

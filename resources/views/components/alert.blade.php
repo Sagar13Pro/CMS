@@ -40,12 +40,58 @@
     </div>
     @endif
     @endif
+    {{-- For Validation of New Complaints Field --}}
+    @if($type = "ValidationError")
+    @error('complaintNature')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ $message }}
+    </div>
+    @enderror
+
+    @error('pincode')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ $message }}
+    </div>
+    @enderror
+
+    @error('refNo')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ $message }}
+    </div>
+    @enderror
+
+
+    @error('complaintDetails')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ $message }}
+    </div>
+    @enderror
+
+    @error('document1')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ $message }}
+    </div>
+    @enderror
+
+    @error('document2')
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ $message }}
+    </div>
+    @enderror
+
+    @endif
 </div>
 <script>
     setTimeout(() => {
         if ($('.alert-box').length > 0) {
             $('.alert-box').remove();
         }
-    }, 6000);
+    }, 15000);
 
 </script>

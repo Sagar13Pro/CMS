@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DeptController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +53,9 @@ Route::get('/logout', function () {
         session()->pull('session_name');
     }
     return redirect(route('user.login.view'));
+});
+Route::get('send', function () {
+    Notification::send(User::find(1), new \App\Notifications\Notify('', '', ''));
 });
 //End User Routes
 

@@ -219,7 +219,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                 <div class="d-flex align-items-center mb-4">
                                     <h4 class="card-title">Complaint Registration Form</h4>
                                 </div>
-                                <x-alert />
+                                <x-alert type="ValidationError" />
                                 <div class="table-responsive">
                                     <form action="{{ route('newcomplaint.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
@@ -227,7 +227,7 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                             <tr>
                                                 <th>Complaint Type</th>
                                                 <td>
-                                                    <select class="form-control" id="Complaint Type" name="complaintType">
+                                                    <select class="form-control" id="Complaint Type" name="complaintType" required>
                                                         <option value="">Select Type</option>
                                                         <option value="Complaint" {{old('complaintType') == 'Complaint' ? 'selected' :''}}>Complaint</option>
                                                         <option value="Query" {{old('complaintType') == 'Query' ? 'selected' :''}}>Query</option>
@@ -235,12 +235,11 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                                 </td>
                                                 <th>Complaint Category</th>
                                                 <td>
-                                                    <select class="form-control" id="Complaint Category" name="complaintCategory">
+                                                    <select class="form-control" id="Complaint Category" name="complaintCategory" required>
                                                         <option value="">Select Category</option>
                                                         <option value="Government" {{old('complaintCategory') == 'Government' ? 'selected' :''}}>Government</option>
 
                                                         <option value="Non-Government" {{old('complaintCategory') == 'Non-Government' ? 'selected' :''}}>Non-Government</option>
-
                                                     </select>
                                                 </td>
                                             </tr>
@@ -249,13 +248,13 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                                 <th>Sub-Catogory</th>
                                                 <script type="text/javascript" src="../Data/SubCategory.js"></script>
                                                 <td>
-                                                    <select name="subCategory" class="form-control" id="Sub_Category"></select>
+                                                    <select name="subCategory" class="form-control" id="Sub_Category" required></select>
                                                 </td>
                                                 <th>Authority Department/Company</th>
 
                                                 <td>
                                                     <script type="text/javascript" src="Data/SubCategory.js"></script>
-                                                    <select name="AuthDept" class="form-control" id="AuthDept"></select>
+                                                    <select name="AuthDept" class="form-control" id="AuthDept" required></select>
                                                 </td>
                                             </tr>
                                             <script language="javascript">
@@ -264,27 +263,22 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
                                             </script>
                                             <tr>
                                                 <th>Nature of Complaint
-                                                <td> <input type="text" class="form-control" name="complaintNature" id="Nature" placeholder="Nature Of Complaint" value="{{ old('complaintNature') }}"></td>
+                                                <td> <input type="text" class="form-control" name="complaintNature" id="Nature" placeholder="Nature Of Complaint" value="{{ old('complaintNature') }}" required></td>
 
                                                 </th>
                                                 <th>Date of Complaint</th>
-                                                <td><input type="date" name="complaintDate" class="form-control" id="DateOfComp" value="{{ old('complaintDate') }}"></td>
-
-
+                                                <td><input type="date" name="complaintDate" class="form-control" id="DateOfComp" value="{{ old('complaintDate') }}" required></td>
                                             </tr>
-
                                             <tr>
                                                 <th>District</th>
                                                 <td>
                                                     <script type="text/javascript" src="../dist/js/countries.js"></script>
-                                                    <select id="District" name="district" class="form-control"></select>
+                                                    <select id="District" name="district" class="form-control" required></select>
                                                 </td>
-
-
                                                 <th>City</th>
                                                 <td>
                                                     <script type="text/javascript" src="../dist/js/countries.js"></script>
-                                                    <select class="form-control" id="City" name="city"></select>
+                                                    <select class="form-control" id="City" name="city" required></select>
                                                 </td>
                                                 <script language="javascript">
                                                     populateDistricts("District", "City");
@@ -295,35 +289,23 @@ $avatar = User::select('avatar')->where('email',session()->get('session_mail'))-
 
                                             <tr>
                                                 <th>Pincode</th>
-                                                <td> <input type="number" class="form-control" id="Pincode" placeholder="Pincode" name="pincode" value="{{ old('pincode') }}"></td>
-
-
-
-
+                                                <td> <input type="text" class="form-control" id="Pincode" placeholder="Pincode" name="pincode" value="{{ old('pincode') }}" required></td>
                                                 <th>Ref. No</th>
                                                 <td>
-                                                    <p>Ex.- Doc. NO.,Order No.,Customer Id,etc.</p><input name="refNo" type="text" class="form-control" id="Refno" placeholder="Ref.No" value="{{ old('refNo') }}">
-
-
+                                                    <p>Ex.- Doc. NO. ,Order No. ,Customer Id,etc.</p><input name="refNo" type="text" class="form-control" id="Refno" placeholder="Ref.No" value="{{ old('refNo') }}" required>
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <th>Complaint Details</th>
-                                                <td><textarea rows="3" cols="40" name="complaintDetails" class="form-control" placeholder="Please Enter Complaint Details">{{ old('complaintDetails') }}</textarea> </td>
-
-
+                                                <td><textarea rows="3" cols="40" name="complaintDetails" class="form-control" placeholder="Please Enter Complaint Details" required>{{ old('complaintDetails') }}</textarea></td>
                                             </tr>
-
                                             <tr>
                                                 <th>Document 1</th>
-                                                <td> <input type="file" class="form-control-file" id="Doc1" placeholder="Doc1" name="document1" accept="application/pdf,.doc,.docx"></td>
-
-
+                                                <td> <input type="file" class="form-control-file" id="Doc1" placeholder="Doc1" name="document1" accept="application/pdf,.doc,.docx,image/*"></td>
                                                 <th>Document 2</th>
-                                                <td> <input type="file" class="form-control-file" id="Doc2" placeholder="Doc2" name="document2" accept="application/pdf,.doc,.docx"></td>
+                                                <td> <input type="file" class="form-control-file" id="Doc2" placeholder="Doc2" name="document2" accept="application/pdf,.doc,.docx,image/*"></td>
                                             </tr>
-
                                         </table>
                                         <br><br>
 
