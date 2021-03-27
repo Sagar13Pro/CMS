@@ -16,7 +16,7 @@ class Complaint extends Notification
      *
      * @return void
      */
-    protected $id, $status;
+    public $id, $status;
     public function __construct($id, $status)
     {
         $this->Complaint_ID = $id;

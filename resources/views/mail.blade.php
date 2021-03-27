@@ -1,4 +1,4 @@
-<strong>{{$name}}</strong>
+<strong>{{$name ?? ''}}</strong>
 <p>
     Thank you for registration in Parul University Digital Hackathon.
     <br>

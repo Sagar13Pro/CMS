@@ -14,6 +14,7 @@ use App\Notifications\Complaint;
 use Exception;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -60,6 +61,7 @@ class UserController extends Controller
             $user = false;
         }
         if ($user) {
+            $this->SendEmail($request);
             return redirect(route('user.login.view'))
                 ->with('message', 'Registration Successfull.');
         } else {
@@ -72,10 +74,8 @@ class UserController extends Controller
     function redirectToProviderGoogle()
     {
         try {
-            //dd('helo');
             return Socialite::driver('google')->redirect();
         } catch (Exception $error) {
-            dd($error);
             return redirect(route('login.view'))
                 ->with('error', 'Something got Wrong. Please Try Again.!!');
         }
@@ -96,18 +96,33 @@ class UserController extends Controller
                     'email_verified' => $user->user['email_verified'],
                 ]);
                 if ($users) {
+                    $this->SendEmail('', $user['email']);
                     session()->put('session_mail', $user->user['email']);
                     session()->put('session_name', User::where('email', $user->user['email'])->get()[0]->FullName);
                     return redirect(route('dashboard.user'));
                 }
             } catch (Exception $error) {
                 //dd($error);
+                return redirect(route('login.view'))
+                    ->with('error', 'The page refreshed.');
             }
         } else {
             session()->put('session_mail', $user->user['email']);
             session()->put('session_name', User::where('email', $user->user['email'])->get()[0]->FullName);
             return redirect(route('dashboard.user'));
         }
+    }
+    //Email for registration
+    public function SendEmail($request, $toMail)
+    {
+        if (is_null($toMail)) {
+            $toMail = $request->_email;
+        }
+        $data =  ['Hello' => $toMail];
+        Mail::send('mail', $data, function ($message) use ($toMail) {
+            $message->to($toMail)
+                ->subject('Team ID For PU Digital Hackathon');
+        });
     }
     //user validation
     function ValidateUser(Request $request)
@@ -170,7 +185,6 @@ class UserController extends Controller
                 'user_id' => session('session_mail'),
             ]);
         } catch (Exception $error) {
-
             $complaint = false;
         }
         if ($complaint) {
