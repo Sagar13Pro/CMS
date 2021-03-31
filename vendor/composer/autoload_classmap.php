@@ -27,6 +27,7 @@ return array(
     'App\\Http\\Requests\\RegistrationValidator' => $baseDir . '/app/Http/Requests/RegistrationValidator.php',
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\Dept' => $baseDir . '/app/Models/Dept.php',
+    'App\\Models\\Merged' => $baseDir . '/app/Models/Merged.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\userComp' => $baseDir . '/app/Models/userComp.php',
     'App\\Notifications\\Complaint' => $baseDir . '/app/Notifications/Complaint.php',

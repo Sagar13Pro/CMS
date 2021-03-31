@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf_token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <title>Complaint List</title>
@@ -210,8 +211,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Complaints List</h4>
-
-                                <div class="table-responsive">
+                                <div id="alerts" class="alert alert-info m-2" style="display: none">
+                                    <span>Please select at least 2 complaint to be merged</span>
+                                </div>
+                                <x-alert type="ErrorMsg" />
+                                <div class="table-responsive" id="append">
                                     <table id="default_order" class="table table-striped table-bordered display no-wrap" style="width:100%">
                                         <thead>
                                             <tr>
@@ -228,8 +232,8 @@
                                             <tr>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                        <label class="custom-control-label" for="customCheck1"></label>
+                                                        <input type="checkbox" class="custom-control-input merge-input" id="{{ $item->id }}" value="{{ $item->AuthDept }}" />
+                                                        <label class="custom-control-label" for="{{ $item->id }}"></label>
                                                     </div>
                                                 </td>
                                                 <td>{{ $item->Complaint_ID }}</td>
@@ -252,7 +256,44 @@
                                         </tfoot>
                                     </table>
                                 </div><br><br>
-                                <button type="submit" class="btn btn-primary">Merge Selected</button>
+                                <button id="mergeBtn" type="submit" class="btn btn-primary">Merge Selected</button>
+                                <form id="merge-form" action="{{ route('complaint.merge') }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                </form>
+                                <script>
+                                    let Btns = document.getElementById('mergeBtn');
+                                    let form = document.getElementById('merge-form');
+                                    let data = document.querySelectorAll('.merge-input');
+                                    let Arr = new Array();
+                                    let alert = document.getElementById('alerts');
+                                    Btns.onclick = () => {
+                                        let count = 0;
+                                        data.forEach(element => {
+                                            if (element.checked) {
+                                                let input = document.createElement("input");
+                                                input.setAttribute('name', 'Check[]');
+                                                input.setAttribute('value', element.id);
+                                                input.setAttribute('style', 'display:none');
+                                                form.appendChild(input);
+                                                count += 1;
+                                            }
+                                        });
+                                        if (count > 1) {
+                                            form.submit();
+                                        } else {
+                                            alerts.setAttribute('style', 'display:block');
+                                        }
+                                    }
+
+                                    setInterval(() => {
+                                        if ($("#alerts").length > 0) {
+                                            alerts.setAttribute('style', 'display:none');
+                                        }
+                                    }, 9000);
+
+                                </script>
+
                             </div>
                         </div>
                     </div>

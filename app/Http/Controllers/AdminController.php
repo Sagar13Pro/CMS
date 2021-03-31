@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Merged;
 use App\Models\userComp;
 use App\Models\User;
 use DateTime;
@@ -38,7 +39,7 @@ class AdminController extends Controller
     }
     public function MergeComplaint()
     {
-        $List = userComp::all();
+        $List = userComp::whereIn('status', ['Registered'])->get();
         return view('admin.MergeComplaint', compact('List'));
     }
     public function Logout()
@@ -111,8 +112,17 @@ class AdminController extends Controller
     //Model For UpateComplaint with route binding
     public function FetchUpdate($id = null)
     {
+        $Merge = null;
+        $Complaints = userComp::where('Complaint_ID', $id)->get();
+        if ($Complaints[0]->isMerged) {
+            $Merge =  Merged::select('Merged_ID')->where('Complaint_ID', $id)->get()[0]['Merged_ID'];
+        }
         return response()
-            ->json(['success' => true, 'update' => userComp::where('Complaint_ID', $id)->get()]);
+            ->json([
+                'success' => true,
+                'update' => $Complaints,
+                'Merged_ID' => $Merge,
+            ]);
     }
     //For UpdateComplaint Model Updating remarks and status for a complaint
     public function Update(Request $request)
@@ -131,7 +141,6 @@ class AdminController extends Controller
                 ->back()
                 ->with('message', 'Complaint updated successfully with id:' . $to_update->Complaint_ID . '.');
         } catch (Exception  $err) {
-            dd($err);
             return redirect()
                 ->back()
                 ->with('error', 'Complaint ID is empty.');
@@ -146,5 +155,52 @@ class AdminController extends Controller
             ->get()[0]
             ->markAsRead();
         return back();
+    }
+    //Merging Complaints
+    public function Merge(Request $request)
+    {
+
+        $getCount = count($request->Check);
+        $ArrComplaints = array();
+        for ($i = 0; $i < $getCount; $i++) {
+            $var  = userComp::where('id', $request->Check[$i])->get()[0];
+            array_push($ArrComplaints, $var);
+        }
+        // dd($ArrComplaints[0]['AuthDe);
+        $Auth = $ArrComplaints[0]['AuthDept'];
+        $Sub = $ArrComplaints[0]['SubCategory'];
+        foreach ($ArrComplaints as $item) {
+            if ($item->AuthDept != $Auth) {
+                return back()
+                    ->with('info', 'Please Select complaint with common Auth and Sub Category');
+            }
+        }
+        //ID GENERATOR
+        $merge = Merged::select('Merged_ID')->orderBy('id', 'desc')->first();
+        if (is_null($merge)) {
+            $mergeID = 'Merged_0';
+        } else {
+            $int = (int)substr($merge->Merged_ID, 7);
+            $Newint = (string)$int + 1;
+            $mergeID = str_replace($int, $Newint, $merge->Merged_ID);
+        }
+        foreach ($ArrComplaints as $item) {
+            if ($item->AuthDept == $Auth) {
+                $item->Status = 'Merged';
+                $item->isMerged = 1;
+                $item->Merged_ID = $mergeID;
+                $item->save();
+                $merged = Merged::create([
+                    'Merged_ID' => $mergeID,
+                    'Complaint_ID' => $item->Complaint_ID
+                ]);
+                if ($merged) {
+                    $user = User::find($item->user_id);
+                    $user->notify(new \App\Notifications\Notify("Merged", "Your Complaint has been Merged and new ID is: " . Merged::select('Merged_ID')->where('Complaint_ID', $item->Complaint_ID)->get()[0]['Merged_ID'], $item->Complaint_ID));
+                }
+            }
+        }
+        return back()
+            ->with('message', 'Complaints are merged.');
     }
 }

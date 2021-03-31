@@ -320,8 +320,8 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                         <div class="text-center">
                             <i class="dripicons-information h1 text-info"></i>
                             <h4 class="mt-2">Heads up!</h4>
-                            <p class="mt-3">Cras mattis consectetur purus sit amet fermentum.
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                            <p class="mt-3">You're sure to be proceed further for recomplaining.</p>
+                            <p>Once you recomplained you can't be able to recomplain again.</p>
                             <button id="continueBtn" type="button" class="btn btn-info my-2" data-dismiss="">Continue</button>
                         </div>
                     </div>
@@ -445,7 +445,9 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                             document.getElementById('data8').innerHTML = response.complaint[0]['updated_at'];
                             document.getElementById('data9').innerHTML = response.complaint[0]['status'];
                             document.getElementById('data10').innerHTML = response.complaint[0]['Remarks'];
-                            if (response.complaint[0]['status'] != 'Registered') {
+                            let Status = response.complaint[0]['status'];
+
+                            if (Status == 'Solved' || Status == 'Pending') {
                                 document.getElementById('btnRecomplaint').style.display = 'inline-block';
                                 form.action = '{{ route("user.recomplaint.init") }}' + '/' + response.complaint[0]['id'];
                             } else {

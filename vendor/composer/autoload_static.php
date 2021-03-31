@@ -544,6 +544,7 @@ class ComposerStaticInit353bcd73afefdaa0c3add6391d2b00e1
         'App\\Http\\Requests\\RegistrationValidator' => __DIR__ . '/../..' . '/app/Http/Requests/RegistrationValidator.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\Dept' => __DIR__ . '/../..' . '/app/Models/Dept.php',
+        'App\\Models\\Merged' => __DIR__ . '/../..' . '/app/Models/Merged.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\userComp' => __DIR__ . '/../..' . '/app/Models/userComp.php',
         'App\\Notifications\\Complaint' => __DIR__ . '/../..' . '/app/Notifications/Complaint.php',

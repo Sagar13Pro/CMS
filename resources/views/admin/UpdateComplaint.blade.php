@@ -1,6 +1,8 @@
 @php
 use App\Models\userComp;
+use App\Models\Merged;
 $IDs = userComp::select('*')->get();
+$merge = Merged::all();
 @endphp
 
 <!DOCTYPE html>
@@ -211,9 +213,12 @@ $IDs = userComp::select('*')->get();
                                 <select name="CompID" id="CompID" class="form-control">
                                     <option value="">Select ID</option>
                                     @foreach($IDs as $id)
-                                    @if($id->status != "Closed")
+                                    @if($id->status != "Closed" && $id->status != 'Merged')
                                     <option value="{{ $id->Complaint_ID }}">{{ $id->Complaint_ID }}</option>
                                     @endif
+                                    @endforeach
+                                    @foreach ($merge as $item)
+                                    <option value="{{ $item->Complaint_ID }}">{{ $item->Merged_ID }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -391,7 +396,11 @@ $IDs = userComp::select('*')->get();
                     $.get('/get/UpdateComplaints/' + ID.value, function(response) {
                         if (response.success) {
                             console.log(response.update[0]);
-                            document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
+                            if (response.update[0]['isMerged'] == 1) {
+                                document.getElementById("data1").innerHTML = response.Merged_ID;
+                            } else {
+                                document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
+                            }
                             document.getElementById("data2").innerHTML = response.update[0]['ComplaintDate'];
                             document.getElementById("data3").innerHTML = response.update[0]['ComplaintCategory'];
                             document.getElementById("data4").innerHTML = response.update[0]['SubCategory'];

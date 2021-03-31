@@ -15,6 +15,7 @@ class userComp extends Model
         'Remarks' => 'Not Assigned',
         'updated_at' => null,
         'feedBack' => null,
+        'isMerged' => 0,
     ];
     protected $fillable = [
         'Complaint_ID',
@@ -31,6 +32,8 @@ class userComp extends Model
         'ComplaintDetails',
         'ComplaintDate',
         'user_id',
+        'isMerged',
+        'Merged_ID'
     ];
 
     public function setComplaintIDAttribute($value)

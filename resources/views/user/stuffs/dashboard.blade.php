@@ -101,7 +101,7 @@ $user = User::find(session('user_id'));
                                             <a href="{{ route('user.notified.read',[$item->notifiable_id,$item->id]) }}" class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <div class="btn btn-danger rounded-circle btn-circle"><i data-feather="airplay" class="text-white"></i></div>
                                                 <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Status: {{ $item->data['Status'] }}, Remarks: {{ $item->data['Remarks'] }}</h6>
+                                                    <h6 class="message-title mb-0 mt-1">Status: {{ $item->data['Status'] }}<br> Remarks: {{ $item->data['Remarks'] }}</h6>
                                                     <span class="font-12 text-nowrap d-block text-muted">Update for Complaint with ID: {{ $item->data['CompID'] }}</span>
                                                     <span class="font-12 text-nowrap d-block text-muted">{{ $item->created_at }}</span>
                                                 </div>
@@ -114,12 +114,12 @@ $user = User::find(session('user_id'));
                                             @endif
                                         </div>
                                     </li>
-                                    <!-- <li>
-                                        <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
-                                            <strong>Check all notifications</strong>
+                                    <li>
+                                        <a class="nav-link pt-3 text-center text-dark" href="{{ route('user.notified.read',session('user_id')) }}">
+                                            <strong>Mark All Read</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
-                                    </li> -->
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -131,13 +131,6 @@ $user = User::find(session('user_id'));
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <!-- <li class="nav-item d-none d-md-block">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <div>
-                                    <img src="{{ asset('images/notification.svg') }}" alt="user" class="rounded-circle" width="25"><sup><span class="badge badge-info" style="padding:2px 8px;font-size:.75rem;"></span></sup>
-                                </div>
-                            </a>
-                        </li> -->
 
                         <li class="nav-item d-none d-md-block">
                             <a class="nav-link" href="javascript:void(0)">

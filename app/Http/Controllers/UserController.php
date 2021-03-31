@@ -61,7 +61,7 @@ class UserController extends Controller
             $user = false;
         }
         if ($user) {
-            $this->SendEmail($request);
+            $this->SendEmail($request, '');
             return redirect(route('user.login.view'))
                 ->with('message', 'Registration Successfull.');
         } else {
@@ -189,7 +189,7 @@ class UserController extends Controller
         }
         if ($complaint) {
             $path = $this->StoreDocument($request);
-            $this->GeneratePDF($request);
+            // $invoice = $this->GeneratePDF($request);
             return redirect(route('dashboard.user'))
                 ->with('message', 'Your Complaint has been registered successfully.');
         } else {
@@ -267,11 +267,14 @@ class UserController extends Controller
         $pdf->SetFont('Times', '', 17);
         $pdf->MultiCell(0, 10, $request->complaintDetails);
         $pdf->Ln(10);
-        $pdf->output();
+        $Invoice = $pdf->output();
+        return $Invoice;
     }
     //document store
     public function StoreDocument($request)
     {
+        $path1 = null;
+        $path2 = null;
         if ($request->hasFile('document1')) {
             $file =  $request->file('document1');
             $getID = userComp::all()->last();
@@ -303,12 +306,17 @@ class UserController extends Controller
     //User notification mark Read
     public function MarkReadNotification($id = null, $slug = null)
     {
+
         $user = User::findORFail($id);
-        $user->unreadNotifications()
-            ->where('id', $slug)
-            ->get()[0]
-            ->markAsRead();
-        return redirect()->back();
+        if (is_null($slug)) {
+            $user->unreadNotifications->markAsRead();
+        } else {
+            $user->unreadNotifications()
+                ->where('id', $slug)
+                ->get()[0]
+                ->markAsRead();
+        }
+        return redirect(route('dashboard.user'));
     }
     //Recompalint 
     public function Recomplaint(userComp $id)
@@ -320,14 +328,15 @@ class UserController extends Controller
             Notification::send($admin, new Complaint($id->Complaint_ID, "Recomplained"));
             return redirect()
                 ->back()
-                ->with('message', 'Your Complaint has been recomplaint successfully with ID: ' . $$id->Complaint_ID . '.');
+                ->with('message', 'Your Complaint has been recomplaint successfully with ID: ' . $id->Complaint_ID . '.');
         } catch (Exception $error) {
-            //dd($error);
+            // dd($error);
             return redirect()
                 ->back()
                 ->with('error', 'Something went wrong. Please Try Again.');
         }
     }
+
     public function Close(userComp $id, Request $request)
     {
         $closed = userComp::where('id', $id->id)->update([

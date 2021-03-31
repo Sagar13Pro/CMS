@@ -196,20 +196,22 @@ $admin = Admin::where('email',session('admin_mail'))->get()[0];
                                 <span class="hide-menu">Merge Complaint</span>
                             </a>
                         </li>
-                        <li class="list-divider"></li>
+
+                        {{--<li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Manage Departments</span></li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('admin.compliantlist.view') }}" aria-expanded="false">
-                                <i data-feather="server" class="feather-icon"></i>
-                                <span class="hide-menu">Department List</span>
-                            </a>
+                        <i data-feather="server" class="feather-icon"></i>
+                        <span class="hide-menu">Department List</span>
+                        </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link sidebar-link" href="{{ route('admin.updatecomplaint.view') }}" aria-expanded="false">
                                 <i data-feather="user-plus" class="feather-icon"></i>
                                 <span class="hide-menu">Admin List</span>
                             </a>
-                        </li>
+                        </li> --}}
+
                         <!-- <li class="sidebar-item">
                             <a class="sidebar-link sidebar-link" href="{{ route('admin.merge.view') }}" aria-expanded="false">
                                 <i data-feather="link" class="feather-icon"></i>

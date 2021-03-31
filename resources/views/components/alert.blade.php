@@ -25,7 +25,7 @@
     @enderror
     @endif
 
-    {{-- For error with message or error --}}
+    {{-- For error with MESSAGE or ERROR or INFO--}}
     @if($type == 'ErrorMsg')
     @if(session('message'))
     <div class="alert alert-success alert-dismissible">
@@ -37,6 +37,12 @@
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>OPPS!&#129325;</strong> {{ session()->get('error') }}
+    </div>
+    @endif
+    @if(session('info'))
+    <div class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>OPPS!</strong> {{ session()->get('info') }}
     </div>
     @endif
     @endif

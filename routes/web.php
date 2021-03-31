@@ -42,7 +42,7 @@ Route::group(['middleware' => 'CheckSession'], function () {
     Route::post('/dashboard/newcomplaint/store', [UserController::class, 'ComplaintStore'])->name('newcomplaint.store');
     Route::get('dashboard/trackcomplaint', [UserController::class, 'TrackComplaint'])->name('trackcomplaint.view');
     Route::get('/get/trackComplaint/{id}', [UserController::class, 'Track']);
-    Route::get('/user/notification/read/{id}/{slug}', [UserController::class, 'MarkReadNotification'])->name('user.notified.read');
+    Route::get('/user/notification/read/{id}/{slug?}', [UserController::class, 'MarkReadNotification'])->name('user.notified.read');
     Route::put('dashboard/trackComplaint/recomplaint/{id?}', [UserController::class, 'Recomplaint'])->name('user.recomplaint.init');
     Route::put('dashboard/trackComplaint/close/{id?}', [UserController::class, 'Close'])->name('user.complaint.close');
 });
@@ -75,6 +75,8 @@ Route::group(['middleware' => 'AdminSession'], function () {
     Route::get('super/admin/notification/read/{id}/{slug}', [AdminController::class, 'SuperNotificationMark'])->name('superadmin.notified.read');
     //Updating Complaint
     Route::put('/complaint/update', [AdminController::class, 'Update'])->name('complaint.update');
+    //Merging complaint
+    Route::put('/admin/mergecomplaint/merge', [AdminController::class, 'Merge'])->name('complaint.merge');
 });
 //Pop Model get details
 Route::get('/get/ComplaintDetails/{id}', [AdminController::class, 'FetchDetails']);
@@ -88,7 +90,7 @@ Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logo
 
 /*=================================================================================
                                         Dept Block
-===================================================================================*/
+===================================================================================*
 Route::get('departmental/login', [DeptController::class, 'Login'])->name('dept.login.view');
 Route::get('departmental/registration', [DeptController::class, 'Register'])->name('dept.register.view');
 //MIDDLEWARE GROUP
@@ -104,3 +106,4 @@ Route::post('departmental/dashboard/validate/', [DeptController::class, 'Validat
 
 //LOGOUT
 Route::get('departmental/logout/', [DeptController::class, 'Logout'])->name('dept.logout');
+*/
