@@ -18,7 +18,7 @@ class CreateComplaintsTables extends Migration
             $table->string('foreignEmail', 40);
             $table->foreign('foreignEmail')->on('users')->references('Email');
             $table->integer('user_id');
-            $table->bigInteger('Complaint_ID');
+            $table->bigInteger('Complaint_ID')->unique();
             $table->boolean('isMerged');
             $table->string('Merged_ID')->nullable();
             $table->string('status');

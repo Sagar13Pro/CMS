@@ -16,13 +16,14 @@ class CreateMergedsTable extends Migration
         Schema::create('mergeds', function (Blueprint $table) {
             $table->id();
             $table->string('Merged_ID');
-            $table->bigInteger('Complaint_ID');
-            $table->string('user_id');
-            // $table->foreign('Complaint_ID')->on('UserComplaints')->references('Complaint_ID');
+            $table->string('status', 30);
+            $table->json('Complaint_ID');
+            $table->json('user_id');
             $table->string('ComplaintType', 30);
             $table->string('ComplaintCategory', 30);
             $table->string('SubCategory', 30);
-            $table->string('AuthDept');
+            $table->string('AuthDept', 30);
+            $table->string('Remarks')->nullable();
             $table->timestamps();
         });
     }

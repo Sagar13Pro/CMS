@@ -1,6 +1,7 @@
 <?php
 use App\Models\User;
 use App\Models\userComp;
+use App\Models\Merged;
 $avatar = User::select('avatar')->where('email',session()->get('session_mail'))->get();
 $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',session()->get('session_mail'))->get();
 ?>
@@ -216,6 +217,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+
                 <div class="col-sm-12 col-md-6 col-lg-6" id="append">
                     <div class="card">
                         <div class="card-body">
@@ -253,7 +255,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                             <tr>
                                                 <th>Complaint I'd</th>
                                                 <td id="data1">xxxxxx</td>
-                                                <th>Complaint Date</th>
+                                                <th id="data2Heading">Complaint Date</th>
                                                 <td id="data2">xxxxxxxxxxxxx</td>
                                             </tr>
                                             <tr>
@@ -436,7 +438,14 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                         if (response.success) {
                             console.log(response.complaint);
                             document.getElementById('data1').innerHTML = response.complaint[0]['Complaint_ID'];
-                            document.getElementById('data2').innerHTML = response.complaint[0]['ComplaintDate'];
+                            if (!response.complaint[0]['ComplaintDate']) {
+                                document.getElementById("data2Heading").innerHTML = 'Merged I\'D';
+
+                                document.getElementById("data2").innerHTML = response.complaint[0]['Merged_ID'];
+                            } else {
+                                document.getElementById("data2Heading").innerHTML = 'Complaint Date';
+                                document.getElementById("data2").innerHTML = response.complaint[0]['ComplaintDate'];
+                            }
                             document.getElementById('data3').innerHTML = response.complaint[0]['ComplaintCategory'];
                             document.getElementById('data4').innerHTML = response.complaint[0]['SubCategory'];
                             document.getElementById('data5').innerHTML = response.complaint[0]['ComplaintNature'];

@@ -10,8 +10,10 @@ use Illuminate\Http\Request;
 use Crabbly\Fpdf\Fpdf;
 use App\Models\userComp;
 use App\Models\User;
+use App\Models\Merged;
 use App\Notifications\Complaint;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -43,6 +45,7 @@ class UserController extends Controller
     }
     public function TrackComplaint()
     {
+
         return view('user.stuffs.trackcomplaint');
     }
     //User Registration 
@@ -300,8 +303,21 @@ class UserController extends Controller
     }
     public function Track($id = null)
     {
-        return response()
-            ->json(['success' => true, 'complaint' => userComp::where('Complaint_ID', $id)->get()]);
+        if (str_starts_with($id, 'Merged')) {
+            $Complaints = Merged::where('Merged_ID', $id)->get();
+            return response()
+                ->json([
+                    'success' => true,
+                    'complaint' => $Complaints,
+                ]);
+        } else {
+            $Complaints = userComp::where('Complaint_ID', $id)->get();
+            return response()
+                ->json([
+                    'success' => true,
+                    'complaint' => $Complaints,
+                ]);
+        }
     }
     //User notification mark Read
     public function MarkReadNotification($id = null, $slug = null)

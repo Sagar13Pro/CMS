@@ -213,12 +213,12 @@ $merge = Merged::all();
                                 <select name="CompID" id="CompID" class="form-control">
                                     <option value="">Select ID</option>
                                     @foreach($IDs as $id)
-                                    @if($id->status != "Closed" && $id->status != 'Merged')
+                                    @if($id->status != "Closed" && $id->isMerged == false)
                                     <option value="{{ $id->Complaint_ID }}">{{ $id->Complaint_ID }}</option>
                                     @endif
                                     @endforeach
                                     @foreach ($merge as $item)
-                                    <option value="{{ $item->Complaint_ID }}">{{ $item->Merged_ID }}</option>
+                                    <option value="{{ $item->Merged_ID }}">{{ $item->Merged_ID }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -246,7 +246,7 @@ $merge = Merged::all();
                                             <tr>
                                                 <th>Complaint I'd</th>
                                                 <td id="data1"></td>
-                                                <th>Complaint Date</th>
+                                                <th id="data2Heading"></th>
                                                 <td id="data2"></td>
                                             </tr>
                                             <tr>
@@ -396,19 +396,27 @@ $merge = Merged::all();
                     $.get('/get/UpdateComplaints/' + ID.value, function(response) {
                         if (response.success) {
                             console.log(response.update[0]);
-                            if (response.update[0]['isMerged'] == 1) {
-                                document.getElementById("data1").innerHTML = response.Merged_ID;
+                            document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
+                            if (!response.update[0]['ComplaintDate']) {
+                                document.getElementById("data2Heading").innerHTML = 'Merged I\'D';
+
+                                document.getElementById("data2").innerHTML = response.update[0]['Merged_ID'];
+
                             } else {
-                                document.getElementById("data1").innerHTML = response.update[0]['Complaint_ID'];
+                                document.getElementById("data2Heading").innerHTML = 'Complaint Date';
+                                document.getElementById("data2").innerHTML = response.update[0]['ComplaintDate'];
                             }
-                            document.getElementById("data2").innerHTML = response.update[0]['ComplaintDate'];
                             document.getElementById("data3").innerHTML = response.update[0]['ComplaintCategory'];
                             document.getElementById("data4").innerHTML = response.update[0]['SubCategory'];
                             document.getElementById("data5").innerHTML = response.update[0]['ComplaintNature'];
                             document.getElementById("data6").innerHTML = response.update[0]['updated_at'];
                             document.getElementById("data7").innerHTML = response.update[0]['status'];
                             document.getElementById("data13").innerHTML = response.update[0]['Remarks'];
-                            document.getElementById("Cid").value = response.update[0]['id'];
+                            if (response.isMerged == true) {
+                                document.getElementById("Cid").value = response.update[0]['Merged_ID'];
+                            } else {
+                                document.getElementById("Cid").value = response.update[0]['id'];
+                            }
                         }
                         let selected = document.getElementById('inlineFormCustomSelect');
                         if (response.update[0]['status'] === 'Pending') {
