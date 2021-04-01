@@ -51,6 +51,14 @@ class UserController extends Controller
     {
         return view('user.reset', ['slug' => $slug]);
     }
+    public function Logout()
+    {
+        if (session()->has('session_mail')) {
+            session()->pull('session_mail');
+            session()->pull('session_name');
+        }
+        return redirect(route('user.login.view'));
+    }
     //User Registration 
     public function store(RegistrationValidator $request)
     {
@@ -206,10 +214,9 @@ class UserController extends Controller
         }
         if ($complaint) {
             $path = $this->StoreDocument($request);
-            // dd(userComp::select('Complaint_ID')->where('ForeignEmail', session('session_mail'))->get()[0]);
-            //$invoice = $this->GeneratePDF($request);
-            // $user = User::findOrFail(session('user_id'));
-            // $user->notify($user, new \App\Notifications\Notify('Your complaint registered successfully.', '', 'With Complaint ID:' . , ''));
+            $invoice = $this->GeneratePDF($request, $complaint->Complaint_ID);
+            $user = User::findOrFail(session('user_id'));
+            Notification::send($user, new \App\Notifications\Invoice($invoice, $user->fullName));
             return redirect(route('dashboard.user'))
                 ->with('message', 'Your Complaint has been registered successfully.');
         } else {
@@ -220,7 +227,7 @@ class UserController extends Controller
         }
     }
     //PDF Generate for complaint register adn send to user email
-    protected function GeneratePDF($request)
+    protected function GeneratePDF($request, $id)
     {
         $pdf = new FPDF();
         $pdf->AddPage();
@@ -287,7 +294,8 @@ class UserController extends Controller
         $pdf->SetFont('Times', '', 17);
         $pdf->MultiCell(0, 10, $request->complaintDetails);
         $pdf->Ln(10);
-        $files = $pdf->Output('F', storage_path() . '/app/PDFs/' . 'pdf' . '.pdf');
+        $files = $pdf->Output('F', storage_path() . '/app/PDFs/' . $id . '.pdf');
+        return storage_path() . '/app/PDFs/' . $id . '.pdf';
     }
     //document store
     public function StoreDocument($request)

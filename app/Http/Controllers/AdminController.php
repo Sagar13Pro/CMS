@@ -72,7 +72,7 @@ class AdminController extends Controller
             return redirect(route('admin.login.view'))
                 ->with('message', 'Your Registration has been Successfull.');
         } catch (Exception $error) {
-            dd($error);
+            //dd($error);
             return redirect()
                 ->back()
                 ->with('error', 'The email is already with us');
@@ -87,10 +87,10 @@ class AdminController extends Controller
             $admin = Admin::select('*')
                 ->where('email', $request->email)
                 ->get();
-
             if (Hash::check($request->pass, $admin[0]->password)) {
                 session()->put('admin_mail', $request->email);
                 session()->put('admin_name', $admin[0]->fullName);
+                session()->put('admin_id', $admin[0]->id);
                 return redirect(route('admin.dashboard.view'));
             } else {
                 return redirect(route('admin.login.view'))
@@ -154,7 +154,7 @@ class AdminController extends Controller
                     ->back()
                     ->with('message', 'Complaint updated successfully with id:' . $to_update->Merged_ID . '.');
             } catch (Exception $error) {
-                dd($error);
+                //dd($error);
                 return back()
                     ->with('error', 'Something went got wrong.');
             }
@@ -173,7 +173,7 @@ class AdminController extends Controller
                         ->with('message', 'Complaint updated successfully with id:' . $to_update->Complaint_ID . '.');
                 }
             } catch (Exception  $err) {
-                dd($err);
+                //dd($err);
                 return redirect()
                     ->back()
                     ->with('error', 'Something went got wrong.');
@@ -184,10 +184,14 @@ class AdminController extends Controller
     public function SuperNotificationMark($id = null, $slug = null)
     {
         $adminNoti = Admin::findOrFail($id);
-        $adminNoti->unreadNotifications()
-            ->where('id', $slug)
-            ->get()[0]
-            ->markAsRead();
+        if (is_null($slug)) {
+            $adminNoti->unreadNotifications->markAsRead();
+        } else {
+            $adminNoti->unreadNotifications()
+                ->where('id', $slug)
+                ->get()[0]
+                ->markAsRead();
+        }
         return back();
     }
     //Merging Complaints
@@ -207,6 +211,13 @@ class AdminController extends Controller
         $Sub = $ArrComplaints[0]['SubCategory'];
         $Type = $ArrComplaints[0]['ComplaintType'];
         $Category = $ArrComplaints[0]['ComplaintCategory'];
+        foreach ($ArrComplaints as $item) {
+            //echo $item->AuthDept, $Auth, $item->SubCategory, $Sub, "<br>";
+            if ($item->AuthDept != $Auth || $item->SubCategory != $Sub) {
+                return back()
+                    ->with('info', 'Please select that complaints that have in common SubCategory and AuthDept.');
+            }
+        }
         //ID GENERATOR
         $merge = Merged::select('Merged_ID')->orderBy('id', 'desc')->first();
         if (is_null($merge)) {
@@ -244,7 +255,7 @@ class AdminController extends Controller
                 'status' => 'Merged',
             ]);
         } catch (Exception $err) {
-            dd($err);
+            //dd($err);
         }
         if ($merged) {
             for ($i = 0; $i < count($user_ID); $i++) {
@@ -254,7 +265,6 @@ class AdminController extends Controller
         }
 
         return back()
-            ->with('message', 'Complaints are merged with IDs:' . json_encode($validIDs))
-            ->with('info', 'The Complaint with ID/s are unable to merge: ' . json_encode($invalidIDs));
+            ->with('message', 'Complaints are merged with IDs:' . json_encode($validIDs));
     }
 }

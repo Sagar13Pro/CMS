@@ -1,6 +1,8 @@
 @php
 use App\Models\userComp;
 use App\Models\Admin;
+use App\Models\User;
+use App\Models\Dept;
 $admin = Admin::where('email',session('admin_mail'))->get()[0];
 @endphp
 <!DOCTYPE html>
@@ -107,12 +109,13 @@ $admin = Admin::where('email',session('admin_mail'))->get()[0];
                                             @endif
                                         </div>
                                     </li>
-                                    <!-- <li>
-                                        <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
-                                            <strong>Check all notifications</strong>
+                                    <li>
+                                        <a class="nav-link pt-3 text-center text-dark" href="{{ route('superadmin.notified.read',session('user_id')) }}">
+                                            <strong>Mark All Read</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
-                                    </li> -->
+                                    </li>
+
                                 </ul>
                             </div>
                         </li>
@@ -337,7 +340,7 @@ $admin = Admin::where('email',session('admin_mail'))->get()[0];
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
 
                                 <div class="align-items-center" style="width: 100%;">
-                                    <h1 class="font-light text-orange">2,064</h1>
+                                    <h1 class="font-light text-orange">{{ User::all()->count() }}</h1>
                                     <h6 class="text-white">Total Users</h6>
                                 </div>
 
@@ -351,7 +354,7 @@ $admin = Admin::where('email',session('admin_mail'))->get()[0];
                         <div class="card card-hover">
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
                                 <div class="align-items-center" style="width: 100%;">
-                                    <h1 class="font-light text-success">2,064</h1>
+                                    <h1 class="font-light text-success">{{ Admin::all()->count() + Dept::all()->count() }}</h1>
                                     <h6 class="text-white">Total Admins</h6>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">
@@ -365,7 +368,7 @@ $admin = Admin::where('email',session('admin_mail'))->get()[0];
                         <div class="card card-hover">
                             <div class="p-2 bg-dark text-center d-flex d-lg-flex  align-items-center" style="border-radius: 10px;">
                                 <div class="align-items-center" style="width: 100%;">
-                                    <h1 class="font-light text-danger">2,064</h1>
+                                    <h1 class="font-light text-danger">{{ userComp::select()->where('status','Recomplained')->count() }}</h1>
                                     <h6 class="text-white">Total Re-Complaint</h6>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0" style="margin-right: 15px;">

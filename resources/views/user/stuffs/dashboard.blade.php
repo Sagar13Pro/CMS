@@ -413,7 +413,8 @@ $user = User::find(session('user_id'));
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                            <a type="button" href="/logout" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
+                            <a href="{{ route('user.logout') }}" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
+
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->

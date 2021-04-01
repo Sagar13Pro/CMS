@@ -237,8 +237,7 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
                                                 <td>{{ $item->ComplaintNature }} </td>
                                                 <td>{{ $item->ComplaintDate }}</td>
                                                 <td>{{ $item->status }}</td>
-                                                <td><button class="btn waves-effect waves-light btn-rounded btn-dark viewBtn" 
-                                                     data-toggle="modal" id="viewBtn1" data-target="#full-width-modal" data-id={{$item->id}}>View Full Details</button>
+                                                <td><button class="btn waves-effect waves-light btn-rounded btn-dark viewBtn" data-toggle="modal" id="viewBtn1" data-target="#full-width-modal" data-id={{$item->id}}>View Full Details</button>
 
                                                 </td>
                                             </tr>
@@ -367,7 +366,7 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                            <a href="/logout" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
+                            <a href="{{ route('user.logout') }}" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -393,7 +392,7 @@ $getComplaints = uc::select()->where('foreignEmail',session()->get('session_mail
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    
+
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>

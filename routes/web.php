@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DeptController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -49,13 +48,7 @@ Route::group(['middleware' => 'CheckSession'], function () {
     Route::put('dashboard/trackComplaint/close/{id?}', [UserController::class, 'Close'])->name('user.complaint.close');
 });
 //Logout section
-Route::get('/logout', function () {
-    if (session()->has('session_mail')) {
-        session()->pull('session_mail');
-        session()->pull('session_name');
-    }
-    return redirect(route('user.login.view'));
-});
+Route::get('/user/logout', [UserController::class, 'Logout'])->name('user.logout');
 //End User Routes
 
 /*=================================================================================
@@ -71,11 +64,12 @@ Route::group(['middleware' => 'AdminSession'], function () {
     Route::get('admin/mergecomplaint/', [AdminController::class, 'MergeComplaint'])->name('admin.merge.view');
     Route::get('/get/UpdateComplaints/{id}', [AdminController::class, 'FetchUpdate']);
     //markasread
-    Route::get('super/admin/notification/read/{id}/{slug}', [AdminController::class, 'SuperNotificationMark'])->name('superadmin.notified.read');
+    Route::get('super/admin/notification/read/{id}/{slug?}', [AdminController::class, 'SuperNotificationMark'])->name('superadmin.notified.read');
     //Updating Complaint
     Route::put('/complaint/update', [AdminController::class, 'Update'])->name('complaint.update');
     //Merging complaint
     Route::put('/admin/mergecomplaint/merge', [AdminController::class, 'Merge'])->name('complaint.merge');
+    //mark notifications
 });
 //Pop Model get details
 Route::get('/get/ComplaintDetails/{id}', [AdminController::class, 'FetchDetails']);

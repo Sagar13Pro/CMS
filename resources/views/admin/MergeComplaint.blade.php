@@ -322,7 +322,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                            <button type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</button>
+                            <a href="{{ route('admin.logout') }}" type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
