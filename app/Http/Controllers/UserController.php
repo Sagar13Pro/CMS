@@ -13,10 +13,10 @@ use App\Models\User;
 use App\Models\Merged;
 use App\Notifications\Complaint;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -45,8 +45,11 @@ class UserController extends Controller
     }
     public function TrackComplaint()
     {
-
         return view('user.stuffs.trackcomplaint');
+    }
+    public function ResetView($slug = null)
+    {
+        return view('user.reset', ['slug' => $slug]);
     }
     //User Registration 
     public function store(RegistrationValidator $request)
@@ -64,7 +67,18 @@ class UserController extends Controller
             $user = false;
         }
         if ($user) {
-            $this->SendEmail($request, '');
+            $toMail = $request->_email;
+            $data =  [
+                'name' => $request->_firstname . ' ' . $request->_lastname,
+                'product_name' => 'CMS (Complaint Management System)',
+                'login_url' => 'http://127.0.0.1:8000/user/login',
+                'username' => $toMail,
+                'action_url' => 'http://127.0.0.1:8000',
+            ];
+            Mail::send('mail', $data, function ($message) use ($toMail) {
+                $message->to($toMail)
+                    ->subject('Welcome To CMS');
+            });
             return redirect(route('user.login.view'))
                 ->with('message', 'Registration Successfull.');
         } else {
@@ -99,7 +113,18 @@ class UserController extends Controller
                     'email_verified' => $user->user['email_verified'],
                 ]);
                 if ($users) {
-                    $this->SendEmail('', $user['email']);
+                    $toMail = $user->user['email'];
+                    $data =  [
+                        'name' => $user->user['given_name'] . ' ' . $user->user['family_name'],
+                        'product_name' => 'CMS (Complaint Management System)',
+                        'login_url' => 'http://127.0.0.1:8000/user/login',
+                        'username' => $toMail,
+                        'action_url' => 'http://127.0.0.1:8000',
+                    ];
+                    Mail::send('mail', $data, function ($message) use ($toMail) {
+                        $message->to($toMail)
+                            ->subject('Welcome To CMS');
+                    });
                     session()->put('session_mail', $user->user['email']);
                     session()->put('session_name', User::where('email', $user->user['email'])->get()[0]->FullName);
                     return redirect(route('dashboard.user'));
@@ -115,18 +140,7 @@ class UserController extends Controller
             return redirect(route('dashboard.user'));
         }
     }
-    //Email for registration
-    public function SendEmail($request, $toMail)
-    {
-        if (is_null($toMail)) {
-            $toMail = $request->_email;
-        }
-        $data =  ['Hello' => $toMail];
-        Mail::send('mail', $data, function ($message) use ($toMail) {
-            $message->to($toMail)
-                ->subject('Team ID For PU Digital Hackathon');
-        });
-    }
+
     //user validation
     function ValidateUser(Request $request)
     {
@@ -192,7 +206,10 @@ class UserController extends Controller
         }
         if ($complaint) {
             $path = $this->StoreDocument($request);
-            // $invoice = $this->GeneratePDF($request);
+            // dd(userComp::select('Complaint_ID')->where('ForeignEmail', session('session_mail'))->get()[0]);
+            //$invoice = $this->GeneratePDF($request);
+            // $user = User::findOrFail(session('user_id'));
+            // $user->notify($user, new \App\Notifications\Notify('Your complaint registered successfully.', '', 'With Complaint ID:' . , ''));
             return redirect(route('dashboard.user'))
                 ->with('message', 'Your Complaint has been registered successfully.');
         } else {
@@ -236,9 +253,9 @@ class UserController extends Controller
         $pdf->Ln(10);
         $pdf->SetFont('Times', '', 17);
         $pdf->MultiCell(90, 10, $request->complaintNature, 0);
-        $pdf->SetXY($pdf->GetX() + 100, $pdf->getY() - 20);
+        $pdf->SetXY($pdf->GetX() + 100, $pdf->getY() - 10);
         $pdf->cell(100, 10, $request->complaintDate, 0, 40, 'L');
-        $pdf->Ln(10);
+        $pdf->Ln(5);
         $pdf->cell($pdf->GetPageWidth(), 0.6, '', 0, 0, '', true);
         $pdf->Ln(10);
 
@@ -270,8 +287,7 @@ class UserController extends Controller
         $pdf->SetFont('Times', '', 17);
         $pdf->MultiCell(0, 10, $request->complaintDetails);
         $pdf->Ln(10);
-        $Invoice = $pdf->output();
-        return $Invoice;
+        $files = $pdf->Output('F', storage_path() . '/app/PDFs/' . 'pdf' . '.pdf');
     }
     //document store
     public function StoreDocument($request)
@@ -322,7 +338,6 @@ class UserController extends Controller
     //User notification mark Read
     public function MarkReadNotification($id = null, $slug = null)
     {
-
         $user = User::findORFail($id);
         if (is_null($slug)) {
             $user->unreadNotifications->markAsRead();
@@ -366,6 +381,44 @@ class UserController extends Controller
         } else {
             return back()
                 ->with('error', 'Something got went.Please Try Again after sometime');
+        }
+    }
+    //Reset Password Validate Email
+    public function ResetValidation(Request $request)
+    {
+        $user = User::where('email', $request->email)->get();
+        if (count($user)) {
+            $toMail = $request->email;
+            $token = Str::random('9');
+            $user[0]->remember_token = $token;
+            $user[0]->save();
+            $data = [
+                'name' => $user[0]->fullName,
+                'action_url' => route('password.reset.view', $token),
+                'product_name' => 'CMS (Complaint Management System)'
+            ];
+            Mail::send('PasswordResetTemplate', $data, function ($message) use ($toMail) {
+                $message->to($toMail)
+                    ->subject('Reset Password for CMS');
+            });
+        } else {
+            return back()
+                ->with('error', 'The email I\'D Doesn\'t match with our records.');
+        }
+    }
+    //Change Psssword
+    public function ChangePassword(Request $request, $slug = null)
+    {
+        //dd($request->all());
+        $validate = Validator::make($request->all(), [
+            '_password' => ['min:8', 'confirmed']
+        ])->validated();
+        if (!is_null($slug)) {
+            $change = User::select('password')->where('remember_token', $slug)->update(['password' => Hash::make($request->_password)]);
+            if ($change) {
+                return redirect(route('user.login.view'))
+                    ->with('message', 'Your Password has been changed successfully.');
+            }
         }
     }
 }

@@ -148,13 +148,8 @@ class AdminController extends Controller
                     $UserComp->updated_at = new DateTime();
                     $bool2 = $UserComp->save();
                     $user = User::find($UserComp->user_id);
-                    $user->notify(new \App\Notifications\Notify($request->status, $request->remarks, $item));
+                    $user->notify(new \App\Notifications\Notify('Status' . $request->status, 'Remarks' . $request->remarks, 'Update for Complaint with ID:' . $item));
                 }
-                // if ($bool1 && $bool2) {
-                //     $user_id = json_decode($to_update->user_id);
-                //     for ($i = 0; $i < count($user_id); $i++) {
-                //     }
-                // }
                 return redirect()
                     ->back()
                     ->with('message', 'Complaint updated successfully with id:' . $to_update->Merged_ID . '.');
@@ -172,7 +167,7 @@ class AdminController extends Controller
                 $bool = $to_update->save();
                 if ($bool) {
                     $user = User::find($to_update->user_id);
-                    $user->notify(new \App\Notifications\Notify($request->status, $request->remarks, $to_update->Complaint_ID));
+                    $user->notify(new \App\Notifications\Notify('Status:' . $request->status, 'Remarks:' . $request->remarks, 'Update for Complaint with ID:' . $to_update->Complaint_ID));
                     return redirect()
                         ->back()
                         ->with('message', 'Complaint updated successfully with id:' . $to_update->Complaint_ID . '.');
@@ -254,7 +249,7 @@ class AdminController extends Controller
         if ($merged) {
             for ($i = 0; $i < count($user_ID); $i++) {
                 $user = User::findOrFail($user_ID[$i]);
-                $user->notify(new \App\Notifications\Notify("Merged", "Your Complaint has been Merged and new ID is: " . $mergeID, $validIDs[$i]));
+                $user->notify(new \App\Notifications\Notify("Status:Merged", "Your Complaint has been Merged and new ID is: " . $mergeID, 'Update for Complaint with ID:' . $validIDs[$i]));
             }
         }
 

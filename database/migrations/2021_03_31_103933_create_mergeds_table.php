@@ -20,9 +20,9 @@ class CreateMergedsTable extends Migration
             $table->json('Complaint_ID');
             $table->json('user_id');
             $table->string('ComplaintType', 30);
-            $table->string('ComplaintCategory', 30);
-            $table->string('SubCategory', 30);
-            $table->string('AuthDept', 30);
+            $table->string('ComplaintCategory', 40);
+            $table->string('SubCategory', 70);
+            $table->string('AuthDept', 70);
             $table->string('Remarks')->nullable();
             $table->timestamps();
         });

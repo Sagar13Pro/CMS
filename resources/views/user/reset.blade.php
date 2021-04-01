@@ -42,59 +42,82 @@
             <div class="wrap-login100">
                 <div class="login100-form-title" style="background-image: url({{asset('programs/form/assets/images/bg-01.jpg)')}}">
                     <span class="login100-form-title-1">
-                        cms Login
+                        cms reset password
                     </span>
                 </div>
                 <x-alert type="ErrorMsg" />
-                <form class="login100-form" action="{{ route('user.validation') }}" method="post">
+                <x-alert type="cpassword-error" />
+                @if (is_null($slug))
+                <form class="login100-form" action="{{ route('user.reset.validation') }}" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
                         <span class="label-input100">Email Id<span style="color: #ff5e13;">&nbsp;*</span></span>
                         <input class="input100" type="email" name="email" placeholder="Enter Email" value="{{old('email')}}" required>
                         <span class="focus-input100"></span>
                     </div>
-
-                    <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
-                        <span class="label-input100">Password<span style="color: #ff5e13;">&nbsp;*</span></span>
-                        <input id="passwd" class="input100" type="password" name="pass" placeholder="Enter password" required>
-                        <span class="eye-icon"><i id="eye-pass" class="fas fa-eye-slash"></i></span>
-                        <span class="focus-input100"></span>
-                    </div>
                     <div class="container">
                         <div class="container-login100-form-btn" style="justify-content: center;">
                             <button type="submit" class="login100-form-btn btn-margin">
-                                LOGIN
+                                Submit
                             </button>
                         </div>
                     </div>
-                    <div class="w-full mt-3" style="text-align: center;margin-bottom: 1rem;">
-                        <span class="text">OR</span>
-                    </div>
-
-                    <div class="w-full">
-                        <button type="button" class="d-flex btn btn-outline-info" style="margin: 0 auto;">
-                            <a href="{{ route('user.login.google') }}">
-                                <span class="mx-1"><img src="{{ asset('programs/form/assets/images/google.svg') }}" alt="google-logo" width="30" height="30"></span>
-                                <span class="google_text">Google</span>
-                            </a>
-                        </button>
-                    </div>
-
-                    <div class="flex-sb-m py-3 w-full">
-                        <div class="container" style="display:flex;justify-content: center;">
-                            <a href="{{ route('password.reset.view') }}" class="text-primary font-weight-bold text-hover">Forgotten Password?
-                            </a>
-                        </div>
-                    </div>
-                    <div class="w-full" style="border-bottom:1px solid #dadde1;"></div>
-                    <div class="flex-sb-m w-full p-t-5 m-l-30" style="justify-content: center;">
-                        <div>
-                            Don't have an account?
-                            <a href="{{ route('register.view') }}" class="text-primary font-weight-bold">
-                                Sign Up
-                            </a>
-                        </div>
                 </form>
+                @else
+                <form class="login100-form" action="{{ route('user.password.change',$slug) }}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Password is required">
+                        <span class="label-input100">Password<span style="color: #ff5e13;">&nbsp;*</span></span>
+                        <input id="passwd" class="input100" type="password" name="_password" placeholder="Enter Password" required>
+                        <span class="eye-icon"><i id="eye-pass" class="fas fa-eye-slash"></i></span>
+                        <span class="focus-input100"></span>
+                        <ul id="ListPopOn" class="list-group list-group-flush" style="display: none;">
+                            <li class="list-group-item">
+                                <span class="lower-case invalid">
+                                    <i class="fas fa-times-circle " aria-hidden="true"></i>&nbsp;LowerCase
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="upper-case invalid">
+                                    <i class="fas fa-times-circle" aria-hidden="true"></i>&nbsp;UpperCase
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="number-digits invalid">
+                                    <i class="fas fa-times-circle" aria-hidden="true"></i>&nbsp;Number (0-9)
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="special-characters invalid">
+                                    <i class="fas fa-times-circle" aria-hidden="true"></i>&nbsp;Special Characters
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="AtLeast-Eight invalid">
+                                    <i class="fas fa-times-circle" aria-hidden="true"></i>&nbsp;At Least 8 Char
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-18" data-validate="Confirm Password is required">
+                        <span class="label-input100">Confirm Password<span style="color: #ff5e13;">&nbsp;*</span></span>
+                        <input id="Cpasswd" class="input100" type="password" name="_password_confirmation" placeholder="Enter Confirm password" required>
+                        <span class="eye-icon"><i id="eye-cpass" class="fas fa-eye-slash"></i></span>
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="container">
+                        <div class="container-login100-form-btn" style="justify-content: center;">
+                            <button type="submit" class="login100-form-btn btn-margin">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                @endif
             </div>
         </div>
 

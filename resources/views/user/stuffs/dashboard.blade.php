@@ -101,8 +101,8 @@ $user = User::find(session('user_id'));
                                             <a href="{{ route('user.notified.read',[$item->notifiable_id,$item->id]) }}" class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <div class="btn btn-danger rounded-circle btn-circle"><i data-feather="airplay" class="text-white"></i></div>
                                                 <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Status: {{ $item->data['Status'] }}<br> Remarks: {{ $item->data['Remarks'] }}</h6>
-                                                    <span class="font-12 text-nowrap d-block text-muted">Update for Complaint with ID: {{ $item->data['CompID'] }}</span>
+                                                    <h6 class="message-title mb-0 mt-1"> {{ $item->data['Status'] }}<br> {{ $item->data['Remarks'] }}</h6>
+                                                    <span class="font-12 text-nowrap d-block text-muted"> {{ $item->data['CompID'] }}</span>
                                                     <span class="font-12 text-nowrap d-block text-muted">{{ $item->created_at }}</span>
                                                 </div>
                                             </a>
@@ -336,8 +336,8 @@ $user = User::find(session('user_id'));
                                     <table class="table no-wrap v-middle mb-0">
                                         <thead>
                                             <tr class="border-0">
-                                                <!--th class="border-0 font-14 font-weight-medium text-muted">Departmental Admin
-                                                </th-->
+                                                <th class="border-0 font-14 font-weight-medium text-muted">Merged
+                                                </th>
                                                 <th class="border-0 font-14 font-weight-medium text-muted text-center">Complaint I'd
                                                 </th>
                                                 <th class="border-0 font-14 font-weight-medium text-muted text-center ">
@@ -358,12 +358,21 @@ $user = User::find(session('user_id'));
                                             @else
                                             @foreach($details as $item)
                                             <tr>
+                                                <td class="border-top-0 text-center font-weight-medium text-dark px-2 py-4">
+                                                    @if ($item->isMerged)
+                                                    Yes
+                                                    @else
+                                                    No
+                                                    @endif
+                                                </td>
                                                 <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium "><b>{{ $item->Complaint_ID }}</b></td>
                                                 <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $item->ComplaintDate }}</td>
                                                 <td class="border-top-0 text-dark text-center px-2 py-4 font-weight-medium">{{ $item->status }}</td>
+
                                                 <td class="border-top-0 text-center font-weight-medium text-dark px-2 py-4">
                                                     {{ $item->updated_at }}
                                                 </td>
+
                                                 <td class="text-center font-weight-medium text-dark border-top-0 px-2 py-4">
                                                     @if(is_null($details))
                                                     @else

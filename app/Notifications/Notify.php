@@ -16,12 +16,13 @@ class Notify extends Notification
      *
      * @return void
      */
-    protected $status, $remarks, $CompID;
-    public function __construct($status, $remarks, $CompID)
+    protected $status, $remarks, $CompID, $invoice;
+    public function __construct($status, $remarks, $CompID, $invoice = null)
     {
         $this->status = $status;
         $this->remarks = $remarks;
         $this->CompID = $CompID;
+        $this->invoice = $invoice;
     }
 
     /**
@@ -53,7 +54,8 @@ class Notify extends Notification
         return (new MailMessage)
             ->line('The introduction to the notification.')
             ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('Thank you for using our application!')
+            ->attach($this->invoice);
     }
     /**
      * Get the array representation of the notification.

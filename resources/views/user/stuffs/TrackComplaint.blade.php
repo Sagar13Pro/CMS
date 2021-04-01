@@ -275,8 +275,8 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                                             <tr>
                                                 <th>Department</th>
                                                 <td id="data6">xxxxxxxxxxxxx</td>
-                                                <th>Departmental Admin</th>
-                                                <td id="data7">xxxxxxxxxxxxx</td>
+                                                {{-- <th>Departmental Admin</th>
+                                                <td id="data7">xxxxxxxxxxxxx</td> --}}
                                             </tr>
                                             <tr>
                                                 <th>Last Update</th>
@@ -450,7 +450,7 @@ $IDs = userComp::select(['Complaint_ID','id','status'])->where('ForeignEmail',se
                             document.getElementById('data4').innerHTML = response.complaint[0]['SubCategory'];
                             document.getElementById('data5').innerHTML = response.complaint[0]['ComplaintNature'];
                             document.getElementById('data6').innerHTML = response.complaint[0]['AuthDept'];
-                            document.getElementById('data7').innerHTML = 'xxxxxxxxxx';
+                            // document.getElementById('data7').innerHTML = 'xxxxxxxxxx';
                             document.getElementById('data8').innerHTML = response.complaint[0]['updated_at'];
                             document.getElementById('data9').innerHTML = response.complaint[0]['status'];
                             document.getElementById('data10').innerHTML = response.complaint[0]['Remarks'];

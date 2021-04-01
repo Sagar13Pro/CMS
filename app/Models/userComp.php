@@ -33,7 +33,9 @@ class userComp extends Model
         'ComplaintDate',
         'user_id',
         'isMerged',
-        'Merged_ID'
+        'Merged_ID',
+        'status',
+        'feedback',
     ];
 
     public function setComplaintIDAttribute($value)

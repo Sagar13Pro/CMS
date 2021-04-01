@@ -42,9 +42,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-    ];
+
 
     /**
      * The attributes that should be cast to native types.
