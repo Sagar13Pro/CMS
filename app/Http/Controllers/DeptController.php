@@ -10,6 +10,7 @@ use App\Models\Dept;
 use Exception;
 use App\Models\userComp;
 use DateTime;
+
 class DeptController extends Controller
 {
     //Views Only
@@ -59,17 +60,17 @@ class DeptController extends Controller
                 'password' => $request->_password,
             ]);
             //Email Sending
-            $to_email = $request->_email;
-            $data = array("name" => "Hello Techies!",);
-            Mail::send('mail', $data, function ($message) use ($to_email) {
-                $message->to($to_email)
-                    ->subject('Team ID For PU Digital Hackathon');
-            });
+            // $to_email = $request->_email;
+            // $data = array("name" => "Hello Techies!",);
+            // Mail::send('mail', $data, function ($message) use ($to_email) {
+            //     $message->to($to_email)
+            //         ->subject('Team ID For PU Digital Hackathon');
+            // });
 
             return redirect(route('dept.login.view'))
                 ->with('message', 'Your Registration has been Successfull.');
         } catch (Exception $error) {
-            dd($error);
+            //dd($error);
             return redirect()
                 ->back()
                 ->with('error', 'The email is already with us');

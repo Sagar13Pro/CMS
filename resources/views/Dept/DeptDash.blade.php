@@ -171,7 +171,8 @@ use App\Models\userComp;
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1"><span id="greetings">Good Morning</span> {{ session()->get('admin_name') }}</h3>
+                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1"><span id="greetings">Good Morning</span> {{ session()->get('dept_name') }}</h3>
+
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
@@ -295,7 +296,7 @@ use App\Models\userComp;
                 <!-- Start Sales Charts Section -->
                 <!-- *************************************************************** -->
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
+                    {{-- <div class="col-lg-6 col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Complaints</h4>
@@ -305,31 +306,31 @@ use App\Models\userComp;
                                         <i class="fas fa-circle text-green font-10 mr-2"></i>
                                         <span class="text-muted">Solved Complaints</span>
                                         <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Solved')->count() }}</span>
-                                    </li>
-                                    <li class="mt-3">
-                                        <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                                        <span class="text-muted">Pending Complaints</span>
-                                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Pending')->count() }}</span>
-                                    </li>
-                                    <li class="mt-3">
-                                        <i class="fas fa-circle text-danger font-10 mr-2"></i>
-                                        <span class="text-muted">Closed Complaints</span>
-                                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Closed')->count() }}</span>
-                                    </li>
-                                </ul> -->
-                            </div>
-                        </div>
-                    </div>
+                    </li>
+                    <li class="mt-3">
+                        <i class="fas fa-circle text-primary font-10 mr-2"></i>
+                        <span class="text-muted">Pending Complaints</span>
+                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Pending')->count() }}</span>
+                    </li>
+                    <li class="mt-3">
+                        <i class="fas fa-circle text-danger font-10 mr-2"></i>
+                        <span class="text-muted">Closed Complaints</span>
+                        <span class="text-dark float-right font-weight-medium">{{ userComp::select('id')->where('status','Closed')->count() }}</span>
+                    </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div> --}}
 
-                    <div class="col-lg-6 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4">Complaints by Location</h4>
-                                <!--  <div class="" style="height:180px">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Complaints by Location</h4>
+                    <!--  <div class="" style="height:180px">
                                     <div id="visitbylocate" style="height:100%"></div>
                                 </div> -->
-                                <!-- php code by shyam patel 07/03/2021 start-->
-                                <?php
+                    <!-- php code by shyam patel 07/03/2021 start-->
+                    <?php
 
                                     $model = userComp::pluck('District');
 
@@ -353,27 +354,27 @@ use App\Models\userComp;
                                         foreach ($percent_arr as $key => $value) {
                                             if($i<4){
                                     ?>
-                                <div class="row mb-3 align-items-center mt-1 mt-5">
-                                    <div class="col-4 text-center">
-                                        <span class="text-dark font-16"><?php echo $key;?></span>
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="progress" style="height: 10px;">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width:<?php echo $value;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 text-center">
-                                        <span class="mb-0 font-14 text-dark font-weight-medium"><?php echo $value;?>%</span>
-                                    </div>
-                                </div>
-                                <?php 
+                    <div class="row mb-3 align-items-center mt-1 mt-5">
+                        <div class="col-4 text-center">
+                            <span class="text-dark font-16"><?php echo $key;?></span>
+                        </div>
+                        <div class="col-5">
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width:<?php echo $value;?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-3 text-center">
+                            <span class="mb-0 font-14 text-dark font-weight-medium"><?php echo $value;?>%</span>
+                        </div>
+                    </div>
+                    <?php 
                                         }
                                         $i++;
                                     }
                                 ?>
 
-                                <!-- shyam patel end -->
-                                <!-- <div class="row mb-3 align-items-center">
+                    <!-- shyam patel end -->
+                    <!-- <div class="row mb-3 align-items-center">
                                     <div class="col-4 text-center">
                                         <span class="text-muted font-14">UK</span>
                                     </div>
@@ -412,19 +413,19 @@ use App\Models\userComp;
                                         <span class="mb-0 font-14 text-dark font-weight-medium">12%</span>
                                     </div>
                                 </div> -->
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <!-- *************************************************************** -->
-                <!-- End Sales Charts Section -->
-                <!-- *************************************************************** -->
+            </div>
+        </div>
+    </div>
+    <!-- *************************************************************** -->
+    <!-- End Sales Charts Section -->
+    <!-- *************************************************************** -->
 
-                <!-- *************************************************************** -->
-                <!-- Start Top Leader Table -->
-                <!-- *************************************************************** -->
-                <div class="row">
-                    <div class="col-12">
+    <!-- *************************************************************** -->
+    <!-- Start Top Leader Table -->
+    <!-- *************************************************************** -->
+    <div class="row">
+        {{-- <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-4">
@@ -541,46 +542,46 @@ use App\Models\userComp;
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+    </div>
+    <!-- *************************************************************** -->
+    <!-- End Top Leader Table -->
+    <!-- *************************************************************** -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!--  Modal content for the above example -->
+    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <!-- *************************************************************** -->
-                <!-- End Top Leader Table -->
-                <!-- *************************************************************** -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!--  Modal content for the above example -->
-            <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="myLargeModalLabel">Logout</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        </div>
-                        <div class="modal-body">
+                <div class="modal-body">
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
-                            <a href="{{ route('dept.logout') }}" type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer text-center text-muted">
-                All Rights Reserved by <b> Complaint Management System</b>
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal"><i data-feather="x" class="feather-icon"></i> Close</button>
+                    <a href="{{ route('dept.logout') }}" type="button" class="btn btn-primary"><i data-feather="log-out" class="feather-icon"></i> Logout</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer text-center text-muted">
+        All Rights Reserved by <b> Complaint Management System</b>
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->

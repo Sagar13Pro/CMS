@@ -83,7 +83,7 @@ Route::get('admin/logout', [AdminController::class, 'Logout'])->name('admin.logo
 
 /*=================================================================================
                                         Dept Block
-===================================================================================*
+===================================================================================**/
 Route::get('departmental/login', [DeptController::class, 'Login'])->name('dept.login.view');
 Route::get('departmental/registration', [DeptController::class, 'Register'])->name('dept.register.view');
 //MIDDLEWARE GROUP
@@ -99,4 +99,3 @@ Route::post('departmental/dashboard/validate/', [DeptController::class, 'Validat
 
 //LOGOUT
 Route::get('departmental/logout/', [DeptController::class, 'Logout'])->name('dept.logout');
-*/
